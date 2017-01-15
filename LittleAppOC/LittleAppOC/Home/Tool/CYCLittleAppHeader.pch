@@ -9,7 +9,43 @@
 #ifndef CYCLittleAppHeader_pch
 #define CYCLittleAppHeader_pch
 
-// Include any system framework and library headers here that should be included in all compilation units.
-// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#define cScreenWidth [UIScreen mainScreen].bounds.size.width                                            // 屏宽
+#define cScreenHeight [UIScreen mainScreen].bounds.size.height                                          // 屏高
+
+#define CRGB(R,G,B,A) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]                 // 设置颜色
+#define C_MAIN_COLOR [UIColor colorWithRed:18/255.0 green:150/255.0 blue:219/255.0 alpha:1]             // 主题颜色颜色
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #endif /* CYCLittleAppHeader_pch */
+
+

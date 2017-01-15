@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CYCAppDelegate : UIResponder
+@interface CYCAppDelegate : UIResponder <UIApplicationDelegate>
+
+@property (strong, nonatomic) UIWindow *window;
 
 @end
