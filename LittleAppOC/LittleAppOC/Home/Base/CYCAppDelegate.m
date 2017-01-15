@@ -8,14 +8,22 @@
 
 #import "CYCAppDelegate.h"
 #import "CYCTabBarController.h"
+#import "CYCLeftController.h"
+#import "MMDrawerController.h"
 
 
 @implementation CYCAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    MMDrawerController *controller = [[MMDrawerController alloc] initWithCenterViewController:[[CYCTabBarController alloc] init]
+                                                                     leftDrawerViewController:[[CYCLeftController alloc] init]]
+    ;
+    controller.maximumLeftDrawerWidth = 150;
+    controller.openDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
+    controller.closeDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = [[CYCTabBarController alloc] init];
+    self.window.rootViewController = controller;
     [self.window makeKeyAndVisible];
     
     
