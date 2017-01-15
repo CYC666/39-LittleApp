@@ -17,9 +17,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     MMDrawerController *controller = [[MMDrawerController alloc] initWithCenterViewController:[[CYCTabBarController alloc] init]
-                                                                     leftDrawerViewController:[[CYCLeftController alloc] init]]
-    ;
-    controller.maximumLeftDrawerWidth = 150;
+                                                                     leftDrawerViewController:[[CYCLeftController alloc] init]];
+    controller.maximumLeftDrawerWidth = cLeftControllerWidth;
     controller.openDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
     controller.closeDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
