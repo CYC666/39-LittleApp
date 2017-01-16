@@ -21,6 +21,7 @@
 #define C_MAIN_TEXTCOLOR [UIColor colorWithRed:23/255.0 green:23/255.0 blue:23/255.0 alpha:1]           // 主题字体颜色
 #define C_MAIN_FONT(S) [UIFont fontWithName:@"HelveticaNeue" size:S]                                    // 主题字体
 
+#define CUSER [NSUserDefaults standardUserDefaults]                                                     // 本地数据持久化
 
 
 

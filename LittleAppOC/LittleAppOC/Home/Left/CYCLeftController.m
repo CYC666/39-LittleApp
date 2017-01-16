@@ -9,6 +9,7 @@
 #import "CYCLeftController.h"
 
 #define CYCLeftControllerCellID @"CYCLeftControllerCellID"  // 单元格重用标识符
+#define CYCLeftControllerNightButtonStatus @"CYCLeftControllerNightButtonStatus" // 夜间模式状态
 
 @interface CYCLeftController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -73,7 +74,29 @@
     _middleTableView.delegate = self;
     _middleTableView.dataSource = self;
     [self.view addSubview:_middleTableView];
+    
     // 夜间模式开关
+    _nightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _nightButton.frame = CGRectMake(10, kScreenHeight - 49, 70, 49);
+    [_nightButton setTitleColor:C_MAIN_TEXTCOLOR forState:UIControlStateNormal];
+    _nightButton.titleLabel.font = C_MAIN_FONT(15);
+    [_nightButton addTarget:self action:@selector(nightButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_nightButton];
+    NSString *nightStatus = [CUSER objectForKey:CYCLeftControllerNightButtonStatus];
+    if (nightStatus) {  // 本地已经存有状态，直接获取
+        if ([nightStatus isEqualToString:@"白天"]) {
+            [_nightButton setImage:[UIImage imageNamed:@"icon_leftController_day"] forState:UIControlStateNormal];
+            [_nightButton setTitle:@" 白天" forState:UIControlStateNormal];
+        } else {
+            [_nightButton setImage:[UIImage imageNamed:@"icon_leftController_night"] forState:UIControlStateNormal];
+            [_nightButton setTitle:@" 夜间" forState:UIControlStateNormal];
+        }
+    } else {            // 本地无状态，默认白天，写入
+        [CUSER setObject:@"白天" forKey:CYCLeftControllerNightButtonStatus];
+        [_nightButton setImage:[UIImage imageNamed:@"icon_leftController_day"] forState:UIControlStateNormal];
+        [_nightButton setTitle:@" 白天" forState:UIControlStateNormal];
+    }
+    
     
     // 天气
     
@@ -90,6 +113,21 @@
 
 }
 
+#pragma mark - 夜间模式按钮响应
+- (void)nightButtonAction:(UIButton *)button {
+
+    NSString *nightStatus = [CUSER objectForKey:CYCLeftControllerNightButtonStatus];
+    if ([nightStatus isEqualToString:@"白天"]) {
+        [CUSER setObject:@"夜间" forKey:CYCLeftControllerNightButtonStatus];
+        [button setImage:[UIImage imageNamed:@"icon_leftController_night"] forState:UIControlStateNormal];
+        [button setTitle:@" 夜间" forState:UIControlStateNormal];
+    } else {
+        [CUSER setObject:@"白天" forKey:CYCLeftControllerNightButtonStatus];
+        [button setImage:[UIImage imageNamed:@"icon_leftController_day"] forState:UIControlStateNormal];
+        [button setTitle:@" 白天" forState:UIControlStateNormal];
+    }
+
+}
 
 
 
