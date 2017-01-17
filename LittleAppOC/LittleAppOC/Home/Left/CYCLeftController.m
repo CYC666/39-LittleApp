@@ -222,7 +222,7 @@
 - (void)loadLocation {
 
     _manager = [[CLLocationManager alloc] init];
-    if([[[UIDevice currentDevice]systemVersion]floatValue] >=8) {
+    if([[[UIDevice currentDevice]systemVersion]floatValue] >= 8) {
         [_manager requestWhenInUseAuthorization];           // 请求定位服务
     }
     _manager.delegate = self;
