@@ -50,6 +50,7 @@
     for (int i = 0; i < tabControllerArray.count; i++) {
         UIViewController *controller = [[NSClassFromString(tabControllerArray[i]) alloc] init];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
+        nav.navigationBar.barTintColor = [UIColor blackColor];
         nav.navigationBar.translucent = YES;
         [_subArray addObject:nav];
     }
@@ -83,6 +84,7 @@
     self.selectedIndex = 2;
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     UITabBar *tabBar = self.tabBar;
+    tabBar.barTintColor = [UIColor blackColor];
     tabBar.translucent = NO;
     tabBar.clipsToBounds = YES;     // 去掉顶部的横线
     

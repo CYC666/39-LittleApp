@@ -7,14 +7,21 @@
 //
 
 #import "CYCLeftController.h"
+#import "CNetWorking.h"
+#import "WeatherModel.h"
+#import <CoreLocation/CoreLocation.h>
 
 #define CYCLeftControllerCellID @"CYCLeftControllerCellID"  // 单元格重用标识符
 #define CYCLeftControllerNightButtonStatus @"CYCLeftControllerNightButtonStatus" // 夜间模式状态
 
-@interface CYCLeftController () <UITableViewDelegate, UITableViewDataSource>
+@interface CYCLeftController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
 
 @property (strong, nonatomic) NSArray *tableViewTitles;     // 表视图的title
 @property (strong, nonatomic) NSArray *tableViewIcons;      // 表视图的icon
+@property (strong, nonatomic) CLLocationManager *manager;   // 定位管理员
+@property (strong, nonatomic) UILabel *locationLabel;       // 定位标签
+@property (strong, nonatomic) UILabel *temperatureLabel;    // 温度标签
+@property (strong, nonatomic) UIImageView *weatherImageView;// 显示天气的图
 
 @end
 
@@ -97,13 +104,44 @@
         [_nightButton setTitle:@" 白天" forState:UIControlStateNormal];
     }
     
+    // 地点
+    _locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(cLeftControllerWidth - 100, kScreenHeight - 49, 50, 49)];
+    _locationLabel.textColor = C_MAIN_TEXTCOLOR;
+    _locationLabel.font = C_MAIN_FONT(15);
+    _locationLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:_locationLabel];
     
-    // 天气
+    // 温度
+    _temperatureLabel = [[UILabel alloc] initWithFrame:CGRectMake(cLeftControllerWidth - 50, kScreenHeight - 53, 50, 49)];
+    _temperatureLabel.textColor = CRGB(27, 199, 246, 1);
+    _temperatureLabel.font = C_MAIN_FONT(30);
+    _temperatureLabel.textAlignment = NSTextAlignmentLeft;
+    [self.view addSubview:_temperatureLabel];
     
+    // 天气图
+    _weatherImageView = [[UIImageView alloc] initWithFrame:CGRectMake(cLeftControllerWidth - 80, kScreenHeight - 49 - 60, 60, 60)];
+    _weatherImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:_weatherImageView];
+
+    
+    // 定位 -- 天气 -- 设置天气UI
+    [self loadLocation];
 
 }
 
-
+#pragma mark - 设置天气UI
+- (void)setWeatherUI:(NSDictionary *)dic {
+//
+    WeatherModel *model = [[WeatherModel alloc] init];
+    model.locationName = dic[@"location"][@"name"];
+    model.weatherText = dic[@"now"][@"text"];
+    model.weatherCode = dic[@"now"][@"code"];
+    model.temperature = dic[@"now"][@"temperature"];
+    
+    _locationLabel.text = model.locationName;
+    _temperatureLabel.text = [NSString stringWithFormat:@"%@º", model.temperature];
+    _weatherImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", model.weatherCode]];
+}
 
 
 // ------------------------------------------------------动作响应区----------------------------------------------------
@@ -165,7 +203,50 @@
 
 }
 
+#pragma mark - 定位
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    
+    // 当前位置
+    CLLocation *currentLocation = locations.firstObject;
+    CLLocationCoordinate2D currentCoor2D = currentLocation.coordinate;
+    // 停止更新地理位置
+    [manager stopUpdatingLocation];
+    
+    // 获取天气
+    [self loadWeather:currentCoor2D];
+    
+}
 
+// -----------------------------------------------------其他方法-----------------------------------------------------
+#pragma mark - 加载地理位置
+- (void)loadLocation {
+
+    _manager = [[CLLocationManager alloc] init];
+    if([[[UIDevice currentDevice]systemVersion]floatValue] >=8) {
+        [_manager requestWhenInUseAuthorization];           // 请求定位服务
+    }
+    _manager.delegate = self;
+    [_manager startUpdatingLocation];
+    
+
+}
+
+#pragma mark - 加载天气状况
+- (void)loadWeather:(CLLocationCoordinate2D)coordinate2D {
+
+    NSString *location = [NSString stringWithFormat:@"%.2f:%.2f", coordinate2D.latitude, coordinate2D.longitude];
+    [CNetWorking loadWeatherWithLocation:location
+                                 success:^(id response) {
+                                     // 设置UI
+                                     if (response[@"results"] != nil) {
+                                         NSDictionary *dic = [response[@"results"] firstObject];
+                                         [self setWeatherUI:dic];
+                                     }
+                                 } failure:^(NSError *err) {
+                                     
+                                 }];
+
+}
 
 
 
