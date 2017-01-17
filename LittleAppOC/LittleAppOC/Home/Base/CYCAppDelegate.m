@@ -10,6 +10,7 @@
 #import "CYCTabBarController.h"
 #import "CYCLeftController.h"
 #import "MMDrawerController.h"
+#import "ThemeManager.h"
 
 
 @implementation CYCAppDelegate

@@ -43,35 +43,34 @@ static ThemeManager *manager = nil;
 
     _themeType = themeType;
     
-    [CNOTIFY postNotificationName:CThemeChangeNotification object:nil];
     
-    // 保存当前主题
-    [CUSER setInteger:themeType forKey:CThemeTypeSave];
-
-}
-
-
-#pragma mark - 根据主题不同，获取不一样的颜色
-- (UIColor *)colorFromThemeType:(CThemeType)type {
-
-    UIColor *themeColor;
-    switch (type) {
-        case CDayTheme:
-            themeColor = [UIColor whiteColor];
-            break;
-    
-        case CNightTheme:
-            themeColor = CRGB(4, 29, 63, 1);
-            break;
-            
-        default:
-            themeColor = [UIColor clearColor];
-            break;
+    if (themeType == CDayTheme) {
+        _themeColor = [UIColor whiteColor];
+    } else {
+        _themeColor = CRGB(4, 29, 63, 1);
     }
     
-    return themeColor;
+    [CNOTIFY postNotificationName:CThemeChangeNotification object:nil];
+
+    // 保存当前主题
+    [CUSER setInteger:themeType forKey:CThemeTypeSave];
+    
 
 }
+
+- (UIColor *)themeColor {
+
+    if (_themeColor == nil) {
+        if (_themeType == CDayTheme) {
+            _themeColor = [UIColor whiteColor];
+        } else {
+            _themeColor = CRGB(4, 29, 63, 1);
+        }
+    }
+    return _themeColor;
+
+}
+
 
 
 

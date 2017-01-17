@@ -9,17 +9,21 @@
 #import "CYCLeftController.h"
 #import "CNetWorking.h"
 #import "WeatherModel.h"
+#import "ThemeManager.h"
+#import "CThemeLabel.h"
+#import "CThemeButton.h"
+#import "CLeftCtrlCell.h"
 #import <CoreLocation/CoreLocation.h>
 
 #define CYCLeftControllerCellID @"CYCLeftControllerCellID"  // 单元格重用标识符
-#define CYCLeftControllerNightButtonStatus @"CYCLeftControllerNightButtonStatus" // 夜间模式状态
+
 
 @interface CYCLeftController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
 
 @property (strong, nonatomic) NSArray *tableViewTitles;     // 表视图的title
 @property (strong, nonatomic) NSArray *tableViewIcons;      // 表视图的icon
 @property (strong, nonatomic) CLLocationManager *manager;   // 定位管理员
-@property (strong, nonatomic) UILabel *locationLabel;       // 定位标签
+@property (strong, nonatomic) CThemeLabel *locationLabel;       // 定位标签
 @property (strong, nonatomic) UILabel *temperatureLabel;    // 温度标签
 @property (strong, nonatomic) UIImageView *weatherImageView;// 显示天气的图
 
@@ -29,19 +33,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = CTHEME.themeColor;
+    
     [self creatSubviews];
+    
+    // 监听主题改变
+    [CNOTIFY addObserver:self
+                selector:@selector(changeBackgroundColor:)
+                    name:CThemeChangeNotification
+                  object:nil];
 }
 
-#pragma mark - 懒加载
-- (UIImageView *)headImageView {
 
-    if (_headImageView == nil) {
-        
-    }
-    return _headImageView;
-
-}
 // ------------------------------------------------------UI创建-------------------------------------------------------
 #pragma mark - 创建子视图
 - (void)creatSubviews {
@@ -77,35 +80,32 @@
                                                                      cLeftControllerWidth, kScreenHeight - cLeftControllerHeadImageHeight - 49 - 15)
                                                     style:UITableViewStylePlain];
     _middleTableView.separatorColor = [UIColor clearColor];
-    [_middleTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CYCLeftControllerCellID];
+    [_middleTableView registerClass:[CLeftCtrlCell class] forCellReuseIdentifier:CYCLeftControllerCellID];
+    _middleTableView.backgroundColor = [UIColor clearColor];
     _middleTableView.delegate = self;
     _middleTableView.dataSource = self;
     [self.view addSubview:_middleTableView];
     
     // 夜间模式开关
-    _nightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _nightButton = [CThemeButton buttonWithType:UIButtonTypeCustom];
     _nightButton.frame = CGRectMake(10, kScreenHeight - 49, 70, 49);
-    [_nightButton setTitleColor:C_MAIN_TEXTCOLOR forState:UIControlStateNormal];
     _nightButton.titleLabel.font = C_MAIN_FONT(15);
     [_nightButton addTarget:self action:@selector(nightButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_nightButton];
-    NSString *nightStatus = [CUSER objectForKey:CYCLeftControllerNightButtonStatus];
-    if (nightStatus) {  // 本地已经存有状态，直接获取
-        if ([nightStatus isEqualToString:@"白天"]) {
-            [_nightButton setImage:[UIImage imageNamed:@"icon_leftController_day"] forState:UIControlStateNormal];
-            [_nightButton setTitle:@" 白天" forState:UIControlStateNormal];
-        } else {
-            [_nightButton setImage:[UIImage imageNamed:@"icon_leftController_night"] forState:UIControlStateNormal];
-            [_nightButton setTitle:@" 夜间" forState:UIControlStateNormal];
-        }
-    } else {            // 本地无状态，默认白天，写入
-        [CUSER setObject:@"白天" forKey:CYCLeftControllerNightButtonStatus];
+    
+
+    if (CTHEME.themeType == CDayTheme) {
         [_nightButton setImage:[UIImage imageNamed:@"icon_leftController_day"] forState:UIControlStateNormal];
         [_nightButton setTitle:@" 白天" forState:UIControlStateNormal];
+        [_nightButton setTitleColor:C_MAIN_TEXTCOLOR forState:UIControlStateNormal];
+    } else  {
+        [_nightButton setImage:[UIImage imageNamed:@"icon_leftController_night"] forState:UIControlStateNormal];
+        [_nightButton setTitle:@" 夜间" forState:UIControlStateNormal];
+        [_nightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
     
     // 地点
-    _locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(cLeftControllerWidth - 100, kScreenHeight - 49, 50, 49)];
+    _locationLabel = [[CThemeLabel alloc] initWithFrame:CGRectMake(cLeftControllerWidth - 100, kScreenHeight - 49, 50, 49)];
     _locationLabel.textColor = C_MAIN_TEXTCOLOR;
     _locationLabel.font = C_MAIN_FONT(15);
     _locationLabel.textAlignment = NSTextAlignmentCenter;
@@ -154,20 +154,25 @@
 #pragma mark - 夜间模式按钮响应
 - (void)nightButtonAction:(UIButton *)button {
 
-    NSString *nightStatus = [CUSER objectForKey:CYCLeftControllerNightButtonStatus];
-    if ([nightStatus isEqualToString:@"白天"]) {
-        [CUSER setObject:@"夜间" forKey:CYCLeftControllerNightButtonStatus];
+    
+    if (CTHEME.themeType == CDayTheme) {
+        CTHEME.themeType = CNightTheme;
         [button setImage:[UIImage imageNamed:@"icon_leftController_night"] forState:UIControlStateNormal];
         [button setTitle:@" 夜间" forState:UIControlStateNormal];
     } else {
-        [CUSER setObject:@"白天" forKey:CYCLeftControllerNightButtonStatus];
+        CTHEME.themeType = CDayTheme;
         [button setImage:[UIImage imageNamed:@"icon_leftController_day"] forState:UIControlStateNormal];
         [button setTitle:@" 白天" forState:UIControlStateNormal];
     }
 
 }
 
+#pragma mark - 主题改变，修改背景颜色
+- (void)changeBackgroundColor:(NSNotification *)notification {
 
+    self.view.backgroundColor = CTHEME.themeColor;
+
+}
 
 
 
@@ -187,11 +192,9 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CYCLeftControllerCellID];
-    cell.textLabel.text = _tableViewTitles[indexPath.row];
-    cell.textLabel.font = C_MAIN_FONT(17);
-    cell.textLabel.textColor = C_MAIN_TEXTCOLOR;
-    cell.imageView.image = [UIImage imageNamed:_tableViewIcons[indexPath.row]];
+    CLeftCtrlCell *cell = [[CLeftCtrlCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CYCLeftControllerCellID];
+    cell.leftCellLabel.text = _tableViewTitles[indexPath.row];
+    cell.leftCellImageView.image = [UIImage imageNamed:_tableViewIcons[indexPath.row]];
     return cell;
 
 }

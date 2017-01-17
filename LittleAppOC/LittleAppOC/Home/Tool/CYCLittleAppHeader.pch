@@ -29,7 +29,7 @@
 //-----------------------------------------------------单例-----------------------------------------------------
 #define CUSER [NSUserDefaults standardUserDefaults]                                                     // 本地数据持久化
 #define CNOTIFY [NSNotificationCenter defaultCenter]                                                    // 通知中心
-
+#define CTHEME [ThemeManager shareThemeManager]                                                         // 主题类
 
 //-----------------------------------------------------通知-----------------------------------------------------
 #define CThemeChangeNotification @"CThemeChangeNotification"                                            // 主题改变的通知

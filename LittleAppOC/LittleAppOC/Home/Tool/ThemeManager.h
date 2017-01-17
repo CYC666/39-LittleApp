@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 typedef enum : NSInteger {
     CDayTheme,      // 白天
@@ -16,6 +17,7 @@ typedef enum : NSInteger {
 @interface ThemeManager : NSObject
 
 @property (assign, nonatomic) CThemeType themeType;
+@property (strong, nonatomic) UIColor *themeColor;
 
 + (instancetype)shareThemeManager;
 
