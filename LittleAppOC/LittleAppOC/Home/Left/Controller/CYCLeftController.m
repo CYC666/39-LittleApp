@@ -13,6 +13,7 @@
 #import "CThemeLabel.h"
 #import "CThemeButton.h"
 #import "CLeftCtrlCell.h"
+#import "WeatherController.h"
 #import <CoreLocation/CoreLocation.h>
 
 #define CYCLeftControllerCellID @"CYCLeftControllerCellID"  // 单元格重用标识符
@@ -23,9 +24,10 @@
 @property (strong, nonatomic) NSArray *tableViewTitles;     // 表视图的title
 @property (strong, nonatomic) NSArray *tableViewIcons;      // 表视图的icon
 @property (strong, nonatomic) CLLocationManager *manager;   // 定位管理员
-@property (strong, nonatomic) CThemeLabel *locationLabel;       // 定位标签
+@property (strong, nonatomic) CThemeLabel *locationLabel;   // 定位标签
 @property (strong, nonatomic) UILabel *temperatureLabel;    // 温度标签
 @property (strong, nonatomic) UIImageView *weatherImageView;// 显示天气的图
+@property (copy, nonatomic) NSString *currentCoor2D;        // 用于查询的经纬度结合体
 
 @end
 
@@ -33,10 +35,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = CTHEME.themeColor;
     
     [self creatSubviews];
     
+    self.view.backgroundColor = CTHEME.themeColor;
     // 监听主题改变
     [CNOTIFY addObserver:self
                 selector:@selector(changeBackgroundColor:)
@@ -121,6 +123,9 @@
     // 天气图
     _weatherImageView = [[UIImageView alloc] initWithFrame:CGRectMake(cLeftControllerWidth - 80, kScreenHeight - 49 - 60, 60, 60)];
     _weatherImageView.contentMode = UIViewContentModeScaleAspectFit;
+    _weatherImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *weatherTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(weatherTapAction:)];
+    [_weatherImageView addGestureRecognizer:weatherTap];
     [self.view addSubview:_weatherImageView];
 
     
@@ -131,12 +136,13 @@
 
 #pragma mark - 设置天气UI
 - (void)setWeatherUI:(NSDictionary *)dic {
-//
+
     WeatherModel *model = [[WeatherModel alloc] init];
     model.locationName = dic[@"location"][@"name"];
     model.weatherText = dic[@"now"][@"text"];
     model.weatherCode = dic[@"now"][@"code"];
     model.temperature = dic[@"now"][@"temperature"];
+    
     
     _locationLabel.text = model.locationName;
     _temperatureLabel.text = [NSString stringWithFormat:@"%@º", model.temperature];
@@ -164,6 +170,16 @@
         [button setImage:[UIImage imageNamed:@"icon_leftController_day"] forState:UIControlStateNormal];
         [button setTitle:@" 白天" forState:UIControlStateNormal];
     }
+
+}
+
+#pragma mark - 点击了天气的图片
+- (void)weatherTapAction:(UITapGestureRecognizer *)tap {
+
+    WeatherController *controller = [[WeatherController alloc] initWithLocation:_currentCoor2D];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
+    nav.navigationBar.barTintColor = [UIColor blackColor];
+    [self presentViewController:nav animated:YES completion:nil];
 
 }
 
@@ -238,6 +254,7 @@
 - (void)loadWeather:(CLLocationCoordinate2D)coordinate2D {
 
     NSString *location = [NSString stringWithFormat:@"%.2f:%.2f", coordinate2D.latitude, coordinate2D.longitude];
+    _currentCoor2D = location;
     [CNetWorking loadWeatherWithLocation:location
                                  success:^(id response) {
                                      // 设置UI

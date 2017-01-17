@@ -25,6 +25,56 @@
 
 }
 
++ (void)loadComingDayWeatherWithLocation:(NSString *)location
+                                 success:(void (^)(id response))success
+                                 failure:(void (^)(NSError *err))failure {
+
+    NSString *urlStr = [NSString stringWithFormat:@"https://api.thinkpage.cn/v3/weather/daily.json?key=eukjfvabkmt88bww&location=%@&language=zh-Hans&unit=c&start=0&days=5", location];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:urlStr parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+    }];
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

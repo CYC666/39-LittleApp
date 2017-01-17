@@ -20,5 +20,50 @@
                         success:(void (^)(id response))success
                         failure:(void (^)(NSError *err))failure;
 
+//-----------------------------------------------------
+// 获取某个地点未来三天的天气
+//
+// location : 地名    (深圳)
+//-----------------------------------------------------
++ (void)loadComingDayWeatherWithLocation:(NSString *)location
+                                 success:(void (^)(id response))success
+                                 failure:(void (^)(NSError *err))failure;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end
