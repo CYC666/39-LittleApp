@@ -48,6 +48,12 @@
     
 }
 
+#pragma mark - 移除观察者
+- (void)dealloc {
+    
+    [CNOTIFY removeObserver:self name:CThemeChangeNotification object:nil];
+    
+}
 
 
 

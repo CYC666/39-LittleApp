@@ -144,6 +144,9 @@
 		9EFAB7391E2EFCA50039C853 /* icon_weatherController_location@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EFAB7361E2EFCA50039C853 /* icon_weatherController_location@3x.png */; };
 		9EFAB73E1E2F01030039C853 /* DailyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFAB73C1E2F01030039C853 /* DailyController.m */; };
 		9EFAB73F1E2F01030039C853 /* DailyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EFAB73D1E2F01030039C853 /* DailyController.xib */; };
+		9EFAB7421E2F07D10039C853 /* WeatherCellFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFAB7411E2F07D10039C853 /* WeatherCellFlowLayout.m */; };
+		9EFAB7451E2F092A0039C853 /* WeatherCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFAB7441E2F092A0039C853 /* WeatherCollectionView.m */; };
+		9EFAB7481E2F09A40039C853 /* WeatherCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFAB7471E2F09A40039C853 /* WeatherCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -319,6 +322,12 @@
 		9EFAB73B1E2F01030039C853 /* DailyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DailyController.h; sourceTree = "<group>"; };
 		9EFAB73C1E2F01030039C853 /* DailyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailyController.m; sourceTree = "<group>"; };
 		9EFAB73D1E2F01030039C853 /* DailyController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DailyController.xib; sourceTree = "<group>"; };
+		9EFAB7401E2F07D10039C853 /* WeatherCellFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherCellFlowLayout.h; sourceTree = "<group>"; };
+		9EFAB7411E2F07D10039C853 /* WeatherCellFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherCellFlowLayout.m; sourceTree = "<group>"; };
+		9EFAB7431E2F092A0039C853 /* WeatherCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherCollectionView.h; sourceTree = "<group>"; };
+		9EFAB7441E2F092A0039C853 /* WeatherCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherCollectionView.m; sourceTree = "<group>"; };
+		9EFAB7461E2F09A40039C853 /* WeatherCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherCollectionViewCell.h; sourceTree = "<group>"; };
+		9EFAB7471E2F09A40039C853 /* WeatherCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -739,6 +748,8 @@
 			children = (
 				9EA44B201E2E6FBD00F7761D /* WeatherModel.h */,
 				9EA44B211E2E6FBD00F7761D /* WeatherModel.m */,
+				9EFAB7401E2F07D10039C853 /* WeatherCellFlowLayout.h */,
+				9EFAB7411E2F07D10039C853 /* WeatherCellFlowLayout.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -748,6 +759,10 @@
 			children = (
 				9EA44B231E2E6FBD00F7761D /* CLeftCtrlCell.h */,
 				9EA44B241E2E6FBD00F7761D /* CLeftCtrlCell.m */,
+				9EFAB7431E2F092A0039C853 /* WeatherCollectionView.h */,
+				9EFAB7441E2F092A0039C853 /* WeatherCollectionView.m */,
+				9EFAB7461E2F09A40039C853 /* WeatherCollectionViewCell.h */,
+				9EFAB7471E2F09A40039C853 /* WeatherCollectionViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1006,6 +1021,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E1389F41E2B11D00011701B /* GamerController.m in Sources */,
+				9EFAB7481E2F09A40039C853 /* WeatherCollectionViewCell.m in Sources */,
 				9EA44B121E2E39E900F7761D /* ThemeManager.m in Sources */,
 				9EA44B251E2E6FBD00F7761D /* CYCLeftController.m in Sources */,
 				9EFAB73E1E2F01030039C853 /* DailyController.m in Sources */,
@@ -1014,6 +1030,7 @@
 				9EA44ABB1E2E121300F7761D /* CNetWorking.m in Sources */,
 				9E138A001E2B120E0011701B /* SettingerController.m in Sources */,
 				9EA44B321E2E758900F7761D /* MBProgressHUD.m in Sources */,
+				9EFAB7451E2F092A0039C853 /* WeatherCollectionView.m in Sources */,
 				9EA44AB51E2E11CD00F7761D /* AFURLConnectionOperation.m in Sources */,
 				9EF53CE41E2BBE6500F55033 /* MMDrawerVisualState.m in Sources */,
 				9EF53CE51E2BBE6500F55033 /* UIViewController+MMDrawerController.m in Sources */,
@@ -1029,6 +1046,7 @@
 				9EA44AB81E2E11CD00F7761D /* AFURLSessionManager.m in Sources */,
 				9EA44B151E2E425A00F7761D /* CThemeLabel.m in Sources */,
 				9E1389FD1E2B12000011701B /* DiscoverController.m in Sources */,
+				9EFAB7421E2F07D10039C853 /* WeatherCellFlowLayout.m in Sources */,
 				9EA44B2A1E2E708300F7761D /* WeatherController.m in Sources */,
 				9EF53CE31E2BBE6500F55033 /* MMDrawerController.m in Sources */,
 				9E1389DA1E2B0EB00011701B /* CYCAppDelegate.m in Sources */,

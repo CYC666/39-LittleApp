@@ -20,10 +20,30 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wq5-DY-O03">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wq5-DY-O03">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <string key="text">2017年1月15日创建
+                    <string key="text">2017年
+
+1月15日
+1、搭建了三级控制器
+2、集成了MMDrawController侧滑控制器
+
+16日
+1、添加了左边控制器的头image视图
+2、修改了titleView
+3、添加了夜间模式按钮
+
+17日
+1、修改了标签按钮的图片
+2、左控制器右下角添加了天气、定位的UI
+3、创建了主题类
+4、主题切换大致意思懂了，背景颜色的主题可以切换了
+5、全部的控制器都可以根据主题改变背景颜色了
+
+18日
+1、未来几天天气预报的model已经加载封装好了
+2、创建了日记控制器，用来记录这个APP的设计日常
 </string>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

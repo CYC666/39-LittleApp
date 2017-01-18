@@ -13,6 +13,8 @@
 #import "WeatherModel.h"
 #import "CThemeLabel.h"
 #import "CThemeButton.h"
+#import "WeatherCellFlowLayout.h"
+#import "WeatherCollectionView.h"
 
 @interface WeatherController ()
 
@@ -20,6 +22,9 @@
 @property (copy, nonatomic) NSString *locationName;                 // 城市名
 @property (copy, nonatomic) NSString *locationtimezone;             // 城市的时区
 @property (strong, nonatomic) NSMutableArray *weatherArray;         // 储存天气的model
+
+@property (strong, nonatomic) UIImageView *weatherImageView;        // 显示天气的图像
+@property (strong, nonatomic) WeatherCollectionView *collectionView;// 三天天气集合视图
 
 @end
 
@@ -148,10 +153,53 @@
     locationLabel.textColor = CTHEME.themeType == CDayTheme ? C_MAIN_TEXTCOLOR : [UIColor whiteColor];
     [self.view addSubview:locationLabel];
     
+    // 天气图
+    _weatherImageView = [[UIImageView alloc] initWithFrame:CGRectMake((kScreenWidth - 100)/2.0, 60, 100, 100)];
+    _weatherImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:_weatherImageView];
+    WeatherModel *model = _weatherArray.firstObject;
+    _weatherImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", model.code_day]];
+    
+    // 显示三天天气的集合视图
+    WeatherCellFlowLayout *flowLayout = [[WeatherCellFlowLayout alloc] init];
+    _collectionView = [[WeatherCollectionView alloc] initWithFrame:CGRectMake(0, kScreenHeight - 64 - kScreenWidth, kScreenWidth, kScreenWidth)
+                                              collectionViewLayout:flowLayout];
+    [self.view addSubview:_collectionView];
+    _collectionView.weatherArray = _weatherArray;
+    
+    // 监听天气单元格是否改变
+    [CNOTIFY addObserver:self selector:@selector(weatherCellChangeNotification:) name:CWeatherCellChangeNotification object:nil];
+
+}
+
+#pragma mark - 换了另一天的天气，天气的图片改变
+- (void)weatherCellChangeNotification:(NSNotification *)notification {
+
+    WeatherModel *model = _weatherArray[_collectionView.currentPage];
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:.35
+                     animations:^{
+                         weakSelf.weatherImageView.alpha = 0;
+                     } completion:^(BOOL finished) {
+                         weakSelf.weatherImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", model.code_day]];
+                         [UIView animateWithDuration:.35
+                                          animations:^{
+                                              _weatherImageView.alpha = 1;
+                                          }];
+                     }];
     
 
 }
 
+
+
+#pragma mark - 移除观察者
+- (void)dealloc {
+
+    [CNOTIFY removeObserver:self name:CThemeChangeNotification object:nil];
+    [CNOTIFY removeObserver:self name:CWeatherCellChangeNotification object:nil];
+
+}
 
 
 

@@ -35,19 +35,8 @@
     _leftCellLabel.font = C_MAIN_FONT(17);
     [self.contentView addSubview:_leftCellLabel];
     
-    switch (CTHEME.themeType) {
-        case CDayTheme:
-            _leftCellLabel.textColor = C_MAIN_TEXTCOLOR;
-            break;
-            
-        case CNightTheme:
-            _leftCellLabel.textColor = [UIColor whiteColor];
-            break;
-            
-        default:
-            _leftCellLabel.textColor = C_MAIN_TEXTCOLOR;
-            break;
-    }
+    _leftCellLabel.textColor = CTHEME.themeType == CDayTheme ? C_MAIN_TEXTCOLOR : [UIColor whiteColor];
+    
 
 }
 

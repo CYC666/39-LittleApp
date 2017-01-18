@@ -74,7 +74,7 @@
     _tableViewTitles = @[@"曹老师",
                          @"第三方",
                          @"功能介绍",
-                         @"日记"];
+                         @"开发日记"];
     _tableViewIcons = @[@"icon_leftCtrl_user",
                         @"icon_leftCtrl_Third",
                         @"icon_leftCtrl_function",
@@ -109,9 +109,10 @@
     
     // 地点
     _locationLabel = [[CThemeLabel alloc] initWithFrame:CGRectMake(cLeftControllerWidth - 100, kScreenHeight - 49, 50, 49)];
-    _locationLabel.textColor = C_MAIN_TEXTCOLOR;
+    _locationLabel.textColor = CTHEME.themeType == CDayTheme ? C_MAIN_TEXTCOLOR : [UIColor whiteColor];
     _locationLabel.font = C_MAIN_FONT(15);
     _locationLabel.textAlignment = NSTextAlignmentCenter;
+    _locationLabel.alpha = 0;
     [self.view addSubview:_locationLabel];
     
     // 温度
@@ -119,11 +120,13 @@
     _temperatureLabel.textColor = CRGB(27, 199, 246, 1);
     _temperatureLabel.font = C_MAIN_FONT(30);
     _temperatureLabel.textAlignment = NSTextAlignmentLeft;
+    _temperatureLabel.alpha = 0;
     [self.view addSubview:_temperatureLabel];
     
     // 天气图
     _weatherImageView = [[UIImageView alloc] initWithFrame:CGRectMake(cLeftControllerWidth - 80, kScreenHeight - 49 - 60, 60, 60)];
     _weatherImageView.contentMode = UIViewContentModeScaleAspectFit;
+    _weatherImageView.alpha = 0;
     _weatherImageView.userInteractionEnabled = YES;
     UITapGestureRecognizer *weatherTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(weatherTapAction:)];
     [_weatherImageView addGestureRecognizer:weatherTap];
@@ -148,6 +151,12 @@
     _locationLabel.text = model.locationName;
     _temperatureLabel.text = [NSString stringWithFormat:@"%@º", model.temperature];
     _weatherImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", model.weatherCode]];
+    [UIView animateWithDuration:.35
+                     animations:^{
+                         _locationLabel.alpha = 1;
+                         _temperatureLabel.alpha = 1;
+                         _weatherImageView.alpha = 1;
+                     }];
 }
 
 
