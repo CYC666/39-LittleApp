@@ -14,6 +14,7 @@
 #import "CThemeButton.h"
 #import "CLeftCtrlCell.h"
 #import "WeatherController.h"
+#import "DailyController.h"
 #import <CoreLocation/CoreLocation.h>
 
 #define CYCLeftControllerCellID @"CYCLeftControllerCellID"  // 单元格重用标识符
@@ -73,7 +74,7 @@
     _tableViewTitles = @[@"曹老师",
                          @"第三方",
                          @"功能介绍",
-                         @"建议反馈"];
+                         @"日记"];
     _tableViewIcons = @[@"icon_leftCtrl_user",
                         @"icon_leftCtrl_Third",
                         @"icon_leftCtrl_function",
@@ -178,6 +179,7 @@
 
     WeatherController *controller = [[WeatherController alloc] initWithLocation:_currentCoor2D];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
+    nav.navigationBar.translucent = NO;
     nav.navigationBar.barTintColor = [UIColor blackColor];
     [self presentViewController:nav animated:YES completion:nil];
 
@@ -216,6 +218,15 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
+    if (indexPath.row == 3) {
+        DailyController *controller = [[DailyController alloc] initWithNibName:@"DailyController"
+                                                                        bundle:[NSBundle mainBundle]];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
+        nav.navigationBar.translucent = NO;
+        nav.navigationBar.barTintColor = [UIColor blackColor];
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+    
     // 点击之后取消高亮状态
     [tableView cellForRowAtIndexPath:indexPath].selected = NO;
     

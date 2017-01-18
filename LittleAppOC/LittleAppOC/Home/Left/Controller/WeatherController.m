@@ -11,6 +11,8 @@
 #import "ThemeManager.h"
 #import "MBProgressHUD.h"
 #import "WeatherModel.h"
+#import "CThemeLabel.h"
+#import "CThemeButton.h"
 
 @interface WeatherController ()
 
@@ -60,7 +62,12 @@
     [backItem setTintColor:[UIColor whiteColor]];
     [self.navigationItem setLeftBarButtonItem:backItem];
     
-    
+    UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
+                                                                                target:self
+                                                                                action:@selector(searchItemAction:)];
+    [searchItem setTintColor:[UIColor whiteColor]];
+    [searchItem setTintColor:[UIColor whiteColor]];
+    [self.navigationItem setRightBarButtonItem:searchItem];
     
     
     
@@ -105,6 +112,9 @@
         
         [self.weatherArray addObject:model];
     }
+    
+    // 跳转处理UI
+    [self creatSubviews];
 
 }
 
@@ -115,7 +125,32 @@
 
 }
 
+#pragma mark - 导航栏搜索按钮
+- (void)searchItemAction:(UIBarButtonItem *)item {
+    
+    
+    
+}
 
+#pragma mark - 创建子视图
+- (void)creatSubviews {
+
+    // 定位图标
+    UIImageView *weatherIcon = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 30, 30)];
+    weatherIcon.image = [UIImage imageNamed:@"icon_weatherController_location"];
+    weatherIcon.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:weatherIcon];
+    
+    // 定位标签
+    CThemeLabel *locationLabel = [[CThemeLabel alloc] initWithFrame:CGRectMake(55, 20, 50, 30)];
+    locationLabel.text = _locationName;
+    locationLabel.font = C_MAIN_FONT(19);
+    locationLabel.textColor = CTHEME.themeType == CDayTheme ? C_MAIN_TEXTCOLOR : [UIColor whiteColor];
+    [self.view addSubview:locationLabel];
+    
+    
+
+}
 
 
 
