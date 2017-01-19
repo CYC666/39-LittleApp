@@ -26,6 +26,8 @@
 @property (strong, nonatomic) UIImageView *weatherImageView;        // 显示天气的图像
 @property (strong, nonatomic) WeatherCollectionView *collectionView;// 三天天气集合视图
 
+@property (strong, nonatomic) UIActivityIndicatorView *activityView;// 菊花
+
 @end
 
 @implementation WeatherController
@@ -33,6 +35,9 @@
 - (instancetype)initWithLocation:(NSString *)location {
 
     if (self = [super init]) {
+        
+        [self.activityView startAnimating];
+        __weak typeof(self) weakSelf = self;
         // 请求数据
         [CNetWorking loadComingDayWeatherWithLocation:location
                                               success:^(id response) {
@@ -40,10 +45,21 @@
                                                       [self loadWeatherData:[response[@"results"] firstObject]];
                                                   }
                                               } failure:^(NSError *err) {
-                                                  
+                                                  [weakSelf.activityView stopAnimating];
                                               }];
     }
     return self;
+
+}
+
+- (UIActivityIndicatorView *)activityView {
+
+    if (_activityView == nil) {
+        _activityView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake((kScreenWidth - 50)/2.0, (kScreenHeight - 64 - 50)/2.0, 50, 50)];
+        _activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+        [self.view addSubview:_activityView];
+    }
+    return _activityView;
 
 }
 
@@ -139,6 +155,8 @@
 
 #pragma mark - 创建子视图
 - (void)creatSubviews {
+    
+    [self.activityView stopAnimating];
 
     // 定位图标
     UIImageView *weatherIcon = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 30, 30)];
@@ -158,7 +176,13 @@
     _weatherImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview:_weatherImageView];
     WeatherModel *model = _weatherArray.firstObject;
-    _weatherImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", model.code_day]];
+    UIImage *weatherImage = [UIImage imageNamed:[NSString stringWithFormat:@"new_%@.png", model.code_day]];
+    if (weatherImage != nil) {
+        _weatherImageView.image = weatherImage;
+    } else {
+        _weatherImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", model.code_day]];
+    }
+    
     
     // 显示三天天气的集合视图
     WeatherCellFlowLayout *flowLayout = [[WeatherCellFlowLayout alloc] init];
@@ -181,7 +205,12 @@
                      animations:^{
                          weakSelf.weatherImageView.alpha = 0;
                      } completion:^(BOOL finished) {
-                         weakSelf.weatherImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", model.code_day]];
+                         UIImage *weatherImage = [UIImage imageNamed:[NSString stringWithFormat:@"new_%@.png", model.code_day]];
+                         if (weatherImage != nil) {
+                             weakSelf.weatherImageView.image = weatherImage;
+                         } else {
+                             weakSelf.weatherImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", model.code_day]];
+                         }
                          [UIView animateWithDuration:.35
                                           animations:^{
                                               _weatherImageView.alpha = 1;

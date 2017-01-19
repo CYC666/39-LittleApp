@@ -15,6 +15,7 @@
 #import "CLeftCtrlCell.h"
 #import "WeatherController.h"
 #import "DailyController.h"
+#import "ThirdController.h"
 #import <CoreLocation/CoreLocation.h>
 
 #define CYCLeftControllerCellID @"CYCLeftControllerCellID"  // 单元格重用标识符
@@ -226,8 +227,15 @@
 
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    if (indexPath.row == 3) {
+    
+    if (indexPath.row == 1) {
+        ThirdController *controller = [[ThirdController alloc] initWithNibName:@"ThirdController"
+                                                                        bundle:[NSBundle mainBundle]];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
+        nav.navigationBar.translucent = NO;
+        nav.navigationBar.barTintColor = [UIColor blackColor];
+        [self presentViewController:nav animated:YES completion:nil];
+    } else if (indexPath.row == 3) {
         DailyController *controller = [[DailyController alloc] initWithNibName:@"DailyController"
                                                                         bundle:[NSBundle mainBundle]];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
