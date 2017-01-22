@@ -16,6 +16,8 @@
 #import "WeatherController.h"
 #import "DailyController.h"
 #import "ThirdController.h"
+#import "AFNetworking.h"
+#import "AliWeatherController.h"
 #import <CoreLocation/CoreLocation.h>
 
 #define CYCLeftControllerCellID @"CYCLeftControllerCellID"  // 单元格重用标识符
@@ -29,7 +31,7 @@
 @property (strong, nonatomic) CThemeLabel *locationLabel;   // 定位标签
 @property (strong, nonatomic) UILabel *temperatureLabel;    // 温度标签
 @property (strong, nonatomic) UIImageView *weatherImageView;// 显示天气的图
-@property (copy, nonatomic) NSString *currentCoor2D;        // 用于查询的经纬度结合体
+@property (copy, nonatomic) NSString *location;             // 位置
 
 @end
 
@@ -148,6 +150,8 @@
     model.weatherCode = dic[@"now"][@"code"];
     model.temperature = dic[@"now"][@"temperature"];
     
+    // 保存一下当前位置
+    _location = dic[@"location"][@"name"];
     
     _locationLabel.text = model.locationName;
     _temperatureLabel.text = [NSString stringWithFormat:@"%@º", model.temperature];
@@ -187,7 +191,7 @@
 #pragma mark - 点击了天气的图片
 - (void)weatherTapAction:(UITapGestureRecognizer *)tap {
 
-    WeatherController *controller = [[WeatherController alloc] initWithLocation:_currentCoor2D];
+    AliWeatherController *controller = [[AliWeatherController alloc] initWithCityName:_location];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
     nav.navigationBar.translucent = NO;
     nav.navigationBar.barTintColor = [UIColor blackColor];
@@ -235,6 +239,9 @@
         nav.navigationBar.translucent = NO;
         nav.navigationBar.barTintColor = [UIColor blackColor];
         [self presentViewController:nav animated:YES completion:nil];
+    } else if (indexPath.row == 2) {
+        // 测试接口用
+        [self testURL];
     } else if (indexPath.row == 3) {
         DailyController *controller = [[DailyController alloc] initWithNibName:@"DailyController"
                                                                         bundle:[NSBundle mainBundle]];
@@ -282,7 +289,6 @@
 - (void)loadWeather:(CLLocationCoordinate2D)coordinate2D {
 
     NSString *location = [NSString stringWithFormat:@"%.2f:%.2f", coordinate2D.latitude, coordinate2D.longitude];
-    _currentCoor2D = location;
     [CNetWorking loadWeatherWithLocation:location
                                  success:^(id response) {
                                      // 设置UI
@@ -298,7 +304,26 @@
 
 
 
+#pragma mark - 测试接口
+- (void)testURL {
 
+    NSString *urlStr = [NSString stringWithFormat:@"http://jisutqybmf.market.alicloudapi.com/weather/query"];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSDictionary *dic = @{@"city" : @"深圳"};
+    NSString *appcode = @"0c9b5b03701a473c833deaeef4ca46d5";
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"APPCODE %@", appcode] forHTTPHeaderField:@"Authorization"];
+    [manager GET:urlStr parameters:dic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"success");
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"faile");
+    }];
+    
+    
+    
+    
+
+}
 
 
 

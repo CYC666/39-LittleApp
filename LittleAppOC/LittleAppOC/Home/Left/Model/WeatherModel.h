@@ -5,6 +5,7 @@
 //  Created by CaoYicheng on 2017/1/17.
 //  Copyright © 2017年 CYC. All rights reserved.
 //
+// 知心天气的model
 
 #import <Foundation/Foundation.h>
 

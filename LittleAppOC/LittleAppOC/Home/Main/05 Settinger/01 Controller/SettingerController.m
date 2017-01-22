@@ -42,25 +42,6 @@
 }
 
 
-#pragma mark - 设置这个界面不允许侧滑
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-    MMDrawerController *drawCtrl= (MMDrawerController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-    [drawCtrl setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
-    
-}
-- (void)viewWillDisappear:(BOOL)animated {
-    
-    [super viewWillDisappear:animated];
-    MMDrawerController *drawCtrl= (MMDrawerController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-    [drawCtrl setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
-    
-}
-
-
-
-
 
 
 

@@ -39,13 +39,14 @@
     NSArray *safeAtteibutes = [[NSArray alloc] initWithArray:attributes copyItems:YES];
     for (UICollectionViewLayoutAttributes *attribue in safeAtteibutes) {
         if (CGRectIntersectsRect(attribue.frame, rect)) {       //判断是否有交集(item是否进去系统检测范围之内)
-            // float distance = CGRectGetMidX(visibaleRect) - attribue.center.x;       //获取当前item到中点的距离
-            // float discale = distance/200;   //放大倍数
-            // if (ABS(distance) < 200) {
-                // float scale = 1 + 0.3*(1 - ABS(discale));       //凑数
-                attribue.transform3D = CATransform3DMakeScale(1, 1, 1);     //对空间三个方向进行放大
+             float distance = CGRectGetMidX(visibaleRect) - attribue.center.x;       //获取当前item到中点的距离
+             float discale = distance/200;   //放大倍数
+             if (ABS(distance) < 200) {
+                float scale = 1 + 0.3*(1 - ABS(discale));       //凑数
+                attribue.transform3D = CATransform3DMakeScale(scale, scale, 1);     //对空间三个方向进行放大
+                // attribue.transform3D = CATransform3DMakeRotation(M_PI_4, 1, 1, 0);
                 attribue.zIndex = 1;        //更改在z轴的的位置
-            // }
+             }
         }
     }
     return safeAtteibutes;  //返回放大后的效果图

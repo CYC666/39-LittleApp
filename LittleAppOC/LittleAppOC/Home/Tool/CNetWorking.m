@@ -15,6 +15,7 @@
                         success:(void (^)(id response))success
                         failure:(void (^)(NSError *err))failure{
 
+    // 知心天气
     NSString *urlStr = [NSString stringWithFormat:@"https://api.thinkpage.cn/v3/weather/now.json?key=eukjfvabkmt88bww&location=%@&language=zh-Hans&unit=c", location];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager GET:urlStr parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -22,6 +23,8 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
     }];
+    
+
 
 }
 
@@ -29,9 +32,22 @@
                                  success:(void (^)(id response))success
                                  failure:(void (^)(NSError *err))failure {
 
-    NSString *urlStr = [NSString stringWithFormat:@"https://api.thinkpage.cn/v3/weather/daily.json?key=eukjfvabkmt88bww&location=%@&language=zh-Hans&unit=c&start=0&days=5", location];
+//    NSString *urlStr = [NSString stringWithFormat:@"https://api.thinkpage.cn/v3/weather/daily.json?key=eukjfvabkmt88bww&location=%@&language=zh-Hans&unit=c&start=0&days=5", location];
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//    [manager GET:urlStr parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        success(responseObject);
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        failure(error);
+//    }];
+    
+    // 阿里云
+    NSString *urlStr = [NSString stringWithFormat:@"http://jisutqybmf.market.alicloudapi.com/weather/query"];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    [manager GET:urlStr parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSDictionary *dic = @{@"city" : location};
+    NSString *appcode = @"0c9b5b03701a473c833deaeef4ca46d5";
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"APPCODE %@", appcode] forHTTPHeaderField:@"Authorization"];
+    [manager GET:urlStr parameters:dic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);

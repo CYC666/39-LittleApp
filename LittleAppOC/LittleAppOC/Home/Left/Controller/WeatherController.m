@@ -32,6 +32,7 @@
 
 @implementation WeatherController
 
+// location ---> @"lat:lon"
 - (instancetype)initWithLocation:(NSString *)location {
 
     if (self = [super init]) {
@@ -47,6 +48,7 @@
                                               } failure:^(NSError *err) {
                                                   [weakSelf.activityView stopAnimating];
                                               }];
+        
     }
     return self;
 

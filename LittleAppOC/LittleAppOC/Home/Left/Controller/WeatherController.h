@@ -6,6 +6,8 @@
 //  Copyright © 2017年 CYC. All rights reserved.
 //
 
+// 这里是旧的显示天气UI，知心天气
+
 #import <UIKit/UIKit.h>
 
 

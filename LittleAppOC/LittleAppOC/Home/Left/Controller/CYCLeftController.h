@@ -15,7 +15,7 @@
 
 @property (strong, nonatomic) UIImageView *headImageView;   // 头部背景图片
 @property (strong, nonatomic) UITableView *middleTableView; // 中部表视图
-@property (strong, nonatomic) CThemeButton *nightButton;        // 夜间模式按钮
+@property (strong, nonatomic) CThemeButton *nightButton;    // 夜间模式按钮
 
 
 @end
