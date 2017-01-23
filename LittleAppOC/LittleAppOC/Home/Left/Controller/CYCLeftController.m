@@ -192,10 +192,7 @@
 - (void)weatherTapAction:(UITapGestureRecognizer *)tap {
 
     AliWeatherController *controller = [[AliWeatherController alloc] initWithCityName:_location];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
-    nav.navigationBar.translucent = NO;
-    nav.navigationBar.barTintColor = [UIColor blackColor];
-    [self presentViewController:nav animated:YES completion:nil];
+    [self presentViewController:controller animated:YES completion:nil];
 
 }
 

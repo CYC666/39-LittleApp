@@ -47,7 +47,15 @@
 3、三天天气预报的UI已经设置完毕，滑动居中放大，当天的天气图像根据通知进行切换
 
 19日
-1、查看天气界面添加了加载菊花</mutableString>
+1、查看天气界面添加了加载菊花
+
+23日
+1、天气的接口换成了阿里的接口
+2、封装了阿里天气的model
+3、初建阿里天气视图控制器，准备加载数据、创建UI
+
+
+</mutableString>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>

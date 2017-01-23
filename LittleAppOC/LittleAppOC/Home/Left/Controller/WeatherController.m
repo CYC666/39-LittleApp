@@ -45,6 +45,7 @@
                                                   if (response[@"results"] != nil) {
                                                       [self loadWeatherData:[response[@"results"] firstObject]];
                                                   }
+                                                  [weakSelf.activityView stopAnimating];
                                               } failure:^(NSError *err) {
                                                   [weakSelf.activityView stopAnimating];
                                               }];
@@ -157,8 +158,6 @@
 
 #pragma mark - 创建子视图
 - (void)creatSubviews {
-    
-    [self.activityView stopAnimating];
 
     // 定位图标
     UIImageView *weatherIcon = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 30, 30)];

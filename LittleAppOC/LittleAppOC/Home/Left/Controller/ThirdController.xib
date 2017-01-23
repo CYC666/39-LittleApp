@@ -45,6 +45,7 @@
                 <constraint firstItem="gLk-Bv-haz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="kVX-jz-xRw"/>
                 <constraint firstItem="gLk-Bv-haz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="rPU-xG-xtV"/>
             </constraints>
+            <point key="canvasLocation" x="33.5" y="54.5"/>
         </view>
     </objects>
 </document>
