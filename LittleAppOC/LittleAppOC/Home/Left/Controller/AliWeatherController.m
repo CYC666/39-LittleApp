@@ -15,6 +15,12 @@
 #import "ThemeManager.h"
 #import "CThemeLabel.h"
 
+#define AliHourlyStartY (kScreenHeight/2.0 - 120)               // 的起点
+#define AliHourlyCellWidth 60                                   // 时刻表的温度单元格宽度
+#define AliHourlyHeight 100                                     // 时刻表的高度
+#define AliTemplowLabelColor CRGB(155, 200, 221, 1)             // 最低温的标签颜色
+
+
 @interface AliWeatherController ()
 
 @property (strong, nonatomic) AliWeatherModel *weatherModel;        // 天气model
@@ -24,6 +30,10 @@
 @property (strong, nonatomic) UILabel *cityNameLabel;           // 城市名
 @property (strong, nonatomic) UILabel *weatherLabel;            // 天气
 @property (strong, nonatomic) UILabel *tempLabel;               // 当前气温
+@property (strong, nonatomic) UILabel *weekLabel;               // 星期几
+@property (strong, nonatomic) UILabel *temphighLabel;           // 今天的最高温度
+@property (strong, nonatomic) UILabel *templowLabel;            // 今天的最低温度
+@property (strong, nonatomic) UIScrollView *mainScrollView;     // 承载时刻气温和未来几天两个滑动视图的主滑动视图
 
 
 @end
@@ -112,6 +122,46 @@
     return _tempLabel;
     
 }
+// 星期几
+- (UILabel *)weekLabel {
+    
+    if (_weekLabel == nil) {
+        _weekLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, AliHourlyStartY - 25, 100, 20)];
+        _weekLabel.textAlignment = NSTextAlignmentLeft;
+        _weekLabel.font = C_MAIN_FONT(15);
+        _weekLabel.textColor = [UIColor whiteColor];
+        [_mainScrollView addSubview:_weekLabel];
+    }
+    return _weekLabel;
+    
+}
+// 今天的最高温度
+- (UILabel *)temphighLabel {
+    
+    if (_temphighLabel == nil) {
+        _temphighLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth - 80, AliHourlyStartY - 25, 30, 20)];
+        _temphighLabel.textAlignment = NSTextAlignmentLeft;
+        _temphighLabel.font = C_MAIN_FONT(15);
+        _temphighLabel.textColor = [UIColor whiteColor];
+        [_mainScrollView addSubview:_temphighLabel];
+    }
+    return _temphighLabel;
+    
+}
+// 今天的最低温度
+- (UILabel *)templowLabel {
+    
+    if (_templowLabel == nil) {
+        _templowLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth - 50, AliHourlyStartY - 25, 30, 20)];
+        _templowLabel.textAlignment = NSTextAlignmentRight;
+        _templowLabel.font = C_MAIN_FONT(15);
+        _templowLabel.textColor = AliTemplowLabelColor;
+        [_mainScrollView addSubview:_templowLabel];
+    }
+    return _templowLabel;
+    
+}
+
 
 
 - (void)viewDidLoad {
@@ -123,7 +173,6 @@
     [_backButton setImage:[UIImage imageNamed:@"icon_weather_back"] forState:UIControlStateNormal];
     [_backButton addTarget:self action:@selector(backItemAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_backButton];
-    
     
     self.view.backgroundColor = CTHEME.themeType == CDayTheme ? CRGB(64, 154, 195, 1) : CRGB(4, 29, 63, 1);
     // 监听主题改变
@@ -220,10 +269,104 @@
 #pragma mark - 处理UI
 - (void)creatSubviews {
 
+    // 城市名、天气描述、气温
     self.cityNameLabel.text = _weatherModel.city;
     self.weatherLabel.text = _weatherModel.weather;
     self.tempLabel.text = [NSString stringWithFormat:@"%@", _weatherModel.temp];
     
+    // 主滑动视图
+    _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 120, kScreenWidth, kScreenHeight - 120)];
+    _mainScrollView.contentSize = CGSizeMake(kScreenWidth, kScreenHeight - 120 + (kScreenHeight/2.0 - 120));
+    _mainScrollView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.3];
+    _mainScrollView.bounces = NO;
+    [self.view addSubview:_mainScrollView];
+    
+    // 星期几 今天
+    self.weekLabel.text = [NSString stringWithFormat:@"%@  今天", _weatherModel.week];
+    
+    // 今天最高最低温度
+    self.temphighLabel.text = [NSString stringWithFormat:@"%@", _weatherModel.temphigh];
+    self.templowLabel.text = [NSString stringWithFormat:@"%@", _weatherModel.templow];
+    
+    // 时刻气温表
+    UIScrollView *hourlyScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, AliHourlyStartY, kScreenWidth, AliHourlyHeight)];
+    hourlyScrollView.contentSize = CGSizeMake( AliHourlyCellWidth * (_weatherModel.hourlyArray.count + 1), AliHourlyHeight);
+    [_mainScrollView addSubview:hourlyScrollView];
+    
+    // 上下横线
+    CALayer *topLine = [[CALayer alloc] init];
+    topLine.frame = CGRectMake(0, AliHourlyStartY, kScreenWidth, 0.5);
+    topLine.backgroundColor = [UIColor whiteColor].CGColor;
+    [_mainScrollView.layer addSublayer:topLine];
+    CALayer *bottomLine = [[CALayer alloc] init];
+    bottomLine.frame = CGRectMake(0, AliHourlyStartY + AliHourlyHeight - 0.5, kScreenWidth, 0.5);
+    bottomLine.backgroundColor = [UIColor whiteColor].CGColor;
+    [_mainScrollView.layer addSublayer:bottomLine];
+    
+    
+    // 获取今天的日出日落时间
+    AliDailyModel *todayDailyModel = [_weatherModel.dailyArray firstObject];
+    NSInteger sunriseInt = [[[todayDailyModel.sunrise componentsSeparatedByString:@":"] firstObject] integerValue];
+    NSInteger sunsetInt = [[[todayDailyModel.sunset componentsSeparatedByString:@":"] firstObject] integerValue];
+    
+    for (NSInteger i = 0; i < (_weatherModel.hourlyArray.count + 1); i++) {
+        
+        UIView *cell = [[UIView alloc] initWithFrame:CGRectMake(AliHourlyCellWidth * i, 0, AliHourlyCellWidth, AliHourlyHeight)];
+        [hourlyScrollView addSubview:cell];
+        
+        // 时间
+        UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, AliHourlyCellWidth, 20)];
+        timeLabel.textAlignment = NSTextAlignmentCenter;
+        timeLabel.font = [UIFont systemFontOfSize:13];
+        timeLabel.textColor = [UIColor whiteColor];
+        [cell addSubview:timeLabel];
+        
+        // img
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake((AliHourlyCellWidth - 25)/2.0, (AliHourlyHeight - 25)/2.0, 25, 25)];
+        imgView.contentMode = UIViewContentModeScaleAspectFit;
+        [cell addSubview:imgView];
+        
+        // 温度
+        UILabel *temperatureLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, AliHourlyHeight - 20 - 5, AliHourlyCellWidth, 20)];
+        temperatureLabel.textAlignment = NSTextAlignmentCenter;
+        temperatureLabel.font = [UIFont systemFontOfSize:13];
+        temperatureLabel.textColor = [UIColor whiteColor];
+        [cell addSubview:temperatureLabel];
+        
+        // 第一格数据不在hourly模型里,直接拿weather模型的数据
+        if (i == 0) {
+            timeLabel.text = @"现在";
+            
+            // 拿更新的时间时间跟日出日落时间对照，判断现在是否是白天,根据状态分别设置
+            NSInteger currentTimeInt = [[_weatherModel.updatetime substringWithRange:NSMakeRange(11, 2)] integerValue];
+            if (currentTimeInt > sunriseInt && currentTimeInt < sunsetInt) {
+                imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"icon_weatner_day_%@", _weatherModel.img]];
+            } else {
+                imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"icon_weatner_night_%@", _weatherModel.img]];
+            }
+            
+            temperatureLabel.text = [NSString stringWithFormat:@"%@º", _weatherModel.temp];
+            
+        } else {
+            AliHourlyModel *model = _weatherModel.hourlyArray[i-1];
+            
+            // 拼接 （11时）
+            NSArray *timeArray = [model.time componentsSeparatedByString:@":"];
+            timeLabel.text = [NSString stringWithFormat:@"%@时", [timeArray firstObject]];
+            
+            // 时间跟日出日落时间对照，判断是否是白天,根据状态分别设置
+            if ([[timeArray firstObject] integerValue] > sunriseInt && [[timeArray firstObject] integerValue] < sunsetInt) {
+                imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"icon_weatner_day_%@", model.img]];
+            } else {
+                imgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"icon_weatner_night_%@", model.img]];
+            }
+            
+            temperatureLabel.text = [NSString stringWithFormat:@"%@º", model.temp];
+            
+        }
+        
+        
+    }
 
 }
 
