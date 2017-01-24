@@ -154,6 +154,10 @@
 		9E4E12351E35889E00A08DAC /* icon_weather_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E4E12321E35889E00A08DAC /* icon_weather_back.png */; };
 		9E4E12361E35889E00A08DAC /* icon_weather_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E4E12331E35889E00A08DAC /* icon_weather_back@2x.png */; };
 		9E4E12371E35889E00A08DAC /* icon_weather_back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E4E12341E35889E00A08DAC /* icon_weather_back@3x.png */; };
+		9E527DC01E3797350057AF4C /* GamerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E527DBE1E3797350057AF4C /* GamerCell.m */; };
+		9E527DC11E3797350057AF4C /* GamerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E527DBF1E3797350057AF4C /* GamerCell.xib */; };
+		9E527DC51E379B330057AF4C /* icon_gamer_2048@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E527DC31E379B330057AF4C /* icon_gamer_2048@2x.png */; };
+		9E527DC61E379B330057AF4C /* icon_gamer_2048@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E527DC41E379B330057AF4C /* icon_gamer_2048@3x.png */; };
 		9EA44A8E1E2DF3FF00F7761D /* home_tab_icon_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EA44A841E2DF3FF00F7761D /* home_tab_icon_1.png */; };
 		9EA44A8F1E2DF3FF00F7761D /* home_tab_icon_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EA44A851E2DF3FF00F7761D /* home_tab_icon_1@2x.png */; };
 		9EA44A901E2DF3FF00F7761D /* home_tab_icon_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EA44A861E2DF3FF00F7761D /* home_tab_icon_2.png */; };
@@ -433,6 +437,11 @@
 		9E4E12321E35889E00A08DAC /* icon_weather_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_weather_back.png; sourceTree = "<group>"; };
 		9E4E12331E35889E00A08DAC /* icon_weather_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_weather_back@2x.png"; sourceTree = "<group>"; };
 		9E4E12341E35889E00A08DAC /* icon_weather_back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_weather_back@3x.png"; sourceTree = "<group>"; };
+		9E527DBD1E3797350057AF4C /* GamerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamerCell.h; sourceTree = "<group>"; };
+		9E527DBE1E3797350057AF4C /* GamerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamerCell.m; sourceTree = "<group>"; };
+		9E527DBF1E3797350057AF4C /* GamerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GamerCell.xib; sourceTree = "<group>"; };
+		9E527DC31E379B330057AF4C /* icon_gamer_2048@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_gamer_2048@2x.png"; sourceTree = "<group>"; };
+		9E527DC41E379B330057AF4C /* icon_gamer_2048@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_gamer_2048@3x.png"; sourceTree = "<group>"; };
 		9EA44A841E2DF3FF00F7761D /* home_tab_icon_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_tab_icon_1.png; sourceTree = "<group>"; };
 		9EA44A851E2DF3FF00F7761D /* home_tab_icon_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_tab_icon_1@2x.png"; sourceTree = "<group>"; };
 		9EA44A861E2DF3FF00F7761D /* home_tab_icon_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_tab_icon_2.png; sourceTree = "<group>"; };
@@ -693,6 +702,7 @@
 		9E1389E01E2B119B0011701B /* 02 Model */ = {
 			isa = PBXGroup;
 			children = (
+				9E527DC21E3799460057AF4C /* GamerImage */,
 			);
 			path = "02 Model";
 			sourceTree = "<group>";
@@ -700,6 +710,9 @@
 		9E1389E11E2B119B0011701B /* 03 View */ = {
 			isa = PBXGroup;
 			children = (
+				9E527DBD1E3797350057AF4C /* GamerCell.h */,
+				9E527DBE1E3797350057AF4C /* GamerCell.m */,
+				9E527DBF1E3797350057AF4C /* GamerCell.xib */,
 			);
 			path = "03 View";
 			sourceTree = "<group>";
@@ -991,6 +1004,15 @@
 				9E4E11CA1E3569F900A08DAC /* 天气图标对照表.txt */,
 			);
 			path = AliyunWeatherIcon;
+			sourceTree = "<group>";
+		};
+		9E527DC21E3799460057AF4C /* GamerImage */ = {
+			isa = PBXGroup;
+			children = (
+				9E527DC31E379B330057AF4C /* icon_gamer_2048@2x.png */,
+				9E527DC41E379B330057AF4C /* icon_gamer_2048@3x.png */,
+			);
+			path = GamerImage;
 			sourceTree = "<group>";
 		};
 		9EA44A9C1E2E11CD00F7761D /* AFNetworking */ = {
@@ -1345,6 +1367,7 @@
 				9E4E11F01E3569F900A08DAC /* icon_weatner_day_57.png in Resources */,
 				9E138A361E2B375E0011701B /* Icon-Spotlight-40@2x.png in Resources */,
 				9E220D411E30A4A6009D7146 /* new_13.png in Resources */,
+				9E527DC11E3797350057AF4C /* GamerCell.xib in Resources */,
 				9E4E12131E3569F900A08DAC /* icon_weatner_night_32.png in Resources */,
 				9EA44A9B1E2DF67200F7761D /* home_bottom_tab_arrow@2x.png in Resources */,
 				9EA44AFD1E2E24BC00F7761D /* 28.png in Resources */,
@@ -1390,6 +1413,7 @@
 				9E138A1B1E2B1DDF0011701B /* icon_tab_settinger.png in Resources */,
 				9EFAB7381E2EFCA50039C853 /* icon_weatherController_location@2x.png in Resources */,
 				9EA44B031E2E24BD00F7761D /* 33.png in Resources */,
+				9E527DC61E379B330057AF4C /* icon_gamer_2048@3x.png in Resources */,
 				9EF53D0A1E2BDE2000F55033 /* icon_leftCtrl_feedBack@3x.png in Resources */,
 				9E4E11E81E3569F900A08DAC /* icon_weatner_day_39.png in Resources */,
 				9E138A1D1E2B1DDF0011701B /* icon_tab_settinger@3x.png in Resources */,
@@ -1413,6 +1437,7 @@
 				9E4E121C1E3569F900A08DAC /* icon_weatner_night_58.png in Resources */,
 				9EF53D121E2BDE2000F55033 /* icon_leftCtrl_user@2x.png in Resources */,
 				9E4E12101E3569F900A08DAC /* icon_weatner_night_301.png in Resources */,
+				9E527DC51E379B330057AF4C /* icon_gamer_2048@2x.png in Resources */,
 				9E4E12211E3569F900A08DAC /* icon_weatner_night_99.png in Resources */,
 				9E220D3B1E30A4A6009D7146 /* new_7.png in Resources */,
 				9E4E11D61E3569F900A08DAC /* icon_weatner_day_19.png in Resources */,
@@ -1542,6 +1567,7 @@
 				9EF53CE31E2BBE6500F55033 /* MMDrawerController.m in Sources */,
 				9E1389DA1E2B0EB00011701B /* CYCAppDelegate.m in Sources */,
 				9E1389B91E2B08390011701B /* main.m in Sources */,
+				9E527DC01E3797350057AF4C /* GamerCell.m in Sources */,
 				9E4E122B1E356F7F00A08DAC /* AliDailyModel.m in Sources */,
 				9EA44B271E2E6FBD00F7761D /* CLeftCtrlCell.m in Sources */,
 				9EA44AB71E2E11CD00F7761D /* AFURLResponseSerialization.m in Sources */,

@@ -26,6 +26,19 @@
 
 }
 
+// 使用xib加载的UI，会走这个方法
+- (void)awakeFromNib {
+
+    [super awakeFromNib];
+    
+    // 监听主题改变的通知
+    [CNOTIFY addObserver:self
+                selector:@selector(CThemeLabelChange)
+                    name:CThemeChangeNotification
+                  object:nil];
+
+}
+
 
 
 #pragma mark - 主题改变

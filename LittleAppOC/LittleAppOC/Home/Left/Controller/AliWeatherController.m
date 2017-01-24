@@ -69,7 +69,7 @@
     
     if (_activityView == nil) {
         _activityView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake((kScreenWidth - 50)/2.0, (kScreenHeight - 64 - 50)/2.0, 50, 50)];
-        _activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+        _activityView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
         [self.view addSubview:_activityView];
     }
     return _activityView;

@@ -108,6 +108,7 @@
     
     // 选中时显示的背景图片
     _selectImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, 49)];
+    _selectImageView.center = CGPointMake(kScreenWidth/2.0, 49/2.0);
     _selectImageView.image = [UIImage imageNamed:@"home_bottom_tab_arrow"];
     [self.tabBar addSubview:_selectImageView];
     
