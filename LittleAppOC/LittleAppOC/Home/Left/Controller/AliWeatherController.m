@@ -21,7 +21,7 @@
 #define AliTemplowLabelColor CRGB(155, 200, 221, 1)             // 最低温的标签颜色
 
 
-@interface AliWeatherController ()
+@interface AliWeatherController () <UIScrollViewDelegate>
 
 @property (strong, nonatomic) AliWeatherModel *weatherModel;        // 天气model
 @property (strong, nonatomic) UIActivityIndicatorView *activityView;// 菊花
@@ -277,8 +277,9 @@
     // 主滑动视图
     _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 120, kScreenWidth, kScreenHeight - 120)];
     _mainScrollView.contentSize = CGSizeMake(kScreenWidth, kScreenHeight - 120 + (kScreenHeight/2.0 - 120));
-    _mainScrollView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.3];
-    _mainScrollView.bounces = NO;
+    // _mainScrollView.bounces = NO;
+    _mainScrollView.showsVerticalScrollIndicator = NO;
+    _mainScrollView.delegate = self;
     [self.view addSubview:_mainScrollView];
     
     // 星期几 今天
@@ -291,6 +292,7 @@
     // 时刻气温表
     UIScrollView *hourlyScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, AliHourlyStartY, kScreenWidth, AliHourlyHeight)];
     hourlyScrollView.contentSize = CGSizeMake( AliHourlyCellWidth * (_weatherModel.hourlyArray.count + 1), AliHourlyHeight);
+    hourlyScrollView.showsHorizontalScrollIndicator = NO;
     [_mainScrollView addSubview:hourlyScrollView];
     
     // 上下横线
@@ -309,6 +311,7 @@
     NSInteger sunriseInt = [[[todayDailyModel.sunrise componentsSeparatedByString:@":"] firstObject] integerValue];
     NSInteger sunsetInt = [[[todayDailyModel.sunset componentsSeparatedByString:@":"] firstObject] integerValue];
     
+    // 时刻温度表
     for (NSInteger i = 0; i < (_weatherModel.hourlyArray.count + 1); i++) {
         
         UIView *cell = [[UIView alloc] initWithFrame:CGRectMake(AliHourlyCellWidth * i, 0, AliHourlyCellWidth, AliHourlyHeight)];
@@ -370,6 +373,33 @@
 
 }
 
+
+#pragma mark - 代理方法
+// 滑动视图代理方法
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+
+    // 根据主滑动视图的位置，设置定位和温度标签的不透明度
+    if (scrollView == _mainScrollView) {
+        if (scrollView.contentOffset.y >= AliHourlyStartY) {
+            // 不能再往上走了
+            scrollView.contentOffset = CGPointMake(0, AliHourlyStartY);
+        } else if (scrollView.contentOffset.y <= 0) {
+            // 往下拉还是可以的，但是不改变定位等标签的属性
+        } else {
+            // 这个区域内，改变定位等标签的属性
+            _cityNameLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+            _weatherLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+            _tempLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+            _tempLabel.alpha = ((AliHourlyStartY - 60) - scrollView.contentOffset.y) / (AliHourlyStartY - 60);
+            _weekLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
+            _temphighLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
+            _templowLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
+        }
+        
+    
+    }
+
+}
 
 
 

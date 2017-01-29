@@ -19,16 +19,16 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGn-q2-wWU" customClass="CThemeLabel">
-                        <rect key="frame" x="29" y="105" width="42" height="20"/>
+                        <rect key="frame" x="29" y="85" width="42" height="20"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.090196078431372548" green="0.090196078431372548" blue="0.090196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M0q-Gg-Vf6">
-                        <rect key="frame" x="10" y="20" width="80" height="80"/>
+                        <rect key="frame" x="20" y="20" width="60" height="60"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="80" id="5Px-nh-KtC"/>
-                            <constraint firstAttribute="width" constant="80" id="qDB-T7-SYZ"/>
+                            <constraint firstAttribute="height" constant="60" id="5Px-nh-KtC"/>
+                            <constraint firstAttribute="width" constant="60" id="qDB-T7-SYZ"/>
                         </constraints>
                     </imageView>
                 </subviews>

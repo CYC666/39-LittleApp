@@ -58,6 +58,7 @@
 		9E220D451E30A4A6009D7146 /* new_23.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E220D311E30A4A6009D7146 /* new_23.png */; };
 		9E220D461E30A4A6009D7146 /* new_24.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E220D321E30A4A6009D7146 /* new_24.png */; };
 		9E220D471E30A4A6009D7146 /* new_25.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E220D331E30A4A6009D7146 /* new_25.png */; };
+		9E472A171E3D914000C6245E /* CScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E472A161E3D914000C6245E /* CScrollView.m */; };
 		9E4E11CB1E3569F900A08DAC /* icon_weatner_day_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E4E11731E3569F900A08DAC /* icon_weatner_day_0.png */; };
 		9E4E11CC1E3569F900A08DAC /* icon_weatner_day_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E4E11741E3569F900A08DAC /* icon_weatner_day_1.png */; };
 		9E4E11CD1E3569F900A08DAC /* icon_weatner_day_10.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E4E11751E3569F900A08DAC /* icon_weatner_day_10.png */; };
@@ -336,6 +337,8 @@
 		9E220D311E30A4A6009D7146 /* new_23.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new_23.png; sourceTree = "<group>"; };
 		9E220D321E30A4A6009D7146 /* new_24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new_24.png; sourceTree = "<group>"; };
 		9E220D331E30A4A6009D7146 /* new_25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new_25.png; sourceTree = "<group>"; };
+		9E472A151E3D914000C6245E /* CScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CScrollView.h; sourceTree = "<group>"; };
+		9E472A161E3D914000C6245E /* CScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CScrollView.m; sourceTree = "<group>"; };
 		9E4E11731E3569F900A08DAC /* icon_weatner_day_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_weatner_day_0.png; sourceTree = "<group>"; };
 		9E4E11741E3569F900A08DAC /* icon_weatner_day_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_weatner_day_1.png; sourceTree = "<group>"; };
 		9E4E11751E3569F900A08DAC /* icon_weatner_day_10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_weatner_day_10.png; sourceTree = "<group>"; };
@@ -676,6 +679,8 @@
 				9EA44B141E2E425A00F7761D /* CThemeLabel.m */,
 				9EA44B161E2E426B00F7761D /* CThemeButton.h */,
 				9EA44B171E2E426B00F7761D /* CThemeButton.m */,
+				9E472A151E3D914000C6245E /* CScrollView.h */,
+				9E472A161E3D914000C6245E /* CScrollView.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -1568,6 +1573,7 @@
 				9E1389DA1E2B0EB00011701B /* CYCAppDelegate.m in Sources */,
 				9E1389B91E2B08390011701B /* main.m in Sources */,
 				9E527DC01E3797350057AF4C /* GamerCell.m in Sources */,
+				9E472A171E3D914000C6245E /* CScrollView.m in Sources */,
 				9E4E122B1E356F7F00A08DAC /* AliDailyModel.m in Sources */,
 				9EA44B271E2E6FBD00F7761D /* CLeftCtrlCell.m in Sources */,
 				9EA44AB71E2E11CD00F7761D /* AFURLResponseSerialization.m in Sources */,

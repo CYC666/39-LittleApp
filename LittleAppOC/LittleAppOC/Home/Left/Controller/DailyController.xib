@@ -20,7 +20,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wq5-DY-O03">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wq5-DY-O03">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <mutableString key="text">2017年
@@ -54,6 +54,13 @@
 2、封装了阿里天气的model
 3、初建阿里天气视图控制器，准备加载数据、创建UI
 4、时刻温度表UI制作完毕
+
+24日
+1、在gamer控制器添加了游戏的图标集合视图，准备点击相应的item，进入游戏
+
+29日
+1、天气预报界面，上下滑的时候改变定位、天气、温度、星期几、最高最低温度等标签的位移以及不透明度
+2、根据主滑动视图的位移，设置了主滑动视图在上滑到一定程度的时候不允许上滑了，其实就是到了一定程度设定固定的偏移量，下滑的时候不做改变
 
 
 </mutableString>

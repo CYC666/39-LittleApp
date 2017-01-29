@@ -44,10 +44,11 @@
 - (void)creatSubviews {
 
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    UICollectionView *gamesCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)
+    UICollectionView *gamesCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(20, 0, kScreenWidth - 40, kScreenHeight - 64)
                                                                collectionViewLayout:flowLayout];
     gamesCollectionView.backgroundColor = [UIColor clearColor];
-    flowLayout.itemSize = CGSizeMake(110, 150);
+    gamesCollectionView.showsVerticalScrollIndicator = NO;
+    flowLayout.itemSize = CGSizeMake(100, 115);
     flowLayout.headerReferenceSize = CGSizeMake(0, 20);
     gamesCollectionView.delegate = self;
     gamesCollectionView.dataSource = self;
@@ -67,7 +68,7 @@
 #pragma mark - 集合视图代理方法
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 
-    return 10;
+    return 100;
 
 }
 
