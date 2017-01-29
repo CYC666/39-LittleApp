@@ -401,8 +401,61 @@
 
 }
 
+// 当结束拖拽，判断是否在定位等标签可变的区间，如果是，那么修手动改偏移
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
 
+    if (scrollView == _mainScrollView) {
+        
+        [UIView animateWithDuration:.35
+                         animations:^{
+                             if (scrollView.contentOffset.y <= (AliHourlyStartY / 2.0) && scrollView.contentOffset.y > 0) {
+                                 // 不足以隐藏温度标签
+                                 _mainScrollView.contentOffset = CGPointMake(0, 0);
+                                 
+                             } else if (scrollView.contentOffset.y > (AliHourlyStartY / 2.0) && scrollView.contentOffset.y < AliHourlyStartY) {
+                                 // 应该隐藏温度标签了
+                                 _mainScrollView.contentOffset = CGPointMake(0, AliHourlyStartY);
+                             }
+                             _cityNameLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+                             _weatherLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+                             _tempLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+                             _tempLabel.alpha = ((AliHourlyStartY - 60) - scrollView.contentOffset.y) / (AliHourlyStartY - 60);
+                             _weekLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
+                             _temphighLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
+                             _templowLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
 
+                         }];
+    }
+
+}
+
+// 当减速完毕，判断是否在定位等标签可变的区间，如果是，那么修手动改偏移
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    
+    if (scrollView == _mainScrollView) {
+        
+        [UIView animateWithDuration:.35
+                         animations:^{
+                             if (scrollView.contentOffset.y <= (AliHourlyStartY / 2.0) && scrollView.contentOffset.y > 0) {
+                                 // 不足以隐藏温度标签
+                                 _mainScrollView.contentOffset = CGPointMake(0, 0);
+                                 
+                             } else if (scrollView.contentOffset.y > (AliHourlyStartY / 2.0) && scrollView.contentOffset.y < AliHourlyStartY) {
+                                 // 应该隐藏温度标签了
+                                 _mainScrollView.contentOffset = CGPointMake(0, AliHourlyStartY);
+                             }
+                             _cityNameLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+                             _weatherLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+                             _tempLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+                             _tempLabel.alpha = ((AliHourlyStartY - 60) - scrollView.contentOffset.y) / (AliHourlyStartY - 60);
+                             _weekLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
+                             _temphighLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
+                             _templowLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
+                             
+                         }];
+    }
+    
+}
 
 
 

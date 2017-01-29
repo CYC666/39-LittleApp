@@ -41,7 +41,7 @@
 //    }];
     
     // 阿里云
-    NSString *urlStr = [NSString stringWithFormat:@"http://jisutqybmf.market.alicloudapi.com/weather/query"];
+    NSString *urlStr = [NSString stringWithFormat:@"http://jisutianqi.market.alicloudapi.com/weather/query"];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     NSDictionary *dic = @{@"city" : location};
     NSString *appcode = @"0c9b5b03701a473c833deaeef4ca46d5";
