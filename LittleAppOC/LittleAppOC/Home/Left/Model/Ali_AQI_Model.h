@@ -12,6 +12,7 @@
 
 @interface Ali_AQI_Model : NSObject
 
+@property (copy, nonatomic) NSString *aqi;                  // PM值
 @property (copy, nonatomic) NSString *primarypollutant;     // PM值
 @property (copy, nonatomic) NSString *quality;              // 质量等级
 @property (copy, nonatomic) NSString *aqiinfo_affect;       // 描述

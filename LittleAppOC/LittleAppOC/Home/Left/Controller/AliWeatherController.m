@@ -15,10 +15,13 @@
 #import "ThemeManager.h"
 #import "CThemeLabel.h"
 
-#define AliHourlyStartY (kScreenHeight/2.0 - 120)               // 的起点
-#define AliHourlyCellWidth 60                                   // 时刻表的温度单元格宽度
-#define AliHourlyHeight 100                                     // 时刻表的高度
-#define AliTemplowLabelColor CRGB(155, 200, 221, 1)             // 最低温的标签颜色
+#define AliMainScrollContentHeight kScreenHeight - 120 + (kScreenHeight/2.0 - 120)          // 主滑动视图的内容尺寸
+#define AliHourlyStartY (kScreenHeight/2.0 - 120)                                           // 时刻温度表的起点
+#define AliHourlyCellWidth 60                                                               // 时刻表的温度单元格宽度
+#define AliHourlyHeight 100                                                                 // 时刻表的高度
+#define AliDailyCellSatrtY (AliHourlyStartY + AliHourlyHeight)                              // 每日天气的滑动视图起点
+#define AliDailyCellHeight (AliMainScrollContentHeight - AliDailyCellSatrtY)                // 每日天气的高度
+#define AliTemplowLabelColor CRGB(155, 200, 221, 1)                                         // 最低温的标签颜色
 
 
 @interface AliWeatherController () <UIScrollViewDelegate>
@@ -219,6 +222,7 @@
     _weatherModel.updatetime = data[@"updatetime"];
     
     Ali_AQI_Model *AQI_model = [[Ali_AQI_Model alloc] init];
+    AQI_model.aqi = data[@"aqi"][@"aqi"];
     AQI_model.primarypollutant = data[@"aqi"][@"primarypollutant"];
     AQI_model.quality = data[@"aqi"][@"quality"];
     AQI_model.aqiinfo_affect = data[@"aqi"][@"aqiinfo"][@"affect"];
@@ -276,7 +280,7 @@
     
     // 主滑动视图
     _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 120, kScreenWidth, kScreenHeight - 120)];
-    _mainScrollView.contentSize = CGSizeMake(kScreenWidth, kScreenHeight - 120 + (kScreenHeight/2.0 - 120));
+    _mainScrollView.contentSize = CGSizeMake(kScreenWidth, AliMainScrollContentHeight);
     // _mainScrollView.bounces = NO;
     _mainScrollView.showsVerticalScrollIndicator = NO;
     _mainScrollView.delegate = self;
@@ -370,7 +374,228 @@
         
         
     }
+    
+    // 承载未来几天天气和其他信息的滑动视图
+    UIScrollView *subScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, AliDailyCellSatrtY,
+                                                                                   kScreenWidth, AliMainScrollContentHeight - AliDailyCellSatrtY)];
+    subScrollView.contentSize = CGSizeMake(kScreenWidth, 10 + 30*_weatherModel.dailyArray.count + 260 + 10);
+    [_mainScrollView addSubview:subScrollView];
+    
+    float dailyCellHeight = 10;
+    // 未来几天天气
+    for (NSInteger i = 0; i < _weatherModel.dailyArray.count; i++) {
+        
+        AliDailyModel *model = _weatherModel.dailyArray[i];
+        
+        // 星期几
+        UILabel *week = [[UILabel alloc] initWithFrame:CGRectMake(15, 10 + 30*i, 100, 20)];
+        week.textAlignment = NSTextAlignmentLeft;
+        week.font = C_MAIN_FONT(15);
+        week.textColor = [UIColor whiteColor];
+        week.text = model.week;
+        [subScrollView addSubview:week];
+        
+        // 云图
+        UIImageView *cloud = [[UIImageView alloc] initWithFrame:CGRectMake((kScreenWidth - 30)/2.0, 10 + 30*i, 25, 25)];
+        cloud.contentMode = UIViewContentModeScaleAspectFit;
+        cloud.image = [UIImage imageNamed:[NSString stringWithFormat:@"icon_weatner_day_%@", model.day_img]];
+        [subScrollView addSubview:cloud];
+        
+        // 最高温
+        UILabel *high = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth - 80, 10 + 30*i, 30, 20)];
+        high.textAlignment = NSTextAlignmentLeft;
+        high.font = C_MAIN_FONT(15);
+        high.textColor = [UIColor whiteColor];
+        high.text = model.day_temphigh;
+        [subScrollView addSubview:high];
 
+        
+        // 最低温
+        UILabel *low = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth - 50, 10 + 30*i, 30, 20)];
+        low.textAlignment = NSTextAlignmentRight;
+        low.font = C_MAIN_FONT(15);
+        low.textColor = AliTemplowLabelColor;
+        low.text = model.night_templow;
+        [subScrollView addSubview:low];
+        
+        // 记录每日天气视图的总高度
+        dailyCellHeight += 30;
+    }
+    
+    // 上下横线
+    CALayer *top = [[CALayer alloc] init];
+    top.frame = CGRectMake(0, dailyCellHeight, kScreenWidth, 0.5);
+    top.backgroundColor = [UIColor whiteColor].CGColor;
+    [subScrollView.layer addSublayer:top];
+    CALayer *bottom = [[CALayer alloc] init];
+    bottom.frame = CGRectMake(0, dailyCellHeight + 40 - 0.5, kScreenWidth, 0.5);
+    bottom.backgroundColor = [UIColor whiteColor].CGColor;
+    [subScrollView.layer addSublayer:bottom];
+    
+    // 今天天气描述
+    UILabel *todayDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, dailyCellHeight, kScreenWidth - 15, 40)];
+    todayDescriptionLabel.textAlignment = NSTextAlignmentLeft;
+    todayDescriptionLabel.font = C_MAIN_FONT(14);
+    todayDescriptionLabel.textColor = [UIColor whiteColor];
+    todayDescriptionLabel.text = [NSString stringWithFormat:@"今天:当前%@。 气温%@º； 最高气温%@º", _weatherModel.weather, _weatherModel.temp, _weatherModel.temphigh];
+    [subScrollView addSubview:todayDescriptionLabel];
+    
+    // 日出日落（拿每日天气里的第一个）
+    UILabel *sunrise = [[UILabel alloc] initWithFrame:CGRectMake(0, dailyCellHeight + 40 + 5, kScreenWidth/2.0 - 20, 20)];
+    sunrise.textAlignment = NSTextAlignmentRight;
+    sunrise.font = C_MAIN_FONT(14);
+    sunrise.textColor = [UIColor whiteColor];
+    sunrise.text = @"日出:";
+    [subScrollView addSubview:sunrise];
+    UILabel *sunset = [[UILabel alloc] initWithFrame:CGRectMake(0, dailyCellHeight + 60 + 2, kScreenWidth/2.0 - 20, 20)];
+    sunset.textAlignment = NSTextAlignmentRight;
+    sunset.font = C_MAIN_FONT(14);
+    sunset.textColor = [UIColor whiteColor];
+    sunset.text = @"日落:";
+    [subScrollView addSubview:sunset];
+    
+    AliDailyModel *model = _weatherModel.dailyArray.firstObject;
+    UILabel *sunriseNum = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth/2.0, dailyCellHeight + 40 + 5, kScreenWidth/2.0, 20)];
+    sunriseNum.textAlignment = NSTextAlignmentLeft;
+    sunriseNum.font = C_MAIN_FONT(14);
+    sunriseNum.textColor = [UIColor whiteColor];
+    sunriseNum.text = model.sunrise;
+    [subScrollView addSubview:sunriseNum];
+    UILabel *sunsetNum = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth/2.0, dailyCellHeight + 60 + 2, kScreenWidth/2.0, 20)];
+    sunsetNum.textAlignment = NSTextAlignmentLeft;
+    sunsetNum.font = C_MAIN_FONT(14);
+    sunsetNum.textColor = [UIColor whiteColor];
+    sunsetNum.text = model.sunset;
+    [subScrollView addSubview:sunsetNum];
+    
+    // 降雨概率和湿度
+    UILabel *rain = [[UILabel alloc] initWithFrame:CGRectMake(0, dailyCellHeight + 85 + 5, kScreenWidth/2.0 - 20, 20)];
+    rain.textAlignment = NSTextAlignmentRight;
+    rain.font = C_MAIN_FONT(14);
+    rain.textColor = [UIColor whiteColor];
+    rain.text = @"降雨概率:";
+    [subScrollView addSubview:rain];
+    UILabel *humidity = [[UILabel alloc] initWithFrame:CGRectMake(0, dailyCellHeight + 105 + 2, kScreenWidth/2.0 - 20, 20)];
+    humidity.textAlignment = NSTextAlignmentRight;
+    humidity.font = C_MAIN_FONT(14);
+    humidity.textColor = [UIColor whiteColor];
+    humidity.text = @"湿度:";
+    [subScrollView addSubview:humidity];
+    
+    UILabel *rainNum = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth/2.0, dailyCellHeight + 85 + 5, kScreenWidth/2.0, 20)];
+    rainNum.textAlignment = NSTextAlignmentLeft;
+    rainNum.font = C_MAIN_FONT(14);
+    rainNum.textColor = [UIColor whiteColor];
+    rainNum.text = @"50%-";
+    [subScrollView addSubview:rainNum];
+    UILabel *humidityNum = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth/2.0, dailyCellHeight + 105 + 2, kScreenWidth/2.0, 20)];
+    humidityNum.textAlignment = NSTextAlignmentLeft;
+    humidityNum.font = C_MAIN_FONT(14);
+    humidityNum.textColor = [UIColor whiteColor];
+    humidityNum.text = [NSString stringWithFormat:@"%@%%", _weatherModel.humidity];
+    [subScrollView addSubview:humidityNum];
+    
+    // 风速风力等级
+    UILabel *windspeed = [[UILabel alloc] initWithFrame:CGRectMake(0, dailyCellHeight + 130 + 5, kScreenWidth/2.0 - 20, 20)];
+    windspeed.textAlignment = NSTextAlignmentRight;
+    windspeed.font = C_MAIN_FONT(14);
+    windspeed.textColor = [UIColor whiteColor];
+    windspeed.text = @"风速:";
+    [subScrollView addSubview:windspeed];
+    UILabel *windpower = [[UILabel alloc] initWithFrame:CGRectMake(0, dailyCellHeight + 150 + 2, kScreenWidth/2.0 - 20, 20)];
+    windpower.textAlignment = NSTextAlignmentRight;
+    windpower.font = C_MAIN_FONT(14);
+    windpower.textColor = [UIColor whiteColor];
+    windpower.text = @"风力等级:";
+    [subScrollView addSubview:windpower];
+    
+    UILabel *windspeedNum = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth/2.0, dailyCellHeight + 130 + 5, kScreenWidth/2.0, 20)];
+    windspeedNum.textAlignment = NSTextAlignmentLeft;
+    windspeedNum.font = C_MAIN_FONT(14);
+    windspeedNum.textColor = [UIColor whiteColor];
+    windspeedNum.text = [NSString stringWithFormat:@"%@ 每秒%@米", _weatherModel.winddirect, _weatherModel.windspeed];
+    [subScrollView addSubview:windspeedNum];
+    UILabel *windpowerNum = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth/2.0, dailyCellHeight + 150 + 2, kScreenWidth/2.0, 20)];
+    windpowerNum.textAlignment = NSTextAlignmentLeft;
+    windpowerNum.font = C_MAIN_FONT(14);
+    windpowerNum.textColor = [UIColor whiteColor];
+    windpowerNum.text = _weatherModel.windpower;
+    [subScrollView addSubview:windpowerNum];
+    
+    // 降水量气压
+    UILabel *raining = [[UILabel alloc] initWithFrame:CGRectMake(0, dailyCellHeight + 175 + 5, kScreenWidth/2.0 - 20, 20)];
+    raining.textAlignment = NSTextAlignmentRight;
+    raining.font = C_MAIN_FONT(14);
+    raining.textColor = [UIColor whiteColor];
+    raining.text = @"降水量:";
+    [subScrollView addSubview:raining];
+    UILabel *pressure = [[UILabel alloc] initWithFrame:CGRectMake(0, dailyCellHeight + 195 + 2, kScreenWidth/2.0 - 20, 20)];
+    pressure.textAlignment = NSTextAlignmentRight;
+    pressure.font = C_MAIN_FONT(14);
+    pressure.textColor = [UIColor whiteColor];
+    pressure.text = @"气压:";
+    [subScrollView addSubview:pressure];
+    
+    UILabel *rainingNum = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth/2.0, dailyCellHeight + 175 + 5, kScreenWidth/2.0, 20)];
+    rainingNum.textAlignment = NSTextAlignmentLeft;
+    rainingNum.font = C_MAIN_FONT(14);
+    rainingNum.textColor = [UIColor whiteColor];
+    rainingNum.text = @"50毫米-";
+    [subScrollView addSubview:rainingNum];
+    UILabel *pressureNum = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth/2.0, dailyCellHeight + 195 + 2, kScreenWidth/2.0, 20)];
+    pressureNum.textAlignment = NSTextAlignmentLeft;
+    pressureNum.font = C_MAIN_FONT(14);
+    pressureNum.textColor = [UIColor whiteColor];
+    pressureNum.text = [NSString stringWithFormat:@"%@百帕", _weatherModel.pressure];
+    [subScrollView addSubview:pressureNum];
+    
+    // 空气质量指数和空气质量
+    UILabel *aqi = [[UILabel alloc] initWithFrame:CGRectMake(0, dailyCellHeight + 220 + 5, kScreenWidth/2.0 - 20, 20)];
+    aqi.textAlignment = NSTextAlignmentRight;
+    aqi.font = C_MAIN_FONT(14);
+    aqi.textColor = [UIColor whiteColor];
+    aqi.text = @"空气质量指数:";
+    [subScrollView addSubview:aqi];
+    UILabel *quality = [[UILabel alloc] initWithFrame:CGRectMake(0, dailyCellHeight + 240 + 2, kScreenWidth/2.0 - 20, 20)];
+    quality.textAlignment = NSTextAlignmentRight;
+    quality.font = C_MAIN_FONT(14);
+    quality.textColor = [UIColor whiteColor];
+    quality.text = @"气压:";
+    [subScrollView addSubview:quality];
+    
+    UILabel *aqiNum = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth/2.0, dailyCellHeight + 220 + 5, kScreenWidth/2.0, 20)];
+    aqiNum.textAlignment = NSTextAlignmentLeft;
+    aqiNum.font = C_MAIN_FONT(14);
+    aqiNum.textColor = [UIColor whiteColor];
+    aqiNum.text = _weatherModel.aqi.aqi;
+    [subScrollView addSubview:aqiNum];
+    UILabel *qualityNum = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth/2.0, dailyCellHeight + 240 + 2, kScreenWidth/2.0, 20)];
+    qualityNum.textAlignment = NSTextAlignmentLeft;
+    qualityNum.font = C_MAIN_FONT(14);
+    qualityNum.textColor = [UIColor whiteColor];
+    qualityNum.text = _weatherModel.aqi.quality;
+    [subScrollView addSubview:qualityNum];
+    
+    // 空气描述和建议
+//    UILabel *affectNum = [[UILabel alloc] initWithFrame:CGRectMake(0, dailyCellHeight + 265 + 5, kScreenWidth, 20)];
+//    affectNum.textAlignment = NSTextAlignmentCenter;
+//    affectNum.font = C_MAIN_FONT(14);
+//    affectNum.textColor = [UIColor whiteColor];
+//    affectNum.adjustsFontSizeToFitWidth = YES;
+//    affectNum.text = _weatherModel.aqi.aqiinfo_affect;
+//    [subScrollView addSubview:affectNum];
+//    UILabel *measureNum = [[UILabel alloc] initWithFrame:CGRectMake(0, dailyCellHeight + 285 + 2, kScreenWidth, 20)];
+//    measureNum.textAlignment = NSTextAlignmentCenter;
+//    measureNum.font = C_MAIN_FONT(14);
+//    measureNum.textColor = [UIColor whiteColor];
+//    measureNum.adjustsFontSizeToFitWidth = YES;
+//    measureNum.text = _weatherModel.aqi.aqiinfo_measure;
+//    [subScrollView addSubview:measureNum];
+    
+    
+    
+    
+    
 }
 
 
@@ -406,25 +631,38 @@
 
     if (scrollView == _mainScrollView) {
         
-        [UIView animateWithDuration:.35
-                         animations:^{
-                             if (scrollView.contentOffset.y <= (AliHourlyStartY / 2.0) && scrollView.contentOffset.y > 0) {
+        if (scrollView.contentOffset.y <= (AliHourlyStartY / 2.0) && scrollView.contentOffset.y > 0) {
+            [UIView animateWithDuration:.35
+                             animations:^{
                                  // 不足以隐藏温度标签
                                  _mainScrollView.contentOffset = CGPointMake(0, 0);
+                                 _cityNameLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+                                 _weatherLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+                                 _tempLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+                                 _tempLabel.alpha = ((AliHourlyStartY - 60) - scrollView.contentOffset.y) / (AliHourlyStartY - 60);
+                                 _weekLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
+                                 _temphighLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
+                                 _templowLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
                                  
-                             } else if (scrollView.contentOffset.y > (AliHourlyStartY / 2.0) && scrollView.contentOffset.y < AliHourlyStartY) {
+                             }];
+            
+        } else if (scrollView.contentOffset.y > (AliHourlyStartY / 2.0) && scrollView.contentOffset.y < AliHourlyStartY) {
+            [UIView animateWithDuration:.35
+                             animations:^{
                                  // 应该隐藏温度标签了
                                  _mainScrollView.contentOffset = CGPointMake(0, AliHourlyStartY);
-                             }
-                             _cityNameLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
-                             _weatherLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
-                             _tempLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
-                             _tempLabel.alpha = ((AliHourlyStartY - 60) - scrollView.contentOffset.y) / (AliHourlyStartY - 60);
-                             _weekLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
-                             _temphighLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
-                             _templowLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
-
-                         }];
+                                 _cityNameLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+                                 _weatherLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+                                 _tempLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+                                 _tempLabel.alpha = ((AliHourlyStartY - 60) - scrollView.contentOffset.y) / (AliHourlyStartY - 60);
+                                 _weekLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
+                                 _temphighLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
+                                 _templowLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
+                                 
+                             }];
+            
+        }
+        
     }
 
 }
@@ -434,25 +672,38 @@
     
     if (scrollView == _mainScrollView) {
         
-        [UIView animateWithDuration:.35
-                         animations:^{
-                             if (scrollView.contentOffset.y <= (AliHourlyStartY / 2.0) && scrollView.contentOffset.y > 0) {
+        if (scrollView.contentOffset.y <= (AliHourlyStartY / 2.0) && scrollView.contentOffset.y > 0) {
+            [UIView animateWithDuration:.35
+                             animations:^{
                                  // 不足以隐藏温度标签
                                  _mainScrollView.contentOffset = CGPointMake(0, 0);
+                                 _cityNameLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+                                 _weatherLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+                                 _tempLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+                                 _tempLabel.alpha = ((AliHourlyStartY - 60) - scrollView.contentOffset.y) / (AliHourlyStartY - 60);
+                                 _weekLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
+                                 _temphighLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
+                                 _templowLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
                                  
-                             } else if (scrollView.contentOffset.y > (AliHourlyStartY / 2.0) && scrollView.contentOffset.y < AliHourlyStartY) {
+                             }];
+            
+        } else if (scrollView.contentOffset.y > (AliHourlyStartY / 2.0) && scrollView.contentOffset.y < AliHourlyStartY) {
+            [UIView animateWithDuration:.35
+                             animations:^{
                                  // 应该隐藏温度标签了
                                  _mainScrollView.contentOffset = CGPointMake(0, AliHourlyStartY);
-                             }
-                             _cityNameLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
-                             _weatherLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
-                             _tempLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
-                             _tempLabel.alpha = ((AliHourlyStartY - 60) - scrollView.contentOffset.y) / (AliHourlyStartY - 60);
-                             _weekLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
-                             _temphighLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
-                             _templowLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
-                             
-                         }];
+                                 _cityNameLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+                                 _weatherLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+                                 _tempLabel.transform = CGAffineTransformMakeTranslation(0, -(60.0 / AliHourlyStartY) * scrollView.contentOffset.y);
+                                 _tempLabel.alpha = ((AliHourlyStartY - 60) - scrollView.contentOffset.y) / (AliHourlyStartY - 60);
+                                 _weekLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
+                                 _temphighLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
+                                 _templowLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
+                                 
+                             }];
+            
+        }
+        
     }
     
 }
