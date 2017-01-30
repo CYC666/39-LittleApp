@@ -22,6 +22,7 @@
 @interface CYCLoginController () 
 
 @property (weak, nonatomic) IBOutlet UITextField *inputField;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (strong, nonatomic) UIView *receiveView;              // 接收验证码的框框
 @property (copy, nonatomic) NSString *phoneNum;                 // 电话号码
 @property (copy, nonatomic) NSString *compareStr;               // 验证码
@@ -33,6 +34,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _inputField.layer.cornerRadius = 25;
+    _inputField.layer.borderWidth = 2;
+    _inputField.layer.borderColor = C_MAIN_COLOR.CGColor;
+    
+    _loginButton.layer.cornerRadius = 25;
     
     // 添加手势，隐藏键盘
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
