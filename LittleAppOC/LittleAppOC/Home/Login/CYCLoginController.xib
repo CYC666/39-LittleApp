@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CYCLoginController">
             <connections>
+                <outlet property="inputField" destination="9JV-T3-zyb" id="rPo-bT-OCs"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,16 +20,48 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6y2-aj-eXs">
-                    <rect key="frame" x="156" y="318" width="62" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="短信验证"/>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone Number" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="9JV-T3-zyb">
+                    <rect key="frame" x="87.5" y="308" width="200" height="50"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="SR6-Y8-cIx"/>
+                        <constraint firstAttribute="width" constant="200" id="hNc-e5-SM0"/>
+                    </constraints>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                    <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="continue"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="进行短信验证，开始旅程" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVe-Yf-AIN">
+                    <rect key="frame" x="87.5" y="258" width="200" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="Piv-zb-Y3V"/>
+                        <constraint firstAttribute="width" constant="200" id="z1P-ar-wwB"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rka-cR-chE">
+                    <rect key="frame" x="159.5" y="366" width="56" height="46"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
+                    <state key="normal" title="开始">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
                     <connections>
-                        <action selector="login:" destination="-1" eventType="touchUpInside" id="C5N-Md-vEC"/>
+                        <action selector="send:" destination="-1" eventType="touchUpInside" id="SWm-h9-PJ3"/>
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="9JV-T3-zyb" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="8GR-Vc-Pf0"/>
+                <constraint firstItem="9JV-T3-zyb" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="BpY-UP-ZAx"/>
+                <constraint firstItem="rka-cR-chE" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ahP-w8-CFE"/>
+                <constraint firstItem="9JV-T3-zyb" firstAttribute="top" secondItem="rVe-Yf-AIN" secondAttribute="bottom" constant="30" id="fXG-l2-MbW"/>
+                <constraint firstItem="rVe-Yf-AIN" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="nCs-6p-0sS"/>
+                <constraint firstItem="rka-cR-chE" firstAttribute="top" secondItem="9JV-T3-zyb" secondAttribute="bottom" constant="8" id="nVG-Js-q7b"/>
+            </constraints>
+            <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
     </objects>
 </document>
