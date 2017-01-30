@@ -12,6 +12,10 @@
 #import "MMDrawerController.h"
 #import "ThemeManager.h"
 
+// 短信验证进行登录
+#define APP_Key @"1b0ab23fa4a73"
+#define APP_Secret @"337b6e21b290739753afa991162f8723"
+
 
 @implementation CYCAppDelegate
 
