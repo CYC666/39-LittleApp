@@ -11,6 +11,8 @@
 #import "CYCLeftController.h"
 #import "MMDrawerController.h"
 #import "ThemeManager.h"
+#import <SMS_SDK/SMSSDK.h>
+#import "CYCLoginController.h"
 
 // 短信验证进行登录
 #define APP_Key @"1b0ab23fa4a73"
@@ -21,13 +23,23 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    MMDrawerController *controller = [[MMDrawerController alloc] initWithCenterViewController:[[CYCTabBarController alloc] init]
-                                                                     leftDrawerViewController:[[CYCLeftController alloc] init]];
-    controller.maximumLeftDrawerWidth = cLeftControllerWidth;
-    controller.openDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
-    controller.closeDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
+    //初始化应用的短信验证
+    [SMSSDK registerApp:APP_Key
+             withSecret:APP_Secret];
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = controller;
+    // 判断是否已经存在登录之后的手机号，如果不存在，那么显示短信登录界面
+    if ([CUSER objectForKey:CUserPhone]) {
+        MMDrawerController *controller = [[MMDrawerController alloc] initWithCenterViewController:[[CYCTabBarController alloc] init]
+                                                                         leftDrawerViewController:[[CYCLeftController alloc] init]];
+        controller.maximumLeftDrawerWidth = cLeftControllerWidth;
+        controller.openDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
+        controller.closeDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
+        self.window.rootViewController = controller;
+    } else {
+        self.window.rootViewController = [[CYCLoginController alloc] init];
+    }
+
     [self.window makeKeyAndVisible];
     
     
