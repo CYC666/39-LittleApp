@@ -65,7 +65,7 @@
 
 30号
 1、时刻温度表下面的滑动视图，也就是每天天气、其它各项指标等，已经制作完毕
-
+2、集成了短信验证登录，登录成功后会保存本地状态，UI还没有制作好
 </mutableString>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
