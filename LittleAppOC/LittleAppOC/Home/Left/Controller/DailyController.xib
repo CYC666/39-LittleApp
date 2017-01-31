@@ -68,6 +68,9 @@
 2、集成了短信验证登录，登录成功后会保存本地状态，UI还没有制作好
 3、自定义了短信验证的UI，很粗糙
 4、修改了登录页面的UI，自己P了很久呢
+
+2-1
+1、总算把登录页面的UI全都弄好了，哈哈
 </mutableString>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
