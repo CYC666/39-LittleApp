@@ -18,6 +18,7 @@
 #import "ThirdController.h"
 #import "AFNetworking.h"
 #import "AliWeatherController.h"
+#import "CYCLoginController.h"
 #import <CoreLocation/CoreLocation.h>
 
 #define CYCLeftControllerCellID @"CYCLeftControllerCellID"  // 单元格重用标识符
@@ -72,6 +73,34 @@
     UITapGestureRecognizer *headTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headTapAction:)];
     [_headImageView addGestureRecognizer:headTap];
     [self.view addSubview:_headImageView];
+    
+    // 头像
+    UIImageView *headImageView = [[UIImageView alloc] initWithFrame:CGRectMake((cLeftControllerWidth - 80)/2.0,
+                                                                               (cLeftControllerHeadImageHeight - 80)/2.0
+                                                                               , 80, 80)];
+    headImageView.image = [UIImage imageNamed:@"icon_left_headImage"];
+    headImageView.layer.cornerRadius = 40;
+    headImageView.layer.borderWidth = 2;
+    headImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    headImageView.clipsToBounds = YES;
+    [self.view addSubview:headImageView];
+    
+    // 电话号码
+    UILabel *phoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, cLeftControllerHeadImageHeight - 40, cLeftControllerWidth, 30)];
+    phoneLabel.textAlignment = NSTextAlignmentCenter;
+    phoneLabel.text = [CUSER objectForKey:CUserPhone];
+    phoneLabel.font = C_MAIN_FONT(20);
+    phoneLabel.textColor = [UIColor whiteColor];
+    [self.view addSubview:phoneLabel];
+    
+    // 退出登录
+    UIButton *outButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    outButton.frame = CGRectMake(15, 30, 40, 30);
+    [outButton setTitle:@"退出" forState:UIControlStateNormal];
+    [outButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [outButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [outButton addTarget:self action:@selector(outButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:outButton];
     
     // 表视图显示功能
     _tableViewTitles = @[@"曹老师",
@@ -194,6 +223,15 @@
     AliWeatherController *controller = [[AliWeatherController alloc] initWithCityName:_location];
     [self presentViewController:controller animated:YES completion:nil];
 
+}
+
+#pragma mark - 退出按钮
+- (void)outButtonAction:(UIButton *)button {
+
+    [UIApplication sharedApplication].delegate.window.rootViewController = [[CYCLoginController alloc] init];
+    
+    // 清除电话号码
+    [CUSER removeObjectForKey:CUserPhone];
 }
 
 #pragma mark - 主题改变，修改背景颜色

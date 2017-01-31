@@ -260,6 +260,7 @@
 		9EA44B301E2E758900F7761D /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EA44B2C1E2E758900F7761D /* 37x-Checkmark.png */; };
 		9EA44B311E2E758900F7761D /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EA44B2D1E2E758900F7761D /* 37x-Checkmark@2x.png */; };
 		9EA44B321E2E758900F7761D /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EA44B2F1E2E758900F7761D /* MBProgressHUD.m */; };
+		9EF27B9F1E40F9D20076C9B9 /* icon_left_headImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EF27B9E1E40F9D20076C9B9 /* icon_left_headImage.png */; };
 		9EF53CE21E2BBE6500F55033 /* MMDrawerBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF53CDA1E2BBE6500F55033 /* MMDrawerBarButtonItem.m */; };
 		9EF53CE31E2BBE6500F55033 /* MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF53CDD1E2BBE6500F55033 /* MMDrawerController.m */; };
 		9EF53CE41E2BBE6500F55033 /* MMDrawerVisualState.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF53CDF1E2BBE6500F55033 /* MMDrawerVisualState.m */; };
@@ -622,6 +623,7 @@
 		9EA44B2D1E2E758900F7761D /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
 		9EA44B2E1E2E758900F7761D /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		9EA44B2F1E2E758900F7761D /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		9EF27B9E1E40F9D20076C9B9 /* icon_left_headImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_left_headImage.png; sourceTree = "<group>"; };
 		9EF53CD91E2BBE6500F55033 /* MMDrawerBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerBarButtonItem.h; sourceTree = "<group>"; };
 		9EF53CDA1E2BBE6500F55033 /* MMDrawerBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerBarButtonItem.m; sourceTree = "<group>"; };
 		9EF53CDB1E2BBE6500F55033 /* MMDrawerController+Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MMDrawerController+Subclass.h"; sourceTree = "<group>"; };
@@ -1434,6 +1436,7 @@
 			children = (
 				9E4E11721E3569F900A08DAC /* AliyunWeatherIcon */,
 				9EA44ABF1E2E24BC00F7761D /* weather */,
+				9EF27B9E1E40F9D20076C9B9 /* icon_left_headImage.png */,
 				9EFAB7341E2EFCA50039C853 /* icon_weatherController_location.png */,
 				9EFAB7351E2EFCA50039C853 /* icon_weatherController_location@2x.png */,
 				9EFAB7361E2EFCA50039C853 /* icon_weatherController_location@3x.png */,
@@ -1761,6 +1764,7 @@
 				9EF53D0E1E2BDE2000F55033 /* icon_leftCtrl_Third.png in Resources */,
 				9EF53D0B1E2BDE2000F55033 /* icon_leftCtrl_function.png in Resources */,
 				9E138A351E2B375E0011701B /* Icon-Spotlight-40.png in Resources */,
+				9EF27B9F1E40F9D20076C9B9 /* icon_left_headImage.png in Resources */,
 				9E4E12171E3569F900A08DAC /* icon_weatner_night_53.png in Resources */,
 				9EA44AFF1E2E24BC00F7761D /* 3.png in Resources */,
 				9E1389C41E2B08390011701B /* Assets.xcassets in Resources */,

@@ -71,6 +71,7 @@
 
 2-1
 1、总算把登录页面的UI全都弄好了，哈哈
+2、左边控制器添加了头像、账户电话号码和退出按钮，并实现了退出功能
 </mutableString>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
