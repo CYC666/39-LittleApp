@@ -48,6 +48,7 @@
                                                                collectionViewLayout:flowLayout];
     gamesCollectionView.backgroundColor = [UIColor clearColor];
     gamesCollectionView.showsVerticalScrollIndicator = NO;
+    gamesCollectionView.alwaysBounceVertical = YES;
     flowLayout.itemSize = CGSizeMake(100, 115);
     flowLayout.headerReferenceSize = CGSizeMake(0, 20);
     gamesCollectionView.delegate = self;
@@ -68,7 +69,7 @@
 #pragma mark - 集合视图代理方法
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 
-    return 100;
+    return 1;
 
 }
 
@@ -76,10 +77,10 @@
 
     GamerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:GamerCellID
                                                                 forIndexPath:indexPath];
-//    if (indexPath.item == 0) {
+    if (indexPath.item == 0) {
         cell.gameImageView.image = [UIImage imageNamed:@"icon_gamer_2048"];
         cell.gameNameLabel.text = @"2048";
-//    }
+    }
     return cell;
 
 }

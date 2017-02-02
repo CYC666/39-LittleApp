@@ -643,6 +643,14 @@
 #pragma mark - 代理方法
 // 滑动视图代理方法
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    // 收回搜索输入框
+    if (_searchField != nil) {
+        [UIView animateWithDuration:.35
+                         animations:^{
+                             self.searchField.transform = CGAffineTransformIdentity;
+                         }];
+    }
 
     // 根据主滑动视图的位置，设置定位和温度标签的不透明度
     if (scrollView == _mainScrollView) {
