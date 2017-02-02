@@ -24,12 +24,14 @@
 #define AliTemplowLabelColor CRGB(155, 200, 221, 1)                                         // 最低温的标签颜色
 
 
-@interface AliWeatherController () <UIScrollViewDelegate>
+@interface AliWeatherController () <UIScrollViewDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) AliWeatherModel *weatherModel;        // 天气model
 @property (strong, nonatomic) UIActivityIndicatorView *activityView;// 菊花
 
 @property (strong, nonatomic) UIButton *backButton;             // 返回按钮
+@property (strong, nonatomic) UIButton *searchButton;           // 搜索天气按钮
+@property (strong, nonatomic) UITextField *searchField;         // 搜索输入框
 @property (strong, nonatomic) UILabel *cityNameLabel;           // 城市名
 @property (strong, nonatomic) UILabel *weatherLabel;            // 天气
 @property (strong, nonatomic) UILabel *tempLabel;               // 当前气温
@@ -165,6 +167,27 @@
     
 }
 
+// 搜索输入框
+- (UITextField *)searchField {
+
+    if (_searchField == nil) {
+        _searchField = [[UITextField alloc] initWithFrame:CGRectMake((kScreenWidth - 200)/2.0, -30, 200, 30)];
+        _searchField.borderStyle = UITextBorderStyleNone;
+        _searchField.backgroundColor = [UIColor clearColor];
+        _searchField.textColor = [UIColor whiteColor];
+        _searchField.layer.cornerRadius = 15;
+        _searchField.layer.borderWidth = 2;
+        _searchField.layer.borderColor = [UIColor whiteColor].CGColor;
+        _searchField.textAlignment = NSTextAlignmentCenter;
+        _searchField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        _searchField.returnKeyType = UIReturnKeySearch;
+        _searchField.delegate = self;
+        [self.view addSubview:_searchField];
+    }
+    return _searchField;
+
+}
+
 
 
 - (void)viewDidLoad {
@@ -176,6 +199,13 @@
     [_backButton setImage:[UIImage imageNamed:@"icon_weather_back"] forState:UIControlStateNormal];
     [_backButton addTarget:self action:@selector(backItemAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_backButton];
+    
+    // 搜索按钮
+    _searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _searchButton.frame = CGRectMake((kScreenWidth - 60), 20, 60, 60);
+    [_searchButton setImage:[UIImage imageNamed:@"icon_weather_search"] forState:UIControlStateNormal];
+    [_searchButton addTarget:self action:@selector(searchItemAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_searchButton];
     
     self.view.backgroundColor = CTHEME.themeType == CDayTheme ? CRGB(64, 154, 195, 1) : CRGB(4, 29, 63, 1);
     // 监听主题改变
@@ -199,6 +229,16 @@
     
 }
 
+#pragma mark - 搜索按钮
+- (void)searchItemAction:(UIButton *)button {
+    
+    // 显示搜索输入框
+    [UIView animateWithDuration:.35
+                     animations:^{
+                         self.searchField.transform = CGAffineTransformMakeTranslation(0, 65);
+                     }];
+
+}
 
 // -----------------------------------------------------数据的加载-----------------------------------------------------
 - (void)loadData:(NSDictionary *)data {
@@ -379,6 +419,7 @@
     UIScrollView *subScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, AliDailyCellSatrtY,
                                                                                    kScreenWidth, AliMainScrollContentHeight - AliDailyCellSatrtY)];
     subScrollView.contentSize = CGSizeMake(kScreenWidth, 10 + 30*_weatherModel.dailyArray.count + 260 + 10);
+    subScrollView.delegate = self;
     [_mainScrollView addSubview:subScrollView];
     
     float dailyCellHeight = 10;
@@ -620,7 +661,14 @@
             _temphighLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
             _templowLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
         }
+    } else {
         
+        // 时刻温度表的滑动视图没有设置代理，所以这里就只有其他天气信息滑动视图了
+        if (_mainScrollView.contentOffset.y == 0) {
+            
+            // 当主滑动视图的偏移为0，那么滑动子滑动视图的时候，让主滑动视图滑动
+            
+        }
     
     }
 
@@ -631,7 +679,7 @@
 
     if (scrollView == _mainScrollView) {
         
-        if (scrollView.contentOffset.y <= (AliHourlyStartY / 2.0) && scrollView.contentOffset.y > 0) {
+        if (scrollView.contentOffset.y <= 40 && scrollView.contentOffset.y > 0) {
             [UIView animateWithDuration:.35
                              animations:^{
                                  // 不足以隐藏温度标签
@@ -646,7 +694,7 @@
                                  
                              }];
             
-        } else if (scrollView.contentOffset.y > (AliHourlyStartY / 2.0) && scrollView.contentOffset.y < AliHourlyStartY) {
+        } else if (scrollView.contentOffset.y > 40 && scrollView.contentOffset.y < AliHourlyStartY) {
             [UIView animateWithDuration:.35
                              animations:^{
                                  // 应该隐藏温度标签了
@@ -672,7 +720,7 @@
     
     if (scrollView == _mainScrollView) {
         
-        if (scrollView.contentOffset.y <= (AliHourlyStartY / 2.0) && scrollView.contentOffset.y > 0) {
+        if (scrollView.contentOffset.y <= 40 && scrollView.contentOffset.y > 0) {
             [UIView animateWithDuration:.35
                              animations:^{
                                  // 不足以隐藏温度标签
@@ -687,7 +735,7 @@
                                  
                              }];
             
-        } else if (scrollView.contentOffset.y > (AliHourlyStartY / 2.0) && scrollView.contentOffset.y < AliHourlyStartY) {
+        } else if (scrollView.contentOffset.y > 40 && scrollView.contentOffset.y < AliHourlyStartY) {
             [UIView animateWithDuration:.35
                              animations:^{
                                  // 应该隐藏温度标签了
@@ -708,7 +756,42 @@
     
 }
 
+// 按下搜索return
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    [[UIApplication sharedApplication].keyWindow endEditing:YES];
 
+    if (textField == _searchField) {
+        
+        // 开始搜索天气
+        [self.activityView startAnimating];
+        __weak typeof(self) weakSelf = self;
+        [CNetWorking loadComingDayWeatherWithLocation:textField.text
+                                              success:^(id response) {
+                                                  //  处理数据
+                                                  if ([response[@"msg"] isEqualToString:@"ok"]) {
+                                                      [UIView animateWithDuration:.35
+                                                                       animations:^{
+                                                                           weakSelf.searchField.transform = CGAffineTransformIdentity;
+                                                                       }];
+                                                      [_mainScrollView removeFromSuperview];
+                                                      NSDictionary *data = response[@"result"];
+                                                      [weakSelf loadData:data];
+                                                  }
+                                                  [weakSelf.activityView stopAnimating];
+                                              } failure:^(NSError *err) {
+                                                  [UIView animateWithDuration:.35
+                                                                   animations:^{
+                                                                       weakSelf.searchField.transform = CGAffineTransformIdentity;
+                                                                   }];
+                                                  [weakSelf.activityView stopAnimating];
+                                              }];
+        
+    }
+    
+    return YES;
+
+}
 
 
 

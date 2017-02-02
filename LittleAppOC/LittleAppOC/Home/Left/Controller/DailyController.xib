@@ -72,6 +72,10 @@
 2-1
 1、总算把登录页面的UI全都弄好了，哈哈
 2、左边控制器添加了头像、账户电话号码和退出按钮，并实现了退出功能
+
+2-3
+1、天气界面添加了搜索按钮跟搜索框
+2、可以根据搜索的地点搜索天气，并显示在当前的天气界面
 </mutableString>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

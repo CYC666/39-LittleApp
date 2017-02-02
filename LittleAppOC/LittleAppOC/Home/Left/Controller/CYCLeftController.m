@@ -95,9 +95,12 @@
     
     // 退出登录
     UIButton *outButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    outButton.frame = CGRectMake(15, 30, 40, 30);
+    outButton.frame = CGRectMake(15, 30, 50, 30);
     [outButton setTitle:@"退出" forState:UIControlStateNormal];
-    [outButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    outButton.titleLabel.font = C_MAIN_FONT(17);
+    [outButton setBackgroundColor:[UIColor grayColor]];
+    outButton.layer.cornerRadius = 15;
+    [outButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [outButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [outButton addTarget:self action:@selector(outButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:outButton];
