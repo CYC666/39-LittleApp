@@ -39,6 +39,7 @@
 @property (strong, nonatomic) UILabel *temphighLabel;           // 今天的最高温度
 @property (strong, nonatomic) UILabel *templowLabel;            // 今天的最低温度
 @property (strong, nonatomic) UIScrollView *mainScrollView;     // 承载时刻气温和未来几天两个滑动视图的主滑动视图
+@property (strong, nonatomic) UIView *subTopView;               // 遮在子滑动视图上的视图，用于向上滑动子滑动视图的时候，不让子视图滑动，反而滑动主滑动视图
 
 
 @end
@@ -188,6 +189,21 @@
 
 }
 
+// 遮在子滑动视图上的视图，用于向上滑动子滑动视图的时候，不让子视图滑动，反而滑动主滑动视图
+- (UIView *)subTopView {
+
+    if (_subTopView == nil) {
+        // frame跟承载其他信息滑动视图的大小一致
+        _subTopView = [[UIView alloc] initWithFrame:CGRectMake(0, AliDailyCellSatrtY,
+                                                               kScreenWidth, AliMainScrollContentHeight - AliDailyCellSatrtY)];
+        _subTopView.backgroundColor = [UIColor clearColor];
+        // 放在主滑动视图上
+        [_mainScrollView addSubview:_subTopView];
+    }
+    return _subTopView;
+
+}
+
 
 
 - (void)viewDidLoad {
@@ -326,6 +342,13 @@
     _mainScrollView.delegate = self;
     [self.view addSubview:_mainScrollView];
     
+//    // 添加观察者，监听主滑动视图的偏移，根据偏移确定是否显示subTopView
+//    [_mainScrollView addObserver:self
+//                      forKeyPath:@"contentOffset"
+//                         options:NSKeyValueObservingOptionNew
+//                         context:nil];
+    
+    
     // 星期几 今天
     self.weekLabel.text = [NSString stringWithFormat:@"%@  今天", _weatherModel.week];
     
@@ -421,6 +444,9 @@
     subScrollView.contentSize = CGSizeMake(kScreenWidth, 10 + 30*_weatherModel.dailyArray.count + 260 + 10);
     subScrollView.delegate = self;
     [_mainScrollView addSubview:subScrollView];
+    
+    // 初始让subTopView跌在子滑动视图之上
+    self.subTopView.alpha = 1;
     
     float dailyCellHeight = 10;
     // 未来几天天气
@@ -654,6 +680,15 @@
 
     // 根据主滑动视图的位置，设置定位和温度标签的不透明度
     if (scrollView == _mainScrollView) {
+        
+        if (scrollView.contentOffset.y == AliHourlyStartY) {
+            // 隐藏遮罩层
+            self.subTopView.transform = CGAffineTransformMakeTranslation(-kScreenWidth, 0);
+        } else {
+            // 显示遮罩层
+            self.subTopView.transform = CGAffineTransformMakeTranslation(0, 0);
+        }
+        
         if (scrollView.contentOffset.y >= AliHourlyStartY) {
             // 不能再往上走了
             scrollView.contentOffset = CGPointMake(0, AliHourlyStartY);
@@ -669,15 +704,6 @@
             _temphighLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
             _templowLabel.alpha = ((AliHourlyStartY - 80) - scrollView.contentOffset.y) / (AliHourlyStartY - 80);
         }
-    } else {
-        
-        // 时刻温度表的滑动视图没有设置代理，所以这里就只有其他天气信息滑动视图了
-        if (_mainScrollView.contentOffset.y == 0) {
-            
-            // 当主滑动视图的偏移为0，那么滑动子滑动视图的时候，让主滑动视图滑动
-            
-        }
-    
     }
 
 }
@@ -802,7 +828,19 @@
 }
 
 
-
+//#pragma mark - 观察者响应
+//- (void)addObserver:(NSObject *)observer toObjectsAtIndexes:(NSIndexSet *)indexes forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(nullable void *)context {
+//
+//    if ([keyPath isEqualToString:@"contentOffset"]) {
+//        float y = _mainScrollView.contentOffset.y;
+//        if (y == AliHourlyStartY) {
+//            self.subTopView.alpha = 0;
+//        } else {
+//            self.subTopView.alpha = 1;
+//        }
+//    }
+//
+//}
 
 
 
@@ -824,6 +862,7 @@
 - (void)dealloc {
     
     [CNOTIFY removeObserver:self name:CThemeChangeNotification object:nil];
+    // [_subTopView removeObserver:self forKeyPath:@"contentOffset" context:nil];
     
 }
 
