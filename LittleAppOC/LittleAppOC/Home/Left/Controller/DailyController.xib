@@ -20,8 +20,8 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wq5-DY-O03">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wq5-DY-O03">
+                    <rect key="frame" x="10" y="0.0" width="355" height="667"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <mutableString key="text">2017年
 
@@ -83,8 +83,8 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="wq5-DY-O03" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Mf5-RN-gqA"/>
-                <constraint firstAttribute="trailing" secondItem="wq5-DY-O03" secondAttribute="trailing" id="T9l-cA-WXs"/>
+                <constraint firstItem="wq5-DY-O03" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="Mf5-RN-gqA"/>
+                <constraint firstAttribute="trailing" secondItem="wq5-DY-O03" secondAttribute="trailing" constant="10" id="T9l-cA-WXs"/>
                 <constraint firstItem="wq5-DY-O03" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="lYH-wb-VTu"/>
                 <constraint firstAttribute="bottom" secondItem="wq5-DY-O03" secondAttribute="bottom" id="oeg-aX-VUF"/>
             </constraints>

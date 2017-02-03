@@ -442,6 +442,7 @@
     UIScrollView *subScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, AliDailyCellSatrtY,
                                                                                    kScreenWidth, AliMainScrollContentHeight - AliDailyCellSatrtY)];
     subScrollView.contentSize = CGSizeMake(kScreenWidth, 10 + 30*_weatherModel.dailyArray.count + 260 + 10);
+    subScrollView.showsVerticalScrollIndicator = NO;
     subScrollView.delegate = self;
     [_mainScrollView addSubview:subScrollView];
     
