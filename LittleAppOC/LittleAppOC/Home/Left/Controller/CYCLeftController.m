@@ -108,12 +108,12 @@
     // 表视图显示功能
     _tableViewTitles = @[@"曹老师",
                          @"第三方",
-                         @"功能介绍",
-                         @"开发日记"];
+                         @"开发日记",
+                         @"分享"];
     _tableViewIcons = @[@"icon_leftCtrl_user",
                         @"icon_leftCtrl_Third",
-                        @"icon_leftCtrl_function",
-                        @"icon_leftCtrl_feedBack"];
+                        @"icon_leftCtrl_feedBack",
+                        @"icon_leftCtrl_function"];
     _middleTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, cLeftControllerHeadImageHeight + 15,
                                                                      cLeftControllerWidth, kScreenHeight - cLeftControllerHeadImageHeight - 49 - 15)
                                                     style:UITableViewStylePlain];
@@ -278,15 +278,15 @@
         nav.navigationBar.barTintColor = [UIColor blackColor];
         [self presentViewController:nav animated:YES completion:nil];
     } else if (indexPath.row == 2) {
-        // 测试接口用
-        [self testURL];
-    } else if (indexPath.row == 3) {
         DailyController *controller = [[DailyController alloc] initWithNibName:@"DailyController"
                                                                         bundle:[NSBundle mainBundle]];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:controller];
         nav.navigationBar.translucent = NO;
         nav.navigationBar.barTintColor = [UIColor blackColor];
         [self presentViewController:nav animated:YES completion:nil];
+    } else if (indexPath.row == 3) {
+        // 测试接口用
+        [self testURL];
     }
     
     // 点击之后取消高亮状态
