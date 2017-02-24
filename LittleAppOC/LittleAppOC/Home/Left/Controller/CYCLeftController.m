@@ -345,17 +345,21 @@
 #pragma mark - 测试接口
 - (void)testURL {
 
-    NSString *urlStr = [NSString stringWithFormat:@"http://jisutqybmf.market.alicloudapi.com/weather/query"];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    NSDictionary *dic = @{@"city" : @"深圳"};
-    NSString *appcode = @"0c9b5b03701a473c833deaeef4ca46d5";
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"APPCODE %@", appcode] forHTTPHeaderField:@"Authorization"];
-    [manager GET:urlStr parameters:dic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"success");
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"faile");
-    }];
+    [CNetWorking loadMusicRankWithTopid:@"3"
+                                success:^(id response) {
+                                    
+                                    NSDictionary *showapi_res_body = response[@"showapi_res_body"];
+                                    NSDictionary *pagebean = showapi_res_body[@"pagebean"];
+                                    NSArray *songlist = pagebean[@"songlist"];
+                                    for (NSDictionary *dic in songlist) {
+                                        NSValue *seconds = dic[@"seconds"];
+                                        NSString *songname = dic[@"songname"];
+                                        
+                                    }
+                                    
+                                } failure:^(NSError *err) {
+                                    
+                                }];
     
     
     

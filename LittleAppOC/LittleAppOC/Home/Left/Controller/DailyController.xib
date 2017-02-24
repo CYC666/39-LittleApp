@@ -23,7 +23,7 @@
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wq5-DY-O03">
                     <rect key="frame" x="10" y="0.0" width="355" height="667"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <mutableString key="text">2017年
+                    <string key="text">2017年
 
 1月15日
 1、搭建了三级控制器
@@ -76,7 +76,12 @@
 2-3
 1、天气界面添加了搜索按钮跟搜索框
 2、可以根据搜索的地点搜索天气，并显示在当前的天气界面
-3、在更多天气信息的滑动视图之上添加了一个视图，用于接收滑动，让主动视图滑动而子滑动视图不滑动。当主滑动视图到达顶端的时候，移开，让子滑动视图接收滑动</mutableString>
+3、在更多天气信息的滑动视图之上添加了一个视图，用于接收滑动，让主动视图滑动而子滑动视图不滑动。当主滑动视图到达顶端的时候，移开，让子滑动视图接收滑动
+
+2-24
+1、音乐排行榜可以显示欧美排行榜的音乐列表了
+2、排行榜数据本地持久化，在没有网或不需要更新的时候会使用本地数据
+3、切换夜间模式，背景颜色适当改变</string>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>

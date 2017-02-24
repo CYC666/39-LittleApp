@@ -31,19 +31,29 @@
 + (void)loadComingDayWeatherWithLocation:(NSString *)location
                                  success:(void (^)(id response))success
                                  failure:(void (^)(NSError *err))failure {
-
-//    NSString *urlStr = [NSString stringWithFormat:@"https://api.thinkpage.cn/v3/weather/daily.json?key=eukjfvabkmt88bww&location=%@&language=zh-Hans&unit=c&start=0&days=5", location];
-//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-//    [manager GET:urlStr parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        success(responseObject);
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        failure(error);
-//    }];
     
     // 阿里云
     NSString *urlStr = [NSString stringWithFormat:@"http://jisutianqi.market.alicloudapi.com/weather/query"];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     NSDictionary *dic = @{@"city" : location};
+    NSString *appcode = @"0c9b5b03701a473c833deaeef4ca46d5";
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"APPCODE %@", appcode] forHTTPHeaderField:@"Authorization"];
+    [manager GET:urlStr parameters:dic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+    }];
+
+}
+
++ (void)loadMusicRankWithTopid:(NSString *)topid
+                       success:(void (^)(id response))success
+                       failure:(void (^)(NSError *err))failure {
+
+    NSString *urlStr = [NSString stringWithFormat:@"http://ali-qqmusic.showapi.com/top"];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSDictionary *dic = @{@"topid" : topid};
     NSString *appcode = @"0c9b5b03701a473c833deaeef4ca46d5";
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:[NSString stringWithFormat:@"APPCODE %@", appcode] forHTTPHeaderField:@"Authorization"];
@@ -91,8 +101,12 @@
 
 
 
+/*
 
+ 已丢弃
+ 
 
+*/
 
 
 @end

@@ -29,6 +29,14 @@
                                  success:(void (^)(id response))success
                                  failure:(void (^)(NSError *err))failure;
 
+//-----------------------------------------------------
+// 获取QQ音乐排行榜数据
+//
+// topid : 排行榜id    (3=欧美 5=内地 6=港台 16=韩国 17=日本 18=民谣 19=摇滚 23=销量 26=热歌)
+//-----------------------------------------------------
++ (void)loadMusicRankWithTopid:(NSString *)topid
+                       success:(void (^)(id response))success
+                       failure:(void (^)(NSError *err))failure;
 
 
 

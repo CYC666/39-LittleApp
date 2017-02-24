@@ -24,6 +24,7 @@
 
 //-----------------------------------------------------字体-----------------------------------------------------
 #define C_MAIN_FONT(S) [UIFont fontWithName:@"HelveticaNeue" size:S]                                    // 主题字体
+#define C_MUSIC_FONT(S) [UIFont fontWithName:@"汉仪清雅体简" size:S]                                      // 音乐排行榜界面的字体
 
 
 //-----------------------------------------------------单例-----------------------------------------------------
@@ -39,7 +40,16 @@
 #define CThemeTypeSave @"CThemeTypeSave"                                                                // 主题类型
 #define CUserPhone @"CUserPhone"                                                                        // 判断是否登录，存手机号
 
+//-----------------------------------------------------音乐排行榜------------------------------------------------
+// 储存排行榜的类型
+// (3=欧美 5=内地 6=港台 16=韩国 17=日本 18=民谣 19=摇滚 23=销量 26=热歌)
+#define CMusicTopid @"CMusicTopid"
 
+// 储存上一次本地音乐排行的更新日期
+#define CMusicSaveDay @"CMusicSaveDay"
+
+// 存储排行榜数据的key值前缀
+#define CMusic_Top_ @"CMusic_Top_"
 
 
 

@@ -10,4 +10,6 @@
 
 @interface CThemeLabel : UILabel
 
+@property (strong, nonatomic) UIColor *dayColor;
+
 @end
