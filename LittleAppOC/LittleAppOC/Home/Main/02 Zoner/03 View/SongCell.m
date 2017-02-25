@@ -20,7 +20,6 @@
     // 查看模式
     _songNameLabel.textColor = CTHEME.themeType == CDayTheme ? C_MAIN_TEXTCOLOR : [UIColor whiteColor];
     
-    _songNameLabel.adjustsFontSizeToFitWidth = YES;
     _singerNameLabel.adjustsFontSizeToFitWidth = YES;
     _number.adjustsFontSizeToFitWidth = YES;
     _albumImageView.layer.cornerRadius = 25;
@@ -46,6 +45,12 @@
         _number.textColor = CRGB(255, 96, 77, 1);
     } else {
         _number.textColor = CRGB(105, 105, 105, 1);
+    }
+    
+    if ([songModel.number integerValue] != 6) {
+        _isLive.backgroundColor = [UIColor clearColor];
+    } else {
+        _isLive.backgroundColor = CRGB(45, 194, 131, 1);
     }
 
 }

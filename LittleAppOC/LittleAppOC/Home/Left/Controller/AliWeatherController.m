@@ -81,92 +81,7 @@
     return _activityView;
     
 }
-// 城市名
-- (UILabel *)cityNameLabel {
 
-    if (_cityNameLabel == nil) {
-        _cityNameLabel = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth - 200)/2.0, 80, 200, 40)];
-        _cityNameLabel.textAlignment = NSTextAlignmentCenter;
-        _cityNameLabel.font = C_MAIN_FONT(35);
-        _cityNameLabel.textColor = [UIColor whiteColor];
-        [self.view addSubview:_cityNameLabel];
-    }
-    return _cityNameLabel;
-
-}
-// 天气描述
-- (UILabel *)weatherLabel {
-    
-    if (_weatherLabel == nil) {
-        _weatherLabel = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth - 200)/2.0, 120, 200, 20)];
-        _weatherLabel.textAlignment = NSTextAlignmentCenter;
-        _weatherLabel.font = C_MAIN_FONT(15);
-        _weatherLabel.textColor = [UIColor whiteColor];
-        [self.view addSubview:_weatherLabel];
-    }
-    return _weatherLabel;
-    
-}
-// 气温
-- (UILabel *)tempLabel {
-    
-    if (_tempLabel == nil) {
-        _tempLabel = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth - 100)/2.0, 150, 100, 80)];
-        _tempLabel.textAlignment = NSTextAlignmentCenter;
-        _tempLabel.font = [UIFont systemFontOfSize:80];
-        _tempLabel.textColor = [UIColor whiteColor];
-        _tempLabel.adjustsFontSizeToFitWidth = YES;
-        [self.view addSubview:_tempLabel];
-        // 设置度º
-        UILabel *zeroLabel = [[UILabel alloc] initWithFrame:CGRectMake(100 - 20, 0, 20, 20)];
-        zeroLabel.text = @"o";
-        zeroLabel.textColor = [UIColor whiteColor];
-        zeroLabel.textAlignment = NSTextAlignmentCenter;
-        zeroLabel.font = [UIFont systemFontOfSize:20];
-        [_tempLabel addSubview:zeroLabel];
-    }
-    return _tempLabel;
-    
-}
-// 星期几
-- (UILabel *)weekLabel {
-    
-    if (_weekLabel == nil) {
-        _weekLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, AliHourlyStartY - 25, 100, 20)];
-        _weekLabel.textAlignment = NSTextAlignmentLeft;
-        _weekLabel.font = C_MAIN_FONT(15);
-        _weekLabel.textColor = [UIColor whiteColor];
-        [_mainScrollView addSubview:_weekLabel];
-    }
-    return _weekLabel;
-    
-}
-// 今天的最高温度
-- (UILabel *)temphighLabel {
-    
-    if (_temphighLabel == nil) {
-        _temphighLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth - 80, AliHourlyStartY - 25, 30, 20)];
-        _temphighLabel.textAlignment = NSTextAlignmentLeft;
-        _temphighLabel.font = C_MAIN_FONT(15);
-        _temphighLabel.textColor = [UIColor whiteColor];
-        [_mainScrollView addSubview:_temphighLabel];
-    }
-    return _temphighLabel;
-    
-}
-// 今天的最低温度
-- (UILabel *)templowLabel {
-    
-    if (_templowLabel == nil) {
-        _templowLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth - 50, AliHourlyStartY - 25, 30, 20)];
-        _templowLabel.textAlignment = NSTextAlignmentRight;
-        _templowLabel.font = C_MAIN_FONT(15);
-        _templowLabel.textColor = AliTemplowLabelColor;
-        [_mainScrollView addSubview:_templowLabel];
-    }
-    return _templowLabel;
-    
-}
 
 // 搜索输入框
 - (UITextField *)searchField {
@@ -189,20 +104,6 @@
 
 }
 
-// 遮在子滑动视图上的视图，用于向上滑动子滑动视图的时候，不让子视图滑动，反而滑动主滑动视图
-- (UIView *)subTopView {
-
-    if (_subTopView == nil) {
-        // frame跟承载其他信息滑动视图的大小一致
-        _subTopView = [[UIView alloc] initWithFrame:CGRectMake(0, AliDailyCellSatrtY,
-                                                               kScreenWidth, AliMainScrollContentHeight - AliDailyCellSatrtY)];
-        _subTopView.backgroundColor = [UIColor clearColor];
-        // 放在主滑动视图上
-        [_mainScrollView addSubview:_subTopView];
-    }
-    return _subTopView;
-
-}
 
 
 
@@ -330,31 +231,66 @@
 - (void)creatSubviews {
 
     // 城市名、天气描述、气温
-    self.cityNameLabel.text = _weatherModel.city;
-    self.weatherLabel.text = _weatherModel.weather;
-    self.tempLabel.text = [NSString stringWithFormat:@"%@", _weatherModel.temp];
+    _cityNameLabel = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth - 200)/2.0, 80, 200, 40)];
+    _cityNameLabel.textAlignment = NSTextAlignmentCenter;
+    _cityNameLabel.font = C_MAIN_FONT(35);
+    _cityNameLabel.textColor = [UIColor whiteColor];
+    _cityNameLabel.text = _weatherModel.city;
+    [self.view addSubview:_cityNameLabel];
+    
+    _weatherLabel = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth - 200)/2.0, 120, 200, 20)];
+    _weatherLabel.textAlignment = NSTextAlignmentCenter;
+    _weatherLabel.font = C_MAIN_FONT(15);
+    _weatherLabel.textColor = [UIColor whiteColor];
+    _weatherLabel.text = _weatherModel.weather;
+    [self.view addSubview:_weatherLabel];
+    
+    _tempLabel = [[UILabel alloc] initWithFrame:CGRectMake((kScreenWidth - 100)/2.0, 150, 100, 80)];
+    _tempLabel.textAlignment = NSTextAlignmentCenter;
+    _tempLabel.font = [UIFont systemFontOfSize:80];
+    _tempLabel.textColor = [UIColor whiteColor];
+    _tempLabel.adjustsFontSizeToFitWidth = YES;
+    _tempLabel.text = [NSString stringWithFormat:@"%@", _weatherModel.temp];
+    [self.view addSubview:_tempLabel];
+    // 设置度º
+    UILabel *zeroLabel = [[UILabel alloc] initWithFrame:CGRectMake(100 - 20, 0, 20, 20)];
+    zeroLabel.text = @"o";
+    zeroLabel.textColor = [UIColor whiteColor];
+    zeroLabel.textAlignment = NSTextAlignmentCenter;
+    zeroLabel.font = [UIFont systemFontOfSize:20];
+    [_tempLabel addSubview:zeroLabel];
+    
     
     // 主滑动视图
     _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 120, kScreenWidth, kScreenHeight - 120)];
     _mainScrollView.contentSize = CGSizeMake(kScreenWidth, AliMainScrollContentHeight);
-    // _mainScrollView.bounces = NO;
     _mainScrollView.showsVerticalScrollIndicator = NO;
     _mainScrollView.delegate = self;
     [self.view addSubview:_mainScrollView];
     
-//    // 添加观察者，监听主滑动视图的偏移，根据偏移确定是否显示subTopView
-//    [_mainScrollView addObserver:self
-//                      forKeyPath:@"contentOffset"
-//                         options:NSKeyValueObservingOptionNew
-//                         context:nil];
-    
     
     // 星期几 今天
-    self.weekLabel.text = [NSString stringWithFormat:@"%@  今天", _weatherModel.week];
+    _weekLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, AliHourlyStartY - 25, 100, 20)];
+    _weekLabel.textAlignment = NSTextAlignmentLeft;
+    _weekLabel.font = C_MAIN_FONT(15);
+    _weekLabel.textColor = [UIColor whiteColor];
+    _weekLabel.text = [NSString stringWithFormat:@"%@  今天", _weatherModel.week];
+    [_mainScrollView addSubview:_weekLabel];
     
     // 今天最高最低温度
-    self.temphighLabel.text = [NSString stringWithFormat:@"%@", _weatherModel.temphigh];
-    self.templowLabel.text = [NSString stringWithFormat:@"%@", _weatherModel.templow];
+    _temphighLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth - 80, AliHourlyStartY - 25, 30, 20)];
+    _temphighLabel.textAlignment = NSTextAlignmentLeft;
+    _temphighLabel.font = C_MAIN_FONT(15);
+    _temphighLabel.textColor = [UIColor whiteColor];
+    _temphighLabel.text = [NSString stringWithFormat:@"%@", _weatherModel.temphigh];
+    [_mainScrollView addSubview:_temphighLabel];
+    
+    _templowLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth - 50, AliHourlyStartY - 25, 30, 20)];
+    _templowLabel.textAlignment = NSTextAlignmentRight;
+    _templowLabel.font = C_MAIN_FONT(15);
+    _templowLabel.textColor = AliTemplowLabelColor;
+    _templowLabel.text = [NSString stringWithFormat:@"%@", _weatherModel.templow];
+    [_mainScrollView addSubview:_templowLabel];
     
     // 时刻气温表
     UIScrollView *hourlyScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, AliHourlyStartY, kScreenWidth, AliHourlyHeight)];
@@ -447,7 +383,13 @@
     [_mainScrollView addSubview:subScrollView];
     
     // 初始让subTopView跌在子滑动视图之上
-    self.subTopView.alpha = 1;
+    // 遮在子滑动视图上的视图，用于向上滑动子滑动视图的时候，不让子视图滑动，反而滑动主滑动视图
+    // frame跟承载其他信息滑动视图的大小一致
+    _subTopView = [[UIView alloc] initWithFrame:CGRectMake(0, AliDailyCellSatrtY,
+                                                           kScreenWidth, AliMainScrollContentHeight - AliDailyCellSatrtY)];
+    _subTopView.backgroundColor = [UIColor clearColor];
+    // 放在主滑动视图上
+    [_mainScrollView addSubview:_subTopView];
     
     float dailyCellHeight = 10;
     // 未来几天天气
@@ -809,7 +751,13 @@
                                                                        animations:^{
                                                                            weakSelf.searchField.transform = CGAffineTransformIdentity;
                                                                        }];
+                                                      // 移除原有UI
+                                                      [_tempLabel removeFromSuperview];
+                                                      [_weatherLabel removeFromSuperview];
+                                                      [_cityNameLabel removeFromSuperview];
                                                       [_mainScrollView removeFromSuperview];
+                                                      
+                                                      // 重新创建UI
                                                       NSDictionary *data = response[@"result"];
                                                       [weakSelf loadData:data];
                                                   }

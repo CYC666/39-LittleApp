@@ -53,6 +53,14 @@
                             <constraint firstAttribute="height" constant="50" id="Syl-qa-V6h"/>
                         </constraints>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SLB-5X-Tgg">
+                        <rect key="frame" x="0.0" y="5" width="5" height="50"/>
+                        <color key="backgroundColor" red="0.1764705882352941" green="0.76078431372549016" blue="0.51372549019607838" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="5" id="phN-VF-cqI"/>
+                            <constraint firstAttribute="height" constant="50" id="uZf-vY-d4T"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
@@ -64,12 +72,15 @@
                     <constraint firstAttribute="trailing" secondItem="98B-vK-dWP" secondAttribute="trailing" constant="10" id="P42-M9-mnT"/>
                     <constraint firstItem="98B-vK-dWP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="UWe-dF-7U2"/>
                     <constraint firstItem="3yl-AC-7os" firstAttribute="leading" secondItem="ya0-G1-eHz" secondAttribute="trailing" constant="5" id="Z6S-dO-XAe"/>
+                    <constraint firstItem="SLB-5X-Tgg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="eXE-QJ-3zQ"/>
+                    <constraint firstItem="SLB-5X-Tgg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="gSi-20-FVf"/>
                     <constraint firstAttribute="trailing" secondItem="sm7-80-z2Q" secondAttribute="trailing" constant="10" id="sxi-gh-juW"/>
                     <constraint firstItem="sm7-80-z2Q" firstAttribute="leading" secondItem="3yl-AC-7os" secondAttribute="trailing" constant="10" id="uKB-CH-MEl"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="albumImageView" destination="3yl-AC-7os" id="0SQ-CZ-f4n"/>
+                <outlet property="isLive" destination="SLB-5X-Tgg" id="nQy-ZA-haq"/>
                 <outlet property="number" destination="ya0-G1-eHz" id="916-Fu-9ZI"/>
                 <outlet property="singerNameLabel" destination="sm7-80-z2Q" id="CTR-oD-qUW"/>
                 <outlet property="songNameLabel" destination="98B-vK-dWP" id="Ifi-oE-lMu"/>

@@ -23,7 +23,7 @@
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wq5-DY-O03">
                     <rect key="frame" x="10" y="0.0" width="355" height="667"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <string key="text">2017年
+                    <mutableString key="text">2017年
 
 1月15日
 1、搭建了三级控制器
@@ -81,7 +81,13 @@
 2-24
 1、音乐排行榜可以显示欧美排行榜的音乐列表了
 2、排行榜数据本地持久化，在没有网或不需要更新的时候会使用本地数据
-3、切换夜间模式，背景颜色适当改变</string>
+3、切换夜间模式，背景颜色适当改变
+
+2-25
+1、解决了天气搜索之后的位置不正确，遮罩板缺失的bug
+2、集成了MJRefresh，并给歌曲列表添加了上拉加载更多歌曲，上拉显示的图像自己PS
+3、可以切换不同的排行榜了
+4、解决了SD不能设置某些特定的image的bug，其实是SD旧版本的bug，这个bug曾在模仿面包猎人的时候遇到过，现在得以解决，真棒啊</mutableString>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>

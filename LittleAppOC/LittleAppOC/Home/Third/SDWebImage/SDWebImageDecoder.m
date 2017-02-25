@@ -13,6 +13,8 @@
 @implementation UIImage (ForceDecode)
 
 + (UIImage *)decodedImageWithImage:(UIImage *)image {
+    
+    
     // do not decode animated images
     if (image.images) { return image; }
 
@@ -35,6 +37,12 @@
                                                  0,
                                                  CGImageGetColorSpace(imageRef),
                                                  kCGBitmapByteOrderDefault | kCGImageAlphaPremultipliedFirst);
+    
+    // CYC加入这个，就可以解决有些image获取不到的问题,不能显示的问题
+    if (context == NULL) {
+        return image;
+    }
+    
 
     // Draw the image into the context and retrieve the new image, which will now have an alpha layer
     CGContextDrawImage(context, CGRectMake(0, 0, width, height), imageRef);

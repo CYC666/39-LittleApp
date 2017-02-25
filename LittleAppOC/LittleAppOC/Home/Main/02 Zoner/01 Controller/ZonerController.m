@@ -10,13 +10,14 @@
 #import "ThemeManager.h"
 #import "CNetWorking.h"
 #import "SongModel.h"
+#import "MJRefresh.h"
 #import "SongCell.h"
-
+#import "MenuController.h"
 
 
 #define SongListTableViewID @"SongListTableViewID"  // 表视图单元格重用标识符
 
-@interface ZonerController () <UITableViewDelegate, UITableViewDataSource>
+@interface ZonerController () <UITableViewDelegate, UITableViewDataSource, MenuControllerDelegate>
 
 @property (strong, nonatomic) NSMutableArray *tableViewDataArray;   // 用于表视图显示的数组
 
@@ -27,8 +28,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // 独立的方法去做导航栏的设置
-    [self setNavigationBar];
+    // 独立的方法去做导航栏标题的设置
+    [self setNavigationBarTitle];
+    
+    // 导航栏左边菜单按钮
+    //    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"music_menuButton"]
+    //                                                                 style:UIBarButtonItemStylePlain
+    //                                                                target:self
+    //                                                                action:@selector(leftItemAction:)];
+    //    [self.navigationItem setLeftBarButtonItem:leftItem];
+
+    
+    // 导航栏右边的类别按钮
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"music_menu"]
+                                                                  style:UIBarButtonItemStylePlain
+                                                                 target:self
+                                                                 action:@selector(rightItemAction:)];
+    [self.navigationItem setRightBarButtonItem:rightItem];
 
     self.view.backgroundColor = CTHEME.themeColor;
     
@@ -51,39 +67,7 @@
         // 网络请求排行榜数据(返回的数据中有updatetime，可以根据这个来决定是否要更新)
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             
-            [CNetWorking loadMusicRankWithTopid:topid
-                                        success:^(id response) {
-                                            
-                                            // 获取关键数据
-                                            NSDictionary *showapi_res_body = response[@"showapi_res_body"];
-                                            NSDictionary *pagebean = showapi_res_body[@"pagebean"];
-                                            NSArray *songlist = pagebean[@"songlist"];
-                                            
-                                            // 将数据储存一下
-                                            NSString *key = [NSString stringWithFormat:@"%@%@", CMusic_Top_, topid];
-                                            if ([CUSER objectForKey:key] != nil) {
-                                                [CUSER removeObjectForKey:key];
-                                            }
-                                            [CUSER setObject:songlist forKey:key];
-                                            
-                                            // 处理数据
-                                            [self loadMusicModel:songlist];
-                                            
-                                        } failure:^(NSError *err) {
-                                            
-                                            // 错误(提示加载不能)
-                                            
-                                            // 使用旧的数据
-                                            NSString *key = [NSString stringWithFormat:@"%@%@", CMusic_Top_, topid];
-                                            if ([CUSER objectForKey:key]) {
-                                                
-                                                NSArray *songlist = [CUSER objectForKey:key];
-                                                // 处理数据
-                                                [self loadMusicModel:songlist];
-                                                
-                                            }
-                                            
-                                        }];
+            [self loadNetDataWithTopid:topid];
             
         });
         
@@ -96,8 +80,6 @@
         [self loadMusicModel:songlist];
         
     }
-    
-    
     
 }
 
@@ -134,9 +116,28 @@
     return _songListTableView;
 
 }
+- (MJRefreshAutoGifFooter *)footer {
+
+    if (_footer == nil) {
+        _footer = [MJRefreshAutoGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+        _footer.refreshingTitleHidden = YES;
+        _footer.stateLabel.hidden = YES;
+        NSMutableArray *images = [NSMutableArray arrayWithCapacity:20];
+        for (int i = 1; i < 21; i++) {
+            UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"pull_image_%d", i]];
+            [images addObject:image];
+        }
+        [_footer setImages:images forState:MJRefreshStateRefreshing];
+        [_footer setImages:@[images[0]] forState:MJRefreshStateIdle];
+        
+    }
+    return _footer;
+
+}
+
 
 #pragma mark - 设置导航栏
-- (void)setNavigationBar {
+- (void)setNavigationBarTitle {
     
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
     
@@ -168,19 +169,9 @@
     title.textColor = [UIColor whiteColor];
     self.navigationItem.titleView = title;
     
-    // 导航栏左边的下拉菜单按钮
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"music_menuButton"]
-                                                                 style:UIBarButtonItemStylePlain
-                                                                target:self
-                                                                action:@selector(leftItemAction:)];
-    [self.navigationItem setLeftBarButtonItem:leftItem];
     
-    // 导航栏右边的刷新按钮
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"music_rightButton"]
-                                                                  style:UIBarButtonItemStylePlain
-                                                                 target:self
-                                                                 action:@selector(rightItemAction:)];
-    [self.navigationItem setRightBarButtonItem:rightItem];
+    
+
 
 }
 
@@ -199,10 +190,129 @@
 
 }
 
+// 类别
 - (void)rightItemAction:(UIBarButtonItem *)item {
     
-    // 不能频繁更新
+    MenuController *menu = [[MenuController alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)
+                                                           Topid:[self getTopid]];
+    menu.delegate = self;
+    menu.alpha = 0;
     
+    [[UIApplication sharedApplication].keyWindow addSubview:menu];
+    
+    [UIView animateWithDuration:.35 animations:^{
+        menu.alpha = 1;
+    }];
+    
+}
+
+#pragma mark - 菜单按钮控制器选中某个类别之后响应的代理方法
+- (void)didSelectMenuController:(MenuController *)menuController {
+
+    NSString *topid = menuController.selectTopid;
+    
+    // 根据ID获取排行榜数据
+    [self changeRankWithTopid:topid];
+    
+}
+
+#pragma mark - 更换排行榜
+- (void)changeRankWithTopid:(NSString *)topid {
+
+    // 查看本地是否有数据
+    NSString *key = [NSString stringWithFormat:@"%@%@", CMusic_Top_, topid];
+    NSArray *musicArray = [CUSER objectForKey:key];
+    
+    if (musicArray == nil) {
+        // 如果没有数据，那么加载
+        [self loadNetDataWithTopid:topid];
+        
+    } else {
+        // 如果有数据，判断是否要更新
+        BOOL toReload = [self isNecessaryToReloadData];
+        if (toReload) {
+            // 加载更新数据
+            [self loadNetDataWithTopid:topid];
+            
+        } else {
+            // 使用旧数据
+            [self loadMusicModel:musicArray];
+        }
+        
+    }
+    
+    // 重新设置导航栏标题
+    [CUSER setObject:topid forKey:CMusicTopid];
+    [self setNavigationBarTitle];
+
+}
+
+#pragma mark - 加载数据，并缓存到本地
+- (void)loadNetDataWithTopid:(NSString *)topid {
+
+    [CNetWorking loadMusicRankWithTopid:topid
+                                success:^(id response) {
+                                    
+                                    // 获取关键数据
+                                    NSDictionary *showapi_res_body = response[@"showapi_res_body"];
+                                    NSDictionary *pagebean = showapi_res_body[@"pagebean"];
+                                    NSArray *songlist = pagebean[@"songlist"];
+                                    
+                                    // 将数据储存一下
+                                    NSString *key = [NSString stringWithFormat:@"%@%@", CMusic_Top_, topid];
+                                    if ([CUSER objectForKey:key] != nil) {
+                                        [CUSER removeObjectForKey:key];
+                                    }
+                                    [CUSER setObject:songlist forKey:key];
+                                    
+                                    // 处理数据
+                                    [self loadMusicModel:songlist];
+                                    
+                                } failure:^(NSError *err) {
+                                    
+                                    // 错误(提示加载不能)
+                                    
+                                    // 使用旧的数据
+                                    NSString *key = [NSString stringWithFormat:@"%@%@", CMusic_Top_, topid];
+                                    if ([CUSER objectForKey:key]) {
+                                        
+                                        NSArray *songlist = [CUSER objectForKey:key];
+                                        // 处理数据
+                                        [self loadMusicModel:songlist];
+                                        
+                                    }
+                                    
+                                }];
+
+}
+
+#pragma mark - 上拉加载
+- (void)loadMoreData {
+
+    NSInteger count = _tableViewDataArray.count;
+    if (_songArray.count == count) {
+        [self.songListTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:count-2 inSection:0]
+                                      atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        [_footer endRefreshing];
+        return;
+    }
+    
+    if (_songArray.count - count >= 20) {
+        
+        for (NSInteger i = count; i < count+20; i++) {
+            [_tableViewDataArray addObject:_songArray[i]];
+        }
+        
+    } else  {
+        for (NSInteger i = count; i < _songArray.count; i++) {
+            [_tableViewDataArray addObject:_songArray[i]];
+        }
+    }
+    
+    [self.songListTableView reloadData];
+    
+    [_footer endRefreshing];
+
 }
 
 #pragma mark - 获取排行榜的类型
@@ -268,6 +378,10 @@
 
 #pragma mark - 处理网络请求下来的排行榜数据
 - (void)loadMusicModel:(NSArray *)musicArray {
+    
+    // 把旧的数据清除
+    [self.songArray removeAllObjects];
+    [self.tableViewDataArray removeAllObjects];
 
     for (NSInteger i = 0; i < musicArray.count; i++) {
         
@@ -299,6 +413,13 @@
         // 返回主线程更新UI
         [self.songListTableView reloadData];
         
+        // 设置上拉加载
+        self.songListTableView.mj_footer = self.footer;
+        
+        // 显示最顶部
+        [self.songListTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+                                      atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        
     });
 
 }
@@ -329,8 +450,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
 
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    cell.selected = NO;
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
 }
 
