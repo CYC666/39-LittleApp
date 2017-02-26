@@ -11,6 +11,7 @@
 #import "CYCLeftController.h"
 #import "MMDrawerController.h"
 #import "ThemeManager.h"
+#import "PasswordController.h"
 #import <SMS_SDK/SMSSDK.h>
 #import "CYCLoginController.h"
 
@@ -30,12 +31,23 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     // 判断是否已经存在登录之后的手机号，如果不存在，那么显示短信登录界面
     if ([CUSER objectForKey:CUserPhone]) {
-        MMDrawerController *controller = [[MMDrawerController alloc] initWithCenterViewController:[[CYCTabBarController alloc] init]
-                                                                         leftDrawerViewController:[[CYCLeftController alloc] init]];
-        controller.maximumLeftDrawerWidth = cLeftControllerWidth;
-        controller.openDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
-        controller.closeDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
-        self.window.rootViewController = controller;
+        
+        // 判断本地是否存有进入App的密码，如果有那就进入输入密码页面，没有那就显示主页
+        if ([CUSER objectForKey:CPassword]) {
+            PasswordController *controller = [[PasswordController alloc] init];
+            controller.controllerType = PasswordControllerGoIn;
+            self.window.rootViewController = controller;
+            
+        } else {
+            _mainController = [[MMDrawerController alloc] initWithCenterViewController:[[CYCTabBarController alloc] init]
+                                                              leftDrawerViewController:[[CYCLeftController alloc] init]];
+            _mainController.maximumLeftDrawerWidth = cLeftControllerWidth;
+            _mainController.openDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
+            _mainController.closeDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
+            self.window.rootViewController = _mainController;
+        }
+        
+        
     } else {
         self.window.rootViewController = [[CYCLoginController alloc] init];
     }
@@ -52,16 +64,30 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    // 进入后台之后，就把主窗口设置为输入密码的窗口，那样的话就不会在下次显示的时候先显示tabbar
+    if ([CUSER objectForKey:CPassword]) {
+        PasswordController *controller = [[PasswordController alloc] init];
+        controller.controllerType = PasswordControllerGoIn;
+        self.window.rootViewController = controller;
+    }
+    // 如果没有设置密码，那么久没必要去操作了
+    
+    
 }
 
+
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+
+
+    
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

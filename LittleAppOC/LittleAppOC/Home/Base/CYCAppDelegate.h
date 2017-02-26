@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+@class MMDrawerController;
+
 
 @interface CYCAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) MMDrawerController *mainController;
+
 
 @end

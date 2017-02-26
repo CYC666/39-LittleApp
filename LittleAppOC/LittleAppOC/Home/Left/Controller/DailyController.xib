@@ -87,7 +87,13 @@
 1、解决了天气搜索之后的位置不正确，遮罩板缺失的bug
 2、集成了MJRefresh，并给歌曲列表添加了上拉加载更多歌曲，上拉显示的图像自己PS
 3、可以切换不同的排行榜了
-4、解决了SD不能设置某些特定的image的bug，其实是SD旧版本的bug，这个bug曾在模仿面包猎人的时候遇到过，现在得以解决，真棒啊</mutableString>
+4、解决了SD不能设置某些特定的image的bug，其实是SD旧版本的bug，这个bug曾在模仿面包猎人的时候遇到过，现在得以解决，真棒啊
+5、将天气的图标统一为白色，更美观，至于是怎么把这么多图片都弄成白色，这可就六六六了，用到了PS的动作和批处理，瞬间感觉自己力力害
+
+2-26
+1、滚轮密码页面制作成功，将滚轮的密码设定正确之后，就会跳转
+2、解决了什么时候弹出输入密码进入App的逻辑，特别的，是在进入后台之后，才把主窗口设置为输入密码的窗口，不然在App活跃之后才设置的话，会先显示tabbar在显示输入密码的窗口，很突兀
+3、设置界面有是否启用密码的开关，点击可设置密码</mutableString>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>

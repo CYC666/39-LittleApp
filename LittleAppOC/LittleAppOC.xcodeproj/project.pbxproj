@@ -261,6 +261,14 @@
 		9E9D6E8F1E61896900EB095B /* music_menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9D6E8C1E61896800EB095B /* music_menu@2x.png */; };
 		9E9D6E901E61896900EB095B /* music_menu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9D6E8D1E61896900EB095B /* music_menu@3x.png */; };
 		9E9D6E931E618A8900EB095B /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E9D6E921E618A8900EB095B /* MenuController.m */; };
+		9E9EB63A1E62A46C005A0F2B /* PasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E9EB6381E62A46C005A0F2B /* PasswordController.m */; };
+		9E9EB63B1E62A46C005A0F2B /* PasswordController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E9EB6391E62A46C005A0F2B /* PasswordController.xib */; };
+		9E9EB6411E62B86C005A0F2B /* setting_password.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9EB63E1E62B86C005A0F2B /* setting_password.png */; };
+		9E9EB6421E62B86C005A0F2B /* setting_password@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9EB63F1E62B86C005A0F2B /* setting_password@2x.png */; };
+		9E9EB6431E62B86C005A0F2B /* setting_password@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9EB6401E62B86C005A0F2B /* setting_password@3x.png */; };
+		9E9EB6471E62B9B9005A0F2B /* setting_clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9EB6441E62B9B9005A0F2B /* setting_clear.png */; };
+		9E9EB6481E62B9B9005A0F2B /* setting_clear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9EB6451E62B9B9005A0F2B /* setting_clear@2x.png */; };
+		9E9EB6491E62B9B9005A0F2B /* setting_clear@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E9EB6461E62B9B9005A0F2B /* setting_clear@3x.png */; };
 		9EA44A8E1E2DF3FF00F7761D /* home_tab_icon_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EA44A841E2DF3FF00F7761D /* home_tab_icon_1.png */; };
 		9EA44A8F1E2DF3FF00F7761D /* home_tab_icon_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EA44A851E2DF3FF00F7761D /* home_tab_icon_1@2x.png */; };
 		9EA44A901E2DF3FF00F7761D /* home_tab_icon_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EA44A861E2DF3FF00F7761D /* home_tab_icon_2.png */; };
@@ -712,6 +720,15 @@
 		9E9D6E8D1E61896900EB095B /* music_menu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "music_menu@3x.png"; sourceTree = "<group>"; };
 		9E9D6E911E618A8900EB095B /* MenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuController.h; sourceTree = "<group>"; };
 		9E9D6E921E618A8900EB095B /* MenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuController.m; sourceTree = "<group>"; };
+		9E9EB6371E62A46C005A0F2B /* PasswordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordController.h; sourceTree = "<group>"; };
+		9E9EB6381E62A46C005A0F2B /* PasswordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordController.m; sourceTree = "<group>"; };
+		9E9EB6391E62A46C005A0F2B /* PasswordController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasswordController.xib; sourceTree = "<group>"; };
+		9E9EB63E1E62B86C005A0F2B /* setting_password.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_password.png; sourceTree = "<group>"; };
+		9E9EB63F1E62B86C005A0F2B /* setting_password@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_password@2x.png"; sourceTree = "<group>"; };
+		9E9EB6401E62B86C005A0F2B /* setting_password@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_password@3x.png"; sourceTree = "<group>"; };
+		9E9EB6441E62B9B9005A0F2B /* setting_clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_clear.png; sourceTree = "<group>"; };
+		9E9EB6451E62B9B9005A0F2B /* setting_clear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_clear@2x.png"; sourceTree = "<group>"; };
+		9E9EB6461E62B9B9005A0F2B /* setting_clear@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_clear@3x.png"; sourceTree = "<group>"; };
 		9EA44A841E2DF3FF00F7761D /* home_tab_icon_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_tab_icon_1.png; sourceTree = "<group>"; };
 		9EA44A851E2DF3FF00F7761D /* home_tab_icon_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_tab_icon_1@2x.png"; sourceTree = "<group>"; };
 		9EA44A861E2DF3FF00F7761D /* home_tab_icon_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_tab_icon_2.png; sourceTree = "<group>"; };
@@ -1210,6 +1227,7 @@
 		9E138A011E2B1DA70011701B /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				9E9EB63D1E62B86C005A0F2B /* SettingImage */,
 				9EF837811E3F66470094BE84 /* LoginImage */,
 				9EF53CE91E2BCB2500F55033 /* LeftControllerImage */,
 				9E138A251E2B374E0011701B /* AppIconImage */,
@@ -1487,6 +1505,9 @@
 				9E6EB0FB1E3EDD4800E7128A /* CYCLoginController.h */,
 				9E6EB0FC1E3EDD4800E7128A /* CYCLoginController.m */,
 				9E6EB0FD1E3EDD4800E7128A /* CYCLoginController.xib */,
+				9E9EB6371E62A46C005A0F2B /* PasswordController.h */,
+				9E9EB6381E62A46C005A0F2B /* PasswordController.m */,
+				9E9EB6391E62A46C005A0F2B /* PasswordController.xib */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1612,6 +1633,19 @@
 				9E9D6E761E617E2700EB095B /* pull_image_20@2x.png */,
 			);
 			path = pull_image;
+			sourceTree = "<group>";
+		};
+		9E9EB63D1E62B86C005A0F2B /* SettingImage */ = {
+			isa = PBXGroup;
+			children = (
+				9E9EB6441E62B9B9005A0F2B /* setting_clear.png */,
+				9E9EB6451E62B9B9005A0F2B /* setting_clear@2x.png */,
+				9E9EB6461E62B9B9005A0F2B /* setting_clear@3x.png */,
+				9E9EB63E1E62B86C005A0F2B /* setting_password.png */,
+				9E9EB63F1E62B86C005A0F2B /* setting_password@2x.png */,
+				9E9EB6401E62B86C005A0F2B /* setting_password@3x.png */,
+			);
+			path = SettingImage;
 			sourceTree = "<group>";
 		};
 		9EA44A9C1E2E11CD00F7761D /* AFNetworking */ = {
@@ -1959,6 +1993,7 @@
 				9E4E12061E3569F900A08DAC /* icon_weatner_night_22.png in Resources */,
 				9EA44A901E2DF3FF00F7761D /* home_tab_icon_2.png in Resources */,
 				9EA44AFC1E2E24BC00F7761D /* 27.png in Resources */,
+				9E9EB6421E62B86C005A0F2B /* setting_password@2x.png in Resources */,
 				9EF9EC121E2C89D30030023B /* icon_leftController_day@3x.png in Resources */,
 				9E4E11F81E3569F900A08DAC /* icon_weatner_night_1.png in Resources */,
 				9E4E11ED1E3569F900A08DAC /* icon_weatner_day_54.png in Resources */,
@@ -2036,6 +2071,7 @@
 				9E118B081E6016EC00914D9E /* SongCell.xib in Resources */,
 				9E220D351E30A4A6009D7146 /* new_1.png in Resources */,
 				9E1389C71E2B08390011701B /* LaunchScreen.storyboard in Resources */,
+				9E9EB63B1E62A46C005A0F2B /* PasswordController.xib in Resources */,
 				9E4E11D41E3569F900A08DAC /* icon_weatner_day_17.png in Resources */,
 				9E9D6E811E617E2700EB095B /* pull_image_11@2x.png in Resources */,
 				9E4E120C1E3569F900A08DAC /* icon_weatner_night_28.png in Resources */,
@@ -2056,6 +2092,7 @@
 				9E138A1A1E2B1DDF0011701B /* icon_tab_homer@3x.png in Resources */,
 				9EA44B0D1E2E24BD00F7761D /* 8.png in Resources */,
 				9E4E120A1E3569F900A08DAC /* icon_weatner_night_26.png in Resources */,
+				9E9EB6491E62B9B9005A0F2B /* setting_clear@3x.png in Resources */,
 				9EF53D101E2BDE2000F55033 /* icon_leftCtrl_Third@3x.png in Resources */,
 				9E118ACB1E5FFD0200914D9E /* music_menuButton@3x.png in Resources */,
 				9E220D3A1E30A4A6009D7146 /* new_6.png in Resources */,
@@ -2085,6 +2122,7 @@
 				9E9D6E831E617E2700EB095B /* pull_image_13@2x.png in Resources */,
 				9EF53D0F1E2BDE2000F55033 /* icon_leftCtrl_Third@2x.png in Resources */,
 				9EA44A941E2DF3FF00F7761D /* home_tab_icon_4.png in Resources */,
+				9E9EB6471E62B9B9005A0F2B /* setting_clear.png in Resources */,
 				9E220D3D1E30A4A6009D7146 /* new_9.png in Resources */,
 				9E220D371E30A4A6009D7146 /* new_3.png in Resources */,
 				9EA44B091E2E24BD00F7761D /* 4.png in Resources */,
@@ -2123,6 +2161,7 @@
 				9EA44AF41E2E24BC00F7761D /* 2.png in Resources */,
 				9EA44B0F1E2E24BD00F7761D /* 99.png in Resources */,
 				9E4E12361E35889E00A08DAC /* icon_weather_back@2x.png in Resources */,
+				9E9EB6411E62B86C005A0F2B /* setting_password.png in Resources */,
 				9EF9EC1F1E2CD01A0030023B /* icon_tab_Bar@2x.png in Resources */,
 				9E4E11FE1E3569F900A08DAC /* icon_weatner_night_15.png in Resources */,
 				9E4E11EC1E3569F900A08DAC /* icon_weatner_day_53.png in Resources */,
@@ -2175,6 +2214,7 @@
 				9E336FEA1E43ABB000D8F112 /* icon_weather_search@2x.png in Resources */,
 				9E9D6E881E617E2700EB095B /* pull_image_18@2x.png in Resources */,
 				9E4E11DB1E3569F900A08DAC /* icon_weatner_day_23.png in Resources */,
+				9E9EB6431E62B86C005A0F2B /* setting_password@3x.png in Resources */,
 				9EA44A9A1E2DF67200F7761D /* home_bottom_tab_arrow.png in Resources */,
 				9E4E11EB1E3569F900A08DAC /* icon_weatner_day_5.png in Resources */,
 				9E9D6E7D1E617E2700EB095B /* pull_image_7@2x.png in Resources */,
@@ -2183,6 +2223,7 @@
 				9E138A141E2B1DDF0011701B /* icon_tab_discover@3x.png in Resources */,
 				9EFAB7391E2EFCA50039C853 /* icon_weatherController_location@3x.png in Resources */,
 				9E4E11EA1E3569F900A08DAC /* icon_weatner_day_49.png in Resources */,
+				9E9EB6481E62B9B9005A0F2B /* setting_clear@2x.png in Resources */,
 				9E4E11E21E3569F900A08DAC /* icon_weatner_day_3.png in Resources */,
 				9E4E12081E3569F900A08DAC /* icon_weatner_night_24.png in Resources */,
 				9E4E12201E3569F900A08DAC /* icon_weatner_night_9.png in Resources */,
@@ -2287,6 +2328,7 @@
 				9E118AF51E60147800914D9E /* SDImageCache.m in Sources */,
 				9E9D6E2C1E61705800EB095B /* MJRefreshAutoStateFooter.m in Sources */,
 				9E4E122B1E356F7F00A08DAC /* AliDailyModel.m in Sources */,
+				9E9EB63A1E62A46C005A0F2B /* PasswordController.m in Sources */,
 				9E9D6E351E61705800EB095B /* NSBundle+MJRefresh.m in Sources */,
 				9E118AF31E60147800914D9E /* MKAnnotationView+WebCache.m in Sources */,
 				9EA44B271E2E6FBD00F7761D /* CLeftCtrlCell.m in Sources */,

@@ -19,6 +19,7 @@
 #import "AFNetworking.h"
 #import "AliWeatherController.h"
 #import "CYCLoginController.h"
+#import "PasswordController.h"
 #import <CoreLocation/CoreLocation.h>
 
 #define CYCLeftControllerCellID @"CYCLeftControllerCellID"  // 单元格重用标识符
@@ -345,21 +346,7 @@
 #pragma mark - 测试接口
 - (void)testURL {
 
-    [CNetWorking loadMusicRankWithTopid:@"3"
-                                success:^(id response) {
-                                    
-                                    NSDictionary *showapi_res_body = response[@"showapi_res_body"];
-                                    NSDictionary *pagebean = showapi_res_body[@"pagebean"];
-                                    NSArray *songlist = pagebean[@"songlist"];
-                                    for (NSDictionary *dic in songlist) {
-                                        NSValue *seconds = dic[@"seconds"];
-                                        NSString *songname = dic[@"songname"];
-                                        
-                                    }
-                                    
-                                } failure:^(NSError *err) {
-                                    
-                                }];
+    
     
     
     

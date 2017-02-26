@@ -39,6 +39,9 @@
 //-----------------------------------------------------数据持久化------------------------------------------------
 #define CThemeTypeSave @"CThemeTypeSave"                                                                // 主题类型
 #define CUserPhone @"CUserPhone"                                                                        // 判断是否登录，存手机号
+#define CShowPasswordController @"CShowPasswordController"                                              // 是否显示输入密码进入App界面
+#define CPassword @"CPassword"                                                                          // 进入App的密码
+
 
 //-----------------------------------------------------音乐排行榜------------------------------------------------
 // 储存排行榜的类型

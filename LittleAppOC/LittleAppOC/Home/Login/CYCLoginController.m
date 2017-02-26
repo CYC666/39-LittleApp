@@ -17,6 +17,7 @@
 #import "MMDrawerController.h"
 #import "CYCTabBarController.h"
 #import "CYCLeftController.h"
+#import "CYCAppDelegate.h"
 
 
 @interface CYCLoginController ()
@@ -205,13 +206,16 @@
                 // 本地储存登录状态
                 [CUSER setObject:_inputField.text forKey:CUserPhone];
                 
-                // 改变APP的主窗口
+                // 改变APP的主窗口(登录的话那肯定是没有主控制器了，必须创建)
+                CYCAppDelegate *delegate = (CYCAppDelegate *)[[UIApplication sharedApplication] delegate];
                 MMDrawerController *controller = [[MMDrawerController alloc] initWithCenterViewController:[[CYCTabBarController alloc] init]
                                                                                  leftDrawerViewController:[[CYCLeftController alloc] init]];
                 controller.maximumLeftDrawerWidth = cLeftControllerWidth;
                 controller.openDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
                 controller.closeDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
-                [[UIApplication sharedApplication] delegate].window.rootViewController = controller;
+                delegate.mainController = controller;
+                delegate.window.rootViewController = controller;
+                
                 
             } else {
                 // 振动
