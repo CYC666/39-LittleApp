@@ -55,7 +55,7 @@
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SLB-5X-Tgg">
                         <rect key="frame" x="0.0" y="5" width="5" height="50"/>
-                        <color key="backgroundColor" red="0.1764705882352941" green="0.76078431372549016" blue="0.51372549019607838" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="5" id="phN-VF-cqI"/>
                             <constraint firstAttribute="height" constant="50" id="uZf-vY-d4T"/>

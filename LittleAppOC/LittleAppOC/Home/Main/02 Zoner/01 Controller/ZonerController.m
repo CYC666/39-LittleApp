@@ -112,6 +112,12 @@
         [_songListTableView registerNib:[UINib nibWithNibName:@"SongCell" bundle:[NSBundle mainBundle]]
                  forCellReuseIdentifier:SongListTableViewID];
         [self.view addSubview:_songListTableView];
+        
+        // 下拉刷新控件
+        UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+        [refresh addTarget:self action:@selector(updateData) forControlEvents:UIControlEventValueChanged];
+        _songListTableView.refreshControl = refresh;
+        
     }
     return _songListTableView;
 
@@ -315,6 +321,18 @@
 
 }
 
+#pragma mark - 下拉刷新
+- (void)updateData {
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        
+        // 两秒之后停止刷新
+        [_songListTableView.refreshControl endRefreshing];
+        
+    });
+    
+}
+
 #pragma mark - 获取排行榜的类型
 - (NSString *)getTopid {
 
@@ -451,6 +469,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    
 
 }
 

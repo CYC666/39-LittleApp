@@ -47,11 +47,7 @@
         _number.textColor = CRGB(105, 105, 105, 1);
     }
     
-    if ([songModel.number integerValue] != 6) {
-        _isLive.backgroundColor = [UIColor clearColor];
-    } else {
-        _isLive.backgroundColor = CRGB(45, 194, 131, 1);
-    }
+    
 
 }
 
@@ -61,7 +57,47 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
+    
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end

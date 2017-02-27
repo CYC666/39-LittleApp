@@ -93,7 +93,10 @@
 2-26
 1、滚轮密码页面制作成功，将滚轮的密码设定正确之后，就会跳转
 2、解决了什么时候弹出输入密码进入App的逻辑，特别的，是在进入后台之后，才把主窗口设置为输入密码的窗口，不然在App活跃之后才设置的话，会先显示tabbar在显示输入密码的窗口，很突兀
-3、设置界面有是否启用密码的开关，点击可设置密码</mutableString>
+3、设置界面有是否启用密码的开关，点击可设置密码
+
+2-27
+1、歌曲列表加入了下拉刷新控件，是系统自带的控件，UIRefreshControll</mutableString>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
