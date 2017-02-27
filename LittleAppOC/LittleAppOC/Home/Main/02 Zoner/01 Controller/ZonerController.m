@@ -13,13 +13,21 @@
 #import "MJRefresh.h"
 #import "SongCell.h"
 #import "MenuController.h"
+#import "SongViewController.h"
+#import "UIImageView+WebCache.h"
+#import <AVFoundation/AVFoundation.h>
 
 
 #define SongListTableViewID @"SongListTableViewID"  // 表视图单元格重用标识符
 
-@interface ZonerController () <UITableViewDelegate, UITableViewDataSource, MenuControllerDelegate>
+@interface ZonerController () <UITableViewDelegate, UITableViewDataSource,
+                            MenuControllerDelegate, SongViewControllerDelegate>
 
+@property (strong, nonatomic) AVPlayer *mp3Player;                  // 播放mp3
+@property (strong, nonatomic) UIImageView *songImageView;           // 点击播放音乐之后，显示在导航栏左边的图片
+@property (strong, nonatomic) NSTimer *mainTimer;                   // 监听进度的定时器
 @property (strong, nonatomic) NSMutableArray *tableViewDataArray;   // 用于表视图显示的数组
+@property (strong, nonatomic) SongViewController *songView;         // 播放详情页
 
 @end
 
@@ -31,12 +39,6 @@
     // 独立的方法去做导航栏标题的设置
     [self setNavigationBarTitle];
     
-    // 导航栏左边菜单按钮
-    //    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"music_menuButton"]
-    //                                                                 style:UIBarButtonItemStylePlain
-    //                                                                target:self
-    //                                                                action:@selector(leftItemAction:)];
-    //    [self.navigationItem setLeftBarButtonItem:leftItem];
 
     
     // 导航栏右边的类别按钮
@@ -100,6 +102,9 @@
     return _tableViewDataArray;
 
 }
+
+
+
 - (UITableView *)songListTableView {
 
     if (_songListTableView == nil) {
@@ -189,12 +194,7 @@
     
 }
 
-#pragma mark - 导航栏按钮响应
-- (void)leftItemAction:(UIBarButtonItem *)item {
 
-    
-
-}
 
 // 类别
 - (void)rightItemAction:(UIBarButtonItem *)item {
@@ -470,21 +470,145 @@
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    SongModel *songModel = _tableViewDataArray[indexPath.row];
+    
+    // 播放音乐
+    _mp3Player = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:songModel.url]];
+    [_mp3Player play];
+    
+    if (_songImageView == nil) {
+        // 导航栏左边的音乐图片
+        _songImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        _songImageView.layer.cornerRadius = 15;
+        _songImageView.clipsToBounds = YES;
+        _songImageView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(leftItemAction:)];
+        [_songImageView addGestureRecognizer:tap];
+        
+        UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:_songImageView];
+        [self.navigationItem setLeftBarButtonItem:leftItem];
+    }
+    
+    [_songImageView sd_setImageWithURL:[NSURL URLWithString:songModel.albumpic_small]];
+    
+    // 创建播放详情页
+    if (_songView == nil) {
+        _songView = [[SongViewController alloc] init];
+        _songView.delegate = self;
+        
+        // 监听歌曲播放完毕
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(songPlayDidEnd:)
+                                                     name:AVPlayerItemDidPlayToEndTimeNotification
+                                                   object:_mp3Player.currentItem];
+    }
+    _songView.songList = _tableViewDataArray;
+    _songView.liveIndex = indexPath.row;
+    
+    if (_mainTimer == nil) {
+        // 定时器监听进度
+        _mainTimer = [NSTimer scheduledTimerWithTimeInterval:1
+                                                      target:self
+                                                    selector:@selector(currentTimeChange:)
+                                                    userInfo:nil
+                                                     repeats:YES];
+    }
     
 
 }
 
+#pragma mark - 导航栏左边按钮响应，弹出播放界面
+- (void)leftItemAction:(UIBarButtonItem *)item {
+    
+    [self presentViewController:_songView animated:YES completion:nil];
+    
+}
+
+#pragma mark - 监听歌曲播放完毕
+- (void)songPlayDidEnd:(NSNotification *)notifi {
+
+    if (_songView.liveIndex < _tableViewDataArray.count) {
+        _songView.liveIndex++;
+        
+        SongModel *liveModel = _tableViewDataArray[_songView.liveIndex];
+        [_songImageView sd_setImageWithURL:[NSURL URLWithString:liveModel.albumpic_small]];
+        _mp3Player = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:liveModel.url]];
+        [_mp3Player play];
+    }
+
+}
+
+#pragma mark - 监听播放进度
+- (void)currentTimeChange:(NSTimer *)timer {
+
+    float value = CMTimeGetSeconds(_mp3Player.currentItem.currentTime) / CMTimeGetSeconds(_mp3Player.currentItem.duration);
+    
+    // 设置播放页面的进度
+    _songView.currentValue = value;
+    
+}
+
+#pragma mark - 播放页面的代理方法
+// 调节滑动进度条
+- (void)songCurrentValueChange:(float)time {
+
+    SongModel *liveModel = _tableViewDataArray[_songView.liveIndex];
+    NSNumber *number = (NSNumber *)liveModel.seconds;
+    
+    CMTime changeTime = CMTimeMakeWithSeconds(number.floatValue * time, number.floatValue);
+    
+    [_mp3Player seekToTime:changeTime completionHandler:^(BOOL finished) {
+        
+        // 调节完毕之后，再次允许定时器运作
+        
+        
+    }];
+
+}
+// 上一首
+- (void)lastSong:(NSInteger)index {
+
+    SongModel *liveModel = _tableViewDataArray[index];
+    [_songImageView sd_setImageWithURL:[NSURL URLWithString:liveModel.albumpic_small]];
+    _mp3Player = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:liveModel.url]];
+    [_mp3Player play];
+
+}
+
+// 暂停、播放
+- (void)pauseSong:(SongStateType)type {
+
+    if (type == SongPlay) {
+        [_mp3Player play];
+    } else {
+        [_mp3Player pause];
+    }
+
+}
+
+// 下一首
+- (void)nextSong:(NSInteger)index {
+
+    SongModel *liveModel = _tableViewDataArray[index];
+    [_songImageView sd_setImageWithURL:[NSURL URLWithString:liveModel.albumpic_small]];
+    _mp3Player = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:liveModel.url]];
+    [_mp3Player play];
+
+}
 
 
+#pragma mark - 控制器被移除
+- (void)dealloc {
 
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:_mp3Player.currentItem];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:CThemeChangeNotification
+                                                  object:nil];
 
-
-
-
-
-
-
-
+}
 
 
 

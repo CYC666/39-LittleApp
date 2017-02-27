@@ -14,6 +14,7 @@
 #import "PasswordController.h"
 #import <SMS_SDK/SMSSDK.h>
 #import "CYCLoginController.h"
+#import <AVFoundation/AVFoundation.h>
 
 // 短信验证进行登录
 #define APP_Key @"1b0ab23fa4a73"
@@ -53,6 +54,13 @@
     }
 
     [self.window makeKeyAndVisible];
+    
+    // 允许后台使用扬声器播放
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
+    [audioSession setActive:YES error:nil];
+    
+    
     
     
     return YES;

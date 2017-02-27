@@ -96,7 +96,13 @@
 3、设置界面有是否启用密码的开关，点击可设置密码
 
 2-27
-1、歌曲列表加入了下拉刷新控件，是系统自带的控件，UIRefreshControll</mutableString>
+1、歌曲列表加入了下拉刷新控件，是系统自带的控件，UIRefreshControll
+
+2-28
+1、点击歌曲列表的单元格，可以播放对应的歌曲
+2、正在播放的歌曲页面，UI制作完毕
+3、上一首、暂停、播放、下一首、调节进度、自动跳转下一首功能已经实现（开心）
+4、后台播放歌曲</mutableString>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
