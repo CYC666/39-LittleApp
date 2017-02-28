@@ -14,11 +14,8 @@
 #define ImageSize (kScreenWidth - 30*2)
 
 
+
 @implementation SongViewController
-
-
-
-
 
 
 #pragma mark - 懒加载
@@ -88,6 +85,18 @@
         
     }
     return _albumImageView;
+
+}
+
+- (UIImageView *)dismissImage {
+
+    if (_dismissImage == nil) {
+        _dismissImage = [[UIImageView alloc] initWithFrame:CGRectMake(30, 160, ImageSize, ImageSize)];
+        _dismissImage.layer.borderWidth = 10;
+        _dismissImage.layer.backgroundColor = CRGB(92, 85, 84, .9).CGColor;
+        [self.view addSubview:_dismissImage];
+    }
+    return _dismissImage;
 
 }
 
@@ -272,10 +281,15 @@
 - (void)lastButtonAction:(UIButton *)button {
     
     if (_liveIndex != 0) {
+        
+        // image做了一个向上渐隐的动作(先做动作，不然渐隐的图片来不及)
+        [self imageDismissAnimate];
+        
         self.liveIndex--;
         if ([_delegate respondsToSelector:@selector(lastSong:)]) {
             [_delegate lastSong:_liveIndex];
         }
+        
     }
     
 }
@@ -307,10 +321,15 @@
 - (void)nextButtonAction:(UIButton *)button {
     
     if (_liveIndex < _songList.count) {
+        
+        // image做了一个向上渐隐的动作
+        [self imageDismissAnimate];
+        
         self.liveIndex++;
         if ([_delegate respondsToSelector:@selector(nextSong:)]) {
             [_delegate nextSong:_liveIndex];
         }
+        
     }
     
 }
@@ -368,9 +387,35 @@
 
 }
 
+#pragma mark - image做了一个向上渐隐的动作
+- (void)imageDismissAnimate {
 
+    // 设置要进行动作的image
+    SongModel *liveModel = _songList[_liveIndex];
+    [self.dismissImage sd_setImageWithURL:[NSURL URLWithString:liveModel.albumpic_big]];
+    // 复原
+    self.dismissImage.transform = CGAffineTransformMakeTranslation(0, 0);
+    self.dismissImage.alpha = 1;
+    self.dismissImage.frame = CGRectMake(30, 160, ImageSize, ImageSize);
+    
+    [UIView animateWithDuration:.2
+                     animations:^{
+                         // 缩小
+                         self.dismissImage.frame = CGRectMake(30 + 10, 160 + 10, ImageSize - 20, ImageSize - 20);
+                     } completion:^(BOOL finished) {
+                         [UIView animateWithDuration:.35
+                                          animations:^{
+                                              // 上移+透明
+                                              self.dismissImage.transform = CGAffineTransformMakeTranslation(0, -kScreenHeight);
+                                              self.dismissImage.alpha = 0;
+                                          } completion:^(BOOL finished) {
+                                              
+                                              
+                                              
+                                          }];
+                     }];
 
-
+}
 
 
 

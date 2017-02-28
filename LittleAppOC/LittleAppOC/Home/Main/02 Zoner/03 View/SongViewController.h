@@ -44,6 +44,7 @@ typedef enum : NSUInteger {
 @property (strong, nonatomic) UILabel *songLabel;           // 歌名
 @property (strong, nonatomic) UILabel *singerLabel;         // 歌手名字  @"—— 曹奕程 ——"
 @property (strong, nonatomic) UIImageView *albumImageView;  // 专辑图片
+@property (strong, nonatomic) UIImageView *dismissImage;    // 切歌时image向上渐隐的动作
 @property (strong, nonatomic) UILabel *liveLabel;           // 进度(数字)  @"00:23"
 @property (strong, nonatomic) UISlider *songSlider;         // 进度条
 @property (strong, nonatomic) UILabel *lengLabel;           // 歌曲长度
