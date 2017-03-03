@@ -9,6 +9,8 @@
 #import "SongViewController.h"
 #import "SongModel.h"
 #import "UIImageView+WebCache.h"
+#import "FXBlurView.h"
+#import <QuartzCore/QuartzCore.h>
 #import <AVFoundation/AVFoundation.h>
 
 #define ImageSize (kScreenWidth - 30*2)
@@ -33,8 +35,18 @@
 
     if (_backgroundImage == nil) {
         _backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-        _backgroundImage.backgroundColor = [UIColor blackColor];
+        _backgroundImage.backgroundColor = [UIColor clearColor];
         [self.view addSubview:_backgroundImage];
+        
+        // 黑色遮罩
+        UIView *balckView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+        balckView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7];
+        [self.view addSubview:balckView];
+        
+        // 添加毛玻璃模糊
+        FXBlurView *blurView = [[FXBlurView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+        blurView.blurRadius = 40;
+        [self.view addSubview:blurView];
     }
     return _backgroundImage;
 
@@ -73,15 +85,23 @@
 
     if (_albumImageView == nil) {
         _albumImageView = [[UIImageView alloc] initWithFrame:CGRectMake(30, 160, ImageSize, ImageSize)];
-        _albumImageView.layer.borderWidth = 10;
-        _albumImageView.layer.backgroundColor = CRGB(92, 85, 84, .9).CGColor;
+        _albumImageView.layer.borderWidth = 8;
+        _albumImageView.layer.borderColor = CRGB(92, 85, 84, 1).CGColor;
         [self.view addSubview:_albumImageView];
         
         _albumImageView.userInteractionEnabled = YES;
-        UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                                    action:@selector(dismissCurrentView:)];
-        swipe.direction = UISwipeGestureRecognizerDirectionDown;
-        [_albumImageView addGestureRecognizer:swipe];
+        
+        // 向下隐藏
+        UISwipeGestureRecognizer *downSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                        action:@selector(dismissCurrentView:)];
+        downSwipe.direction = UISwipeGestureRecognizerDirectionDown;
+        [_albumImageView addGestureRecognizer:downSwipe];
+        
+        // 向上切歌
+        UISwipeGestureRecognizer *upSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                        action:@selector(changeSong:)];
+        upSwipe.direction = UISwipeGestureRecognizerDirectionUp;
+        [_albumImageView addGestureRecognizer:upSwipe];
         
     }
     return _albumImageView;
@@ -92,8 +112,8 @@
 
     if (_dismissImage == nil) {
         _dismissImage = [[UIImageView alloc] initWithFrame:CGRectMake(30, 160, ImageSize, ImageSize)];
-        _dismissImage.layer.borderWidth = 10;
-        _dismissImage.layer.backgroundColor = CRGB(92, 85, 84, .9).CGColor;
+        _dismissImage.layer.borderWidth = 8;
+        _dismissImage.layer.borderColor = CRGB(92, 85, 84, 1).CGColor;
         [self.view addSubview:_dismissImage];
     }
     return _dismissImage;
@@ -161,7 +181,7 @@
     if (_happenButton == nil) {
         _happenButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _happenButton.frame = CGRectMake(20, 160 + ImageSize + 120, 30, 30);
-        [_happenButton setImage:[UIImage imageNamed:@"music_song_happen"] forState:UIControlStateNormal];
+        [_happenButton setImage:[UIImage imageNamed:@"music_song_order"] forState:UIControlStateNormal];
         [_happenButton addTarget:self action:@selector(happenButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_happenButton];
     }
@@ -233,7 +253,7 @@
     SongModel *liveModel = _songList[liveIndex];
     
     // 开始调用UI
-    self.backgroundImage.alpha = 0.9;
+    [self.backgroundImage sd_setImageWithURL:[NSURL URLWithString:liveModel.albumpic_big]];
     
     self.songLabel.text = liveModel.songname;
     
@@ -257,7 +277,8 @@
     self.nextButton.alpha = 1;
     
     self.listButton.alpha = 1;
-
+    
+    
 }
 
 
@@ -274,7 +295,18 @@
 // 随机按钮
 - (void)happenButtonAction:(UIButton *)button {
 
-
+    if (_songPlayType == SongPlayOrder) {
+        
+        // 随机播放
+        _songPlayType = SongPlayHappen;
+        [button setImage:[UIImage imageNamed:@"music_song_happen"] forState:UIControlStateNormal];
+        
+    } else {
+        
+        //  顺序播放
+        _songPlayType = SongPlayOrder;
+        [button setImage:[UIImage imageNamed:@"music_song_order"] forState:UIControlStateNormal];
+    }
     
 }
 // 上一首
@@ -293,7 +325,7 @@
     }
     
 }
-// 播放
+// 暂停、播放
 - (void)playButtonAction:(UIButton *)button {
     
     if (_songStateType == SongPlay) {
@@ -303,7 +335,6 @@
         if ([_delegate respondsToSelector:@selector(pauseSong:)]) {
             [_delegate pauseSong:_songStateType];
         }
-
         
     } else {
         
@@ -345,6 +376,23 @@
 
     [self dismissViewControllerAnimated:YES completion:nil];
     
+
+}
+
+#pragma mark - 向上轻扫切歌
+- (void)changeSong:(UISwipeGestureRecognizer *)swipe {
+
+    if (_liveIndex < _songList.count) {
+        
+        // image做了一个向上渐隐的动作
+        [self imageDismissAnimate];
+        
+        self.liveIndex++;
+        if ([_delegate respondsToSelector:@selector(nextSong:)]) {
+            [_delegate nextSong:_liveIndex];
+        }
+        
+    }
 
 }
 

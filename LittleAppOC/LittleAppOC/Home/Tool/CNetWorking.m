@@ -65,7 +65,25 @@
 
 }
 
++ (void)loadMusicWithSearchWord:(NSString *)keyword
+                           page:(NSString *)page
+                        success:(void (^)(id response))success
+                        failure:(void (^)(NSError *err))failure {
 
+    NSString *urlStr = [NSString stringWithFormat:@"http://ali-qqmusic.showapi.com/search"];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSDictionary *dic = @{@"keyword" : keyword,
+                          @"page" : page};
+    NSString *appcode = @"0c9b5b03701a473c833deaeef4ca46d5";
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"APPCODE %@", appcode] forHTTPHeaderField:@"Authorization"];
+    [manager GET:urlStr parameters:dic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+    }];
+
+}
 
 
 

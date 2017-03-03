@@ -39,6 +39,20 @@
                        failure:(void (^)(NSError *err))failure;
 
 
+//-----------------------------------------------------
+// 根据关键字搜索歌曲
+//
+// word : 关键字
+// page : 第几页
+//
+// 默认返回第一页数据，共有20条歌曲信息
+//-----------------------------------------------------
++ (void)loadMusicWithSearchWord:(NSString *)word
+                           page:(NSString *)page
+                        success:(void (^)(id response))success
+                        failure:(void (^)(NSError *err))failure;
+
+
 
 
 

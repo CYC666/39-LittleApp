@@ -103,7 +103,11 @@
 2、正在播放的歌曲页面，UI制作完毕
 3、上一首、暂停、播放、下一首、调节进度、自动跳转下一首功能已经实现（开心）
 4、后台播放歌曲
-5、在切歌动作执行的时候，给专辑图片做了一个向上渐隐的动作</mutableString>
+5、在切歌动作执行的时候，给专辑图片做了一个向上渐隐的动作
+6、解决了第一次能监听播放完毕，第二次就不能监听的bug，问题在于监听的currentItem改变了，就监听不了。后面改用了监听进度来实现歌曲播放完毕
+
+3-3
+1、播放音乐的界面，背景添加了模糊效果</mutableString>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>

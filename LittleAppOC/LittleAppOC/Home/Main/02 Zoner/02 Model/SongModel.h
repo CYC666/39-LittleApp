@@ -27,7 +27,8 @@
 @property (copy, nonatomic) NSString *singername;       // 歌手名字
 @property (assign, nonatomic) NSValue *albumid;         // 专辑ID
 
-@property (copy, nonatomic) NSString *number;            // 排名
+@property (copy, nonatomic) NSString *number;           // 排名
+
 
 
 @end

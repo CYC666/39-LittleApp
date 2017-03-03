@@ -17,6 +17,11 @@ typedef enum : NSUInteger {
     SongPause
 } SongStateType;
 
+typedef enum : NSUInteger {
+    SongPlayOrder,
+    SongPlayHappen
+} SongPlayType;
+
 @protocol SongViewControllerDelegate <NSObject>
 
 @required
@@ -29,6 +34,7 @@ typedef enum : NSUInteger {
 // 下一首
 - (void)nextSong:(NSInteger)index;
 
+
 @end
 
 @interface SongViewController : UIViewController
@@ -37,6 +43,7 @@ typedef enum : NSUInteger {
 @property (assign, nonatomic) float currentValue;           // 当前进度
 @property (strong, nonatomic) NSMutableArray *songList;     // 歌曲列表
 @property (assign, nonatomic) SongStateType songStateType;  // 歌曲状态
+@property (assign, nonatomic) SongPlayType songPlayType;    // 播放类型(顺序、随机)
 @property (weak, nonatomic) id<SongViewControllerDelegate> delegate;
 
 // UI

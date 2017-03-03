@@ -35,6 +35,7 @@
 //-----------------------------------------------------通知-----------------------------------------------------
 #define CThemeChangeNotification @"CThemeChangeNotification"                                            // 主题改变的通知
 #define CWeatherCellChangeNotification @"CWeatherCellChangeNotification"                                // 显示天气的单元格换页了改变
+#define CSongDidChange @"CSongDidChange"                                                                // 歌曲切换的通知
 
 //-----------------------------------------------------数据持久化------------------------------------------------
 #define CThemeTypeSave @"CThemeTypeSave"                                                                // 主题类型

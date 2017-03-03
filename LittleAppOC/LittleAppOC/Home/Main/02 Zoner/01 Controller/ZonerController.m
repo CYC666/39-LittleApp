@@ -6,6 +6,8 @@
 //  Copyright © 2017年 CYC. All rights reserved.
 //
 
+// QQ音乐排行榜
+
 #import "ZonerController.h"
 #import "ThemeManager.h"
 #import "CNetWorking.h"
@@ -46,8 +48,15 @@
                                                                   style:UIBarButtonItemStylePlain
                                                                  target:self
                                                                  action:@selector(rightItemAction:)];
-    [self.navigationItem setRightBarButtonItem:rightItem];
 
+    // 搜索按钮
+    UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"music_search"]
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:@selector(searchItemAction:)];
+    [self.navigationItem setRightBarButtonItems:@[rightItem, searchItem]];
+    
+    
     self.view.backgroundColor = CTHEME.themeColor;
     
     // 监听主题改变
@@ -194,7 +203,13 @@
     
 }
 
+#pragma mark - 导航栏的响应
+// 搜索按钮
+- (void)searchItemAction:(UIBarButtonItem *)item {
 
+    // 弹出搜索框
+
+}
 
 // 类别
 - (void)rightItemAction:(UIBarButtonItem *)item {
@@ -495,12 +510,7 @@
     if (_songView == nil) {
         _songView = [[SongViewController alloc] init];
         _songView.delegate = self;
-        
-        // 监听歌曲播放完毕
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(songPlayDidEnd:)
-                                                     name:AVPlayerItemDidPlayToEndTimeNotification
-                                                   object:_mp3Player.currentItem];
+
     }
     _songView.songList = _tableViewDataArray;
     _songView.liveIndex = indexPath.row;
@@ -524,17 +534,67 @@
     
 }
 
-#pragma mark - 监听歌曲播放完毕
-- (void)songPlayDidEnd:(NSNotification *)notifi {
+#pragma mark - 播放完毕，本来是监听播放完毕的，后来改用监听进度，因为前者的item改变，不能继续监听
+- (void)songPlayDidEnd {
 
-    if (_songView.liveIndex < _tableViewDataArray.count) {
-        _songView.liveIndex++;
+    // 监听歌曲播放完毕(不能只监听一次，因为currentItem会更改，下一首就不能监听到停止了)
+    //        [[NSNotificationCenter defaultCenter] addObserver:self
+    //                                                 selector:@selector(songPlayDidEnd:)
+    //                                                     name:AVPlayerItemDidPlayToEndTimeNotification
+    //                                                   object:_mp3Player.currentItem];
+    
+    // 判断播放类型是顺序播放还是随机播放
+    if (_songView.songPlayType == SongPlayOrder) {
         
-        SongModel *liveModel = _tableViewDataArray[_songView.liveIndex];
-        [_songImageView sd_setImageWithURL:[NSURL URLWithString:liveModel.albumpic_small]];
-        _mp3Player = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:liveModel.url]];
-        [_mp3Player play];
+        // 顺序播放
+        if (_songView.liveIndex < (_tableViewDataArray.count - 1)) {
+            
+            _songView.liveIndex++;
+            
+            SongModel *liveModel = _tableViewDataArray[_songView.liveIndex];
+            [_songImageView sd_setImageWithURL:[NSURL URLWithString:liveModel.albumpic_small]];
+            _mp3Player = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:liveModel.url]];
+            [_mp3Player play];
+        } else {
+        
+            _songView.liveIndex = 0;
+            
+            SongModel *liveModel = _tableViewDataArray[_songView.liveIndex];
+            [_songImageView sd_setImageWithURL:[NSURL URLWithString:liveModel.albumpic_small]];
+            _mp3Player = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:liveModel.url]];
+            [_mp3Player play];
+
+        
+        }
+        
+    } else {
+    
+        // 随机播放
+        if (_tableViewDataArray.count == 1) {
+            
+            // 当列表只有一首歌，那就循环播放
+            __weak typeof(self) weakSelf = self;
+            [_mp3Player seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
+                [weakSelf.mp3Player play];
+            }];
+            
+        } else {
+        
+            NSInteger happenIndex = arc4random() % (_tableViewDataArray.count - 1);
+            
+            _songView.liveIndex = happenIndex;
+            
+            SongModel *liveModel = _tableViewDataArray[_songView.liveIndex];
+            [_songImageView sd_setImageWithURL:[NSURL URLWithString:liveModel.albumpic_small]];
+            _mp3Player = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:liveModel.url]];
+            [_mp3Player play];
+        
+        }
+        
+    
     }
+    
+    
 
 }
 
@@ -543,8 +603,17 @@
 
     float value = CMTimeGetSeconds(_mp3Player.currentItem.currentTime) / CMTimeGetSeconds(_mp3Player.currentItem.duration);
     
+    // 如果播放结束了
+    if (value == 1) {
+        
+        [self songPlayDidEnd];
+        return;
+    }
+    
     // 设置播放页面的进度
     _songView.currentValue = value;
+    
+    
     
 }
 
