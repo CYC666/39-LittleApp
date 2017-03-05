@@ -37,7 +37,7 @@
                         <constraint firstAttribute="height" constant="30" id="jfo-hT-tPa"/>
                         <constraint firstAttribute="width" constant="375" id="tOk-fK-ZyD"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="20"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>

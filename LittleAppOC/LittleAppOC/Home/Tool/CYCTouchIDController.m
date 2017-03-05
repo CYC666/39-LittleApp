@@ -25,16 +25,17 @@
 
 @implementation CYCTouchIDController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
+
+- (void)viewWillAppear:(BOOL)animated {
+
+    [super viewWillAppear:animated];
     
     // 验证指纹
     [[CYCTouchID touchID] startCYCTouchIDWithMessage:CYCNotice(@"请验证指纹", @"Please use touchID")
                                        fallbackTitle:CYCNotice(@"输入手机号码", @"Input phone number")
                                             delegate:self];
-    
-    
+
+
 }
 
 
@@ -86,6 +87,54 @@
     
     // 弹出输入手机号码的提示窗
     _tipLabel.text = @"输入电话号码以继续";
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"请输入电话号码"
+                                                                       message:@"输入正确即可进入APP"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+    
+    // 创建文本框
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField){
+        textField.placeholder = @"请输入您的手机号码";
+        textField.secureTextEntry = NO;
+        textField.textAlignment = NSTextAlignmentCenter;
+    }];
+    
+    UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定"
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * _Nonnull action) {
+                                                           
+                                                           if ([alert.textFields.firstObject.text isEqualToString:[CUSER objectForKey:CUserPhone]]) {
+                                                               
+                                                               // 手机号码正确，进入App
+                                                               // 改变主窗口
+                                                               CYCAppDelegate *delegate = (CYCAppDelegate *)[[UIApplication sharedApplication] delegate];
+                                                               if (delegate.mainController == nil) {
+                                                                   
+                                                                   // 如果没有再创建，不然的话老是创建新的，上个页面就会丢失
+                                                                   MMDrawerController *controller = [[MMDrawerController alloc] initWithCenterViewController:[[CYCTabBarController alloc] init]
+                                                                                                                                    leftDrawerViewController:[[CYCLeftController alloc] init]];
+                                                                   controller.maximumLeftDrawerWidth = cLeftControllerWidth;
+                                                                   controller.openDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
+                                                                   controller.closeDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
+                                                                   delegate.mainController = controller;
+                                                               }
+                                                               delegate.window.rootViewController = delegate.mainController;
+                                                               
+                                                           } else {
+                                                               
+                                                               // 手机号码错误，提示
+                                                               _tipLabel.text = @"手机号码错误，点击继续验证指纹";
+                                                           
+                                                           }
+                                                           
+                                                       }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:nil];
+    
+    [alert addAction:cancelAction];
+    [alert addAction:sureAction];
+    [self presentViewController:alert animated:YES completion:nil];
     
 }
 // 在验证的TouchID的过程中被系统取消 例如突然来电话、按了Home键、锁屏...
