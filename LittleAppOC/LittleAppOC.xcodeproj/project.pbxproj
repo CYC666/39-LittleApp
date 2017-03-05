@@ -365,6 +365,15 @@
 		9EA44B301E2E758900F7761D /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EA44B2C1E2E758900F7761D /* 37x-Checkmark.png */; };
 		9EA44B311E2E758900F7761D /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EA44B2D1E2E758900F7761D /* 37x-Checkmark@2x.png */; };
 		9EA44B321E2E758900F7761D /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EA44B2F1E2E758900F7761D /* MBProgressHUD.m */; };
+		9ECB1E9A1E6ACF3C002FE2E4 /* setting_touchID.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ECB1E971E6ACF3C002FE2E4 /* setting_touchID.png */; };
+		9ECB1E9B1E6ACF3C002FE2E4 /* setting_touchID@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ECB1E981E6ACF3C002FE2E4 /* setting_touchID@2x.png */; };
+		9ECB1E9C1E6ACF3C002FE2E4 /* setting_touchID@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ECB1E991E6ACF3C002FE2E4 /* setting_touchID@3x.png */; };
+		9ECB1EA01E6BECEA002FE2E4 /* CYCTouchID.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ECB1E9F1E6BECEA002FE2E4 /* CYCTouchID.m */; };
+		9ECB1EA41E6C0C36002FE2E4 /* CYCTouchIDController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ECB1EA21E6C0C36002FE2E4 /* CYCTouchIDController.m */; };
+		9ECB1EA51E6C0C36002FE2E4 /* CYCTouchIDController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ECB1EA31E6C0C36002FE2E4 /* CYCTouchIDController.xib */; };
+		9ECB1EA91E6C0CFA002FE2E4 /* Touch ID.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ECB1EA61E6C0CFA002FE2E4 /* Touch ID.png */; };
+		9ECB1EAA1E6C0CFA002FE2E4 /* Touch ID@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ECB1EA71E6C0CFA002FE2E4 /* Touch ID@2x.png */; };
+		9ECB1EAB1E6C0CFA002FE2E4 /* Touch ID@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9ECB1EA81E6C0CFA002FE2E4 /* Touch ID@3x.png */; };
 		9EEA41FE1E66EBFB0081F8E5 /* music_search.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EEA41FB1E66EBFB0081F8E5 /* music_search.png */; };
 		9EEA41FF1E66EBFB0081F8E5 /* music_search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EEA41FC1E66EBFB0081F8E5 /* music_search@2x.png */; };
 		9EEA42001E66EBFB0081F8E5 /* music_search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EEA41FD1E66EBFB0081F8E5 /* music_search@3x.png */; };
@@ -873,6 +882,17 @@
 		9EA44B2D1E2E758900F7761D /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
 		9EA44B2E1E2E758900F7761D /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		9EA44B2F1E2E758900F7761D /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		9ECB1E971E6ACF3C002FE2E4 /* setting_touchID.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_touchID.png; sourceTree = "<group>"; };
+		9ECB1E981E6ACF3C002FE2E4 /* setting_touchID@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_touchID@2x.png"; sourceTree = "<group>"; };
+		9ECB1E991E6ACF3C002FE2E4 /* setting_touchID@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_touchID@3x.png"; sourceTree = "<group>"; };
+		9ECB1E9E1E6BECEA002FE2E4 /* CYCTouchID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYCTouchID.h; sourceTree = "<group>"; };
+		9ECB1E9F1E6BECEA002FE2E4 /* CYCTouchID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYCTouchID.m; sourceTree = "<group>"; };
+		9ECB1EA11E6C0C36002FE2E4 /* CYCTouchIDController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CYCTouchIDController.h; path = LittleAppOC/Home/Tool/CYCTouchIDController.h; sourceTree = SOURCE_ROOT; };
+		9ECB1EA21E6C0C36002FE2E4 /* CYCTouchIDController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CYCTouchIDController.m; path = LittleAppOC/Home/Tool/CYCTouchIDController.m; sourceTree = SOURCE_ROOT; };
+		9ECB1EA31E6C0C36002FE2E4 /* CYCTouchIDController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CYCTouchIDController.xib; path = LittleAppOC/Home/Tool/CYCTouchIDController.xib; sourceTree = SOURCE_ROOT; };
+		9ECB1EA61E6C0CFA002FE2E4 /* Touch ID.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Touch ID.png"; sourceTree = "<group>"; };
+		9ECB1EA71E6C0CFA002FE2E4 /* Touch ID@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Touch ID@2x.png"; sourceTree = "<group>"; };
+		9ECB1EA81E6C0CFA002FE2E4 /* Touch ID@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Touch ID@3x.png"; sourceTree = "<group>"; };
 		9EEA41FB1E66EBFB0081F8E5 /* music_search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = music_search.png; sourceTree = "<group>"; };
 		9EEA41FC1E66EBFB0081F8E5 /* music_search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "music_search@2x.png"; sourceTree = "<group>"; };
 		9EEA41FD1E66EBFB0081F8E5 /* music_search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "music_search@3x.png"; sourceTree = "<group>"; };
@@ -1127,6 +1147,8 @@
 				9EA44B171E2E426B00F7761D /* CThemeButton.m */,
 				9E472A151E3D914000C6245E /* CScrollView.h */,
 				9E472A161E3D914000C6245E /* CScrollView.m */,
+				9ECB1E9E1E6BECEA002FE2E4 /* CYCTouchID.h */,
+				9ECB1E9F1E6BECEA002FE2E4 /* CYCTouchID.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -1282,6 +1304,9 @@
 		9E1389F11E2B119B0011701B /* 03 View */ = {
 			isa = PBXGroup;
 			children = (
+				9ECB1EA11E6C0C36002FE2E4 /* CYCTouchIDController.h */,
+				9ECB1EA21E6C0C36002FE2E4 /* CYCTouchIDController.m */,
+				9ECB1EA31E6C0C36002FE2E4 /* CYCTouchIDController.xib */,
 			);
 			path = "03 View";
 			sourceTree = "<group>";
@@ -1738,6 +1763,12 @@
 		9E9EB63D1E62B86C005A0F2B /* SettingImage */ = {
 			isa = PBXGroup;
 			children = (
+				9ECB1EA61E6C0CFA002FE2E4 /* Touch ID.png */,
+				9ECB1EA71E6C0CFA002FE2E4 /* Touch ID@2x.png */,
+				9ECB1EA81E6C0CFA002FE2E4 /* Touch ID@3x.png */,
+				9ECB1E971E6ACF3C002FE2E4 /* setting_touchID.png */,
+				9ECB1E981E6ACF3C002FE2E4 /* setting_touchID@2x.png */,
+				9ECB1E991E6ACF3C002FE2E4 /* setting_touchID@3x.png */,
 				9E9EB6441E62B9B9005A0F2B /* setting_clear.png */,
 				9E9EB6451E62B9B9005A0F2B /* setting_clear@2x.png */,
 				9E9EB6461E62B9B9005A0F2B /* setting_clear@3x.png */,
@@ -2078,6 +2109,7 @@
 				9EF837891E3F677B0094BE84 /* icon_login_input@3x.png in Resources */,
 				9EA44A961E2DF3FF00F7761D /* home_tab_icon_5.png in Resources */,
 				9E9D6E781E617E2700EB095B /* pull_image_2@2x.png in Resources */,
+				9ECB1E9B1E6ACF3C002FE2E4 /* setting_touchID@2x.png in Resources */,
 				9EA44B011E2E24BD00F7761D /* 31.png in Resources */,
 				9EFAB7371E2EFCA50039C853 /* icon_weatherController_location.png in Resources */,
 				9E4E121F1E3569F900A08DAC /* icon_weatner_night_8.png in Resources */,
@@ -2153,6 +2185,7 @@
 				9E220D411E30A4A6009D7146 /* new_13.png in Resources */,
 				9E9D6E7C1E617E2700EB095B /* pull_image_6@2x.png in Resources */,
 				9E527DC11E3797350057AF4C /* GamerCell.xib in Resources */,
+				9ECB1E9C1E6ACF3C002FE2E4 /* setting_touchID@3x.png in Resources */,
 				9E4E12131E3569F900A08DAC /* icon_weatner_night_32.png in Resources */,
 				9EA44A9B1E2DF67200F7761D /* home_bottom_tab_arrow@2x.png in Resources */,
 				9EA44AFD1E2E24BC00F7761D /* 28.png in Resources */,
@@ -2238,6 +2271,7 @@
 				9EA44A941E2DF3FF00F7761D /* home_tab_icon_4.png in Resources */,
 				9E9EB6471E62B9B9005A0F2B /* setting_clear.png in Resources */,
 				9E220D3D1E30A4A6009D7146 /* new_9.png in Resources */,
+				9ECB1EA51E6C0C36002FE2E4 /* CYCTouchIDController.xib in Resources */,
 				9E220D371E30A4A6009D7146 /* new_3.png in Resources */,
 				9EA44B091E2E24BD00F7761D /* 4.png in Resources */,
 				9E4E121C1E3569F900A08DAC /* icon_weatner_night_58.png in Resources */,
@@ -2256,6 +2290,7 @@
 				9EA44B0E1E2E24BD00F7761D /* 9.png in Resources */,
 				9E4E11F11E3569F900A08DAC /* icon_weatner_day_58.png in Resources */,
 				9EA44B041E2E24BD00F7761D /* 34.png in Resources */,
+				9ECB1EAB1E6C0CFA002FE2E4 /* Touch ID@3x.png in Resources */,
 				9E138A151E2B1DDF0011701B /* icon_tab_gamer.png in Resources */,
 				9EF53D081E2BDE2000F55033 /* icon_leftCtrl_feedBack.png in Resources */,
 				9E4E11FA1E3569F900A08DAC /* icon_weatner_night_11.png in Resources */,
@@ -2264,6 +2299,7 @@
 				9E138A121E2B1DDF0011701B /* icon_tab_discover.png in Resources */,
 				9E4E11FD1E3569F900A08DAC /* icon_weatner_night_14.png in Resources */,
 				9EF837851E3F66540094BE84 /* icon_login_background@3x.png in Resources */,
+				9ECB1EA91E6C0CFA002FE2E4 /* Touch ID.png in Resources */,
 				9E53B4C01E64A2F10015FA02 /* music_song_next.png in Resources */,
 				9EA44B061E2E24BD00F7761D /* 36.png in Resources */,
 				9E53B4BC1E64A2F10015FA02 /* music_song_last@3x.png in Resources */,
@@ -2284,6 +2320,7 @@
 				9EF9EC1F1E2CD01A0030023B /* icon_tab_Bar@2x.png in Resources */,
 				9E4E11FE1E3569F900A08DAC /* icon_weatner_night_15.png in Resources */,
 				9EEA42001E66EBFB0081F8E5 /* music_search@3x.png in Resources */,
+				9ECB1EAA1E6C0CFA002FE2E4 /* Touch ID@2x.png in Resources */,
 				9E4E11EC1E3569F900A08DAC /* icon_weatner_day_53.png in Resources */,
 				9E4E11EE1E3569F900A08DAC /* icon_weatner_day_55.png in Resources */,
 				9E220D441E30A4A6009D7146 /* new_22.png in Resources */,
@@ -2351,6 +2388,7 @@
 				9E4E11EA1E3569F900A08DAC /* icon_weatner_day_49.png in Resources */,
 				9E9EB6481E62B9B9005A0F2B /* setting_clear@2x.png in Resources */,
 				9E4E11E21E3569F900A08DAC /* icon_weatner_day_3.png in Resources */,
+				9ECB1E9A1E6ACF3C002FE2E4 /* setting_touchID.png in Resources */,
 				9E4E12081E3569F900A08DAC /* icon_weatner_night_24.png in Resources */,
 				9E4E12201E3569F900A08DAC /* icon_weatner_night_9.png in Resources */,
 				9E118AD01E600B0F00914D9E /* 汉仪清雅体简.ttf in Resources */,
@@ -2388,6 +2426,7 @@
 				9E6EB0D81E3ED9C800E7128A /* CustomCell.m in Sources */,
 				9EA44AB11E2E11CD00F7761D /* AFHTTPRequestOperationManager.m in Sources */,
 				9E4E12251E356A6300A08DAC /* AliWeatherModel.m in Sources */,
+				9ECB1EA41E6C0C36002FE2E4 /* CYCTouchIDController.m in Sources */,
 				9E118AFD1E60147800914D9E /* UIImage+GIF.m in Sources */,
 				9E6EB0DC1E3ED9C800E7128A /* SectionsViewController.m in Sources */,
 				9EA44ABB1E2E121300F7761D /* CNetWorking.m in Sources */,
@@ -2440,6 +2479,7 @@
 				9E6EB0DF1E3ED9C800E7128A /* SMSUIVerificationCodeViewController.m in Sources */,
 				9E118AF71E60147800914D9E /* SDWebImageDecoder.m in Sources */,
 				9E118B021E60147800914D9E /* UIView+WebCacheOperation.m in Sources */,
+				9ECB1EA01E6BECEA002FE2E4 /* CYCTouchID.m in Sources */,
 				9E6EB0DB1E3ED9C800E7128A /* VerifyViewController.m in Sources */,
 				9EA44B2A1E2E708300F7761D /* WeatherController.m in Sources */,
 				9EF53CE31E2BBE6500F55033 /* MMDrawerController.m in Sources */,

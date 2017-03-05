@@ -107,7 +107,10 @@
 6、解决了第一次能监听播放完毕，第二次就不能监听的bug，问题在于监听的currentItem改变了，就监听不了。后面改用了监听进度来实现歌曲播放完毕
 
 3-3
-1、播放音乐的界面，背景添加了模糊效果</mutableString>
+1、播放音乐的界面，背景添加了模糊效果
+
+3-5
+1、封装了TouchID验证类，并加入了TouchID验证进入App</mutableString>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>

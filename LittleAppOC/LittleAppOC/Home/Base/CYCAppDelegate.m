@@ -12,6 +12,7 @@
 #import "MMDrawerController.h"
 #import "ThemeManager.h"
 #import "PasswordController.h"
+#import "CYCTouchIDController.h"
 #import <SMS_SDK/SMSSDK.h>
 #import "CYCLoginController.h"
 #import <AVFoundation/AVFoundation.h>
@@ -33,12 +34,18 @@
     // 判断是否已经存在登录之后的手机号，如果不存在，那么显示短信登录界面
     if ([CUSER objectForKey:CUserPhone]) {
         
-        // 判断本地是否存有进入App的密码，如果有那就进入输入密码页面，没有那就显示主页
+        // 判断本地是否存有进入App的密码，如果有那就进入输入密码页面
         if ([CUSER objectForKey:CPassword]) {
             PasswordController *controller = [[PasswordController alloc] init];
             controller.controllerType = PasswordControllerGoIn;
             self.window.rootViewController = controller;
             
+        // 如果需要touchID，那么显示验证touchID界面
+        } else if ([CUSER boolForKey:CTouchID]) {
+            CYCTouchIDController *controller = [[CYCTouchIDController alloc] init];
+            self.window.rootViewController = controller;
+            
+        // 显示主页
         } else {
             _mainController = [[MMDrawerController alloc] initWithCenterViewController:[[CYCTabBarController alloc] init]
                                                               leftDrawerViewController:[[CYCLeftController alloc] init]];
@@ -47,7 +54,6 @@
             _mainController.closeDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
             self.window.rootViewController = _mainController;
         }
-        
         
     } else {
         self.window.rootViewController = [[CYCLoginController alloc] init];
@@ -77,6 +83,9 @@
     if ([CUSER objectForKey:CPassword]) {
         PasswordController *controller = [[PasswordController alloc] init];
         controller.controllerType = PasswordControllerGoIn;
+        self.window.rootViewController = controller;
+    } else if ([CUSER boolForKey:CTouchID]) {
+        CYCTouchIDController *controller = [[CYCTouchIDController alloc] init];
         self.window.rootViewController = controller;
     }
     // 如果没有设置密码，那么久没必要去操作了
