@@ -34,25 +34,35 @@
     // 判断是否已经存在登录之后的手机号，如果不存在，那么显示短信登录界面
     if ([CUSER objectForKey:CUserPhone]) {
         
-        // 判断本地是否存有进入App的密码，如果有那就进入输入密码页面
-        if ([CUSER objectForKey:CPassword]) {
-            PasswordController *controller = [[PasswordController alloc] init];
-            controller.controllerType = PasswordControllerGoIn;
-            self.window.rootViewController = controller;
+        if ([CUSER boolForKey:CTouchID]) {
             
-        // 如果需要touchID，那么显示验证touchID界面
-        } else if ([CUSER boolForKey:CTouchID]) {
+            // 如果需要touchID，那么显示验证touchID界面，不需要输入密码
             CYCTouchIDController *controller = [[CYCTouchIDController alloc] init];
             self.window.rootViewController = controller;
             
-        // 显示主页
+        
         } else {
-            _mainController = [[MMDrawerController alloc] initWithCenterViewController:[[CYCTabBarController alloc] init]
-                                                              leftDrawerViewController:[[CYCLeftController alloc] init]];
-            _mainController.maximumLeftDrawerWidth = cLeftControllerWidth;
-            _mainController.openDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
-            _mainController.closeDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
-            self.window.rootViewController = _mainController;
+            
+            // 判断本地是否存有进入App的密码，如果有那就进入输入密码页面
+            if ([CUSER objectForKey:CPassword]) {
+                PasswordController *controller = [[PasswordController alloc] init];
+                controller.controllerType = PasswordControllerGoIn;
+                self.window.rootViewController = controller;
+                
+                
+            } else {
+            
+                _mainController = [[MMDrawerController alloc] initWithCenterViewController:[[CYCTabBarController alloc] init]
+                                                                  leftDrawerViewController:[[CYCLeftController alloc] init]];
+                _mainController.maximumLeftDrawerWidth = cLeftControllerWidth;
+                _mainController.openDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
+                _mainController.closeDrawerGestureModeMask = MMOpenDrawerGestureModeAll;
+                self.window.rootViewController = _mainController;
+
+            
+            }
+            
+            
         }
         
     } else {
@@ -84,10 +94,12 @@
         PasswordController *controller = [[PasswordController alloc] init];
         controller.controllerType = PasswordControllerGoIn;
         self.window.rootViewController = controller;
-    } else if ([CUSER boolForKey:CTouchID]) {
-        CYCTouchIDController *controller = [[CYCTouchIDController alloc] init];
-        self.window.rootViewController = controller;
     }
+    // 不能在这里设置这个，不然程序永远不能杀死
+//    else if ([CUSER boolForKey:CTouchID]) {
+//        CYCTouchIDController *controller = [[CYCTouchIDController alloc] init];
+//        self.window.rootViewController = controller;
+//    }
     // 如果没有设置密码，那么久没必要去操作了
     
     

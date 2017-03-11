@@ -25,18 +25,20 @@
 
 @implementation CYCTouchIDController
 
+- (instancetype)init {
 
-- (void)viewWillAppear:(BOOL)animated {
+    if (self = [super init]) {
+        // 验证指纹
+        [[CYCTouchID touchID] startCYCTouchIDWithMessage:CYCNotice(@"请验证指纹", @"Please use touchID")
+                                           fallbackTitle:CYCNotice(@"输入手机号码", @"Input phone number")
+                                                delegate:self];
 
-    [super viewWillAppear:animated];
+    }
     
-    // 验证指纹
-    [[CYCTouchID touchID] startCYCTouchIDWithMessage:CYCNotice(@"请验证指纹", @"Please use touchID")
-                                       fallbackTitle:CYCNotice(@"输入手机号码", @"Input phone number")
-                                            delegate:self];
-
+    return self;
 
 }
+
 
 
 - (IBAction)touchIDAction:(id)sender {
@@ -97,6 +99,7 @@
         textField.placeholder = @"请输入您的手机号码";
         textField.secureTextEntry = NO;
         textField.textAlignment = NSTextAlignmentCenter;
+        textField.keyboardType = UIKeyboardTypeNumberPad;
     }];
     
     UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定"

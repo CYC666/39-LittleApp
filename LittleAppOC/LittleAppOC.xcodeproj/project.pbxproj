@@ -87,6 +87,20 @@
 		9E336FE91E43ABB000D8F112 /* icon_weather_search.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E336FE61E43ABB000D8F112 /* icon_weather_search.png */; };
 		9E336FEA1E43ABB000D8F112 /* icon_weather_search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E336FE71E43ABB000D8F112 /* icon_weather_search@2x.png */; };
 		9E336FEB1E43ABB000D8F112 /* icon_weather_search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E336FE81E43ABB000D8F112 /* icon_weather_search@3x.png */; };
+		9E35FC0C1E73CE7A0077D688 /* icon_gamer_target@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E35FC0A1E73CE7A0077D688 /* icon_gamer_target@2x.png */; };
+		9E35FC0D1E73CE7A0077D688 /* icon_gamer_target@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E35FC0B1E73CE7A0077D688 /* icon_gamer_target@3x.png */; };
+		9E35FC121E73CF590077D688 /* CSalesTargetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E35FC101E73CF590077D688 /* CSalesTargetViewController.m */; };
+		9E35FC131E73CF590077D688 /* CSalesTargetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E35FC111E73CF590077D688 /* CSalesTargetViewController.xib */; };
+		9E35FC161E73D0A00077D688 /* icon_gamer_target_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E35FC141E73D0A00077D688 /* icon_gamer_target_add@2x.png */; };
+		9E35FC171E73D0A00077D688 /* icon_gamer_target_add@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E35FC151E73D0A00077D688 /* icon_gamer_target_add@3x.png */; };
+		9E35FC1A1E73DA050077D688 /* icon_gamer_target_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E35FC181E73DA050077D688 /* icon_gamer_target_down@2x.png */; };
+		9E35FC1B1E73DA050077D688 /* icon_gamer_target_down@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E35FC191E73DA050077D688 /* icon_gamer_target_down@3x.png */; };
+		9E35FC1F1E73DFE40077D688 /* CTargetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E35FC1D1E73DFE40077D688 /* CTargetCell.m */; };
+		9E35FC201E73DFE40077D688 /* CTargetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E35FC1E1E73DFE40077D688 /* CTargetCell.xib */; };
+		9E35FC231E73E1240077D688 /* icon_gamer_target_edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E35FC211E73E1240077D688 /* icon_gamer_target_edit@2x.png */; };
+		9E35FC241E73E1240077D688 /* icon_gamer_target_edit@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E35FC221E73E1240077D688 /* icon_gamer_target_edit@3x.png */; };
+		9E35FC271E73E67C0077D688 /* icon_gamer_target_user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E35FC251E73E67C0077D688 /* icon_gamer_target_user@2x.png */; };
+		9E35FC281E73E67C0077D688 /* icon_gamer_target_user@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E35FC261E73E67C0077D688 /* icon_gamer_target_user@3x.png */; };
 		9E472A171E3D914000C6245E /* CScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E472A161E3D914000C6245E /* CScrollView.m */; };
 		9E4E11CB1E3569F900A08DAC /* icon_weatner_day_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E4E11731E3569F900A08DAC /* icon_weatner_day_0.png */; };
 		9E4E11CC1E3569F900A08DAC /* icon_weatner_day_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E4E11741E3569F900A08DAC /* icon_weatner_day_1.png */; };
@@ -540,6 +554,22 @@
 		9E336FE61E43ABB000D8F112 /* icon_weather_search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_weather_search.png; sourceTree = "<group>"; };
 		9E336FE71E43ABB000D8F112 /* icon_weather_search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_weather_search@2x.png"; sourceTree = "<group>"; };
 		9E336FE81E43ABB000D8F112 /* icon_weather_search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_weather_search@3x.png"; sourceTree = "<group>"; };
+		9E35FC0A1E73CE7A0077D688 /* icon_gamer_target@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_gamer_target@2x.png"; sourceTree = "<group>"; };
+		9E35FC0B1E73CE7A0077D688 /* icon_gamer_target@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_gamer_target@3x.png"; sourceTree = "<group>"; };
+		9E35FC0F1E73CF590077D688 /* CSalesTargetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSalesTargetViewController.h; sourceTree = "<group>"; };
+		9E35FC101E73CF590077D688 /* CSalesTargetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSalesTargetViewController.m; sourceTree = "<group>"; };
+		9E35FC111E73CF590077D688 /* CSalesTargetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSalesTargetViewController.xib; sourceTree = "<group>"; };
+		9E35FC141E73D0A00077D688 /* icon_gamer_target_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_gamer_target_add@2x.png"; sourceTree = "<group>"; };
+		9E35FC151E73D0A00077D688 /* icon_gamer_target_add@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_gamer_target_add@3x.png"; sourceTree = "<group>"; };
+		9E35FC181E73DA050077D688 /* icon_gamer_target_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_gamer_target_down@2x.png"; sourceTree = "<group>"; };
+		9E35FC191E73DA050077D688 /* icon_gamer_target_down@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_gamer_target_down@3x.png"; sourceTree = "<group>"; };
+		9E35FC1C1E73DFE40077D688 /* CTargetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTargetCell.h; sourceTree = "<group>"; };
+		9E35FC1D1E73DFE40077D688 /* CTargetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTargetCell.m; sourceTree = "<group>"; };
+		9E35FC1E1E73DFE40077D688 /* CTargetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTargetCell.xib; sourceTree = "<group>"; };
+		9E35FC211E73E1240077D688 /* icon_gamer_target_edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_gamer_target_edit@2x.png"; sourceTree = "<group>"; };
+		9E35FC221E73E1240077D688 /* icon_gamer_target_edit@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_gamer_target_edit@3x.png"; sourceTree = "<group>"; };
+		9E35FC251E73E67C0077D688 /* icon_gamer_target_user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_gamer_target_user@2x.png"; sourceTree = "<group>"; };
+		9E35FC261E73E67C0077D688 /* icon_gamer_target_user@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_gamer_target_user@3x.png"; sourceTree = "<group>"; };
 		9E472A151E3D914000C6245E /* CScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CScrollView.h; sourceTree = "<group>"; };
 		9E472A161E3D914000C6245E /* CScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CScrollView.m; sourceTree = "<group>"; };
 		9E4E11731E3569F900A08DAC /* icon_weatner_day_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_weatner_day_0.png; sourceTree = "<group>"; };
@@ -1168,6 +1198,9 @@
 			children = (
 				9E1389F21E2B11D00011701B /* GamerController.h */,
 				9E1389F31E2B11D00011701B /* GamerController.m */,
+				9E35FC0F1E73CF590077D688 /* CSalesTargetViewController.h */,
+				9E35FC101E73CF590077D688 /* CSalesTargetViewController.m */,
+				9E35FC111E73CF590077D688 /* CSalesTargetViewController.xib */,
 			);
 			path = "01 Controller";
 			sourceTree = "<group>";
@@ -1183,6 +1216,9 @@
 		9E1389E11E2B119B0011701B /* 03 View */ = {
 			isa = PBXGroup;
 			children = (
+				9E35FC1C1E73DFE40077D688 /* CTargetCell.h */,
+				9E35FC1D1E73DFE40077D688 /* CTargetCell.m */,
+				9E35FC1E1E73DFE40077D688 /* CTargetCell.xib */,
 				9E527DBD1E3797350057AF4C /* GamerCell.h */,
 				9E527DBE1E3797350057AF4C /* GamerCell.m */,
 				9E527DBF1E3797350057AF4C /* GamerCell.xib */,
@@ -1480,6 +1516,16 @@
 		9E527DC21E3799460057AF4C /* GamerImage */ = {
 			isa = PBXGroup;
 			children = (
+				9E35FC251E73E67C0077D688 /* icon_gamer_target_user@2x.png */,
+				9E35FC261E73E67C0077D688 /* icon_gamer_target_user@3x.png */,
+				9E35FC211E73E1240077D688 /* icon_gamer_target_edit@2x.png */,
+				9E35FC221E73E1240077D688 /* icon_gamer_target_edit@3x.png */,
+				9E35FC181E73DA050077D688 /* icon_gamer_target_down@2x.png */,
+				9E35FC191E73DA050077D688 /* icon_gamer_target_down@3x.png */,
+				9E35FC141E73D0A00077D688 /* icon_gamer_target_add@2x.png */,
+				9E35FC151E73D0A00077D688 /* icon_gamer_target_add@3x.png */,
+				9E35FC0A1E73CE7A0077D688 /* icon_gamer_target@2x.png */,
+				9E35FC0B1E73CE7A0077D688 /* icon_gamer_target@3x.png */,
 				9E527DC31E379B330057AF4C /* icon_gamer_2048@2x.png */,
 				9E527DC41E379B330057AF4C /* icon_gamer_2048@3x.png */,
 			);
@@ -2103,12 +2149,15 @@
 				9E4E12351E35889E00A08DAC /* icon_weather_back.png in Resources */,
 				9E220D391E30A4A6009D7146 /* new_5.png in Resources */,
 				9E118AC31E5FFC9C00914D9E /* music_rightButton.png in Resources */,
+				9E35FC271E73E67C0077D688 /* icon_gamer_target_user@2x.png in Resources */,
 				9EA44AEC1E2E24BC00F7761D /* 12.png in Resources */,
 				9EA44B301E2E758900F7761D /* 37x-Checkmark.png in Resources */,
 				9EA44A921E2DF3FF00F7761D /* home_tab_icon_3.png in Resources */,
 				9EF837891E3F677B0094BE84 /* icon_login_input@3x.png in Resources */,
 				9EA44A961E2DF3FF00F7761D /* home_tab_icon_5.png in Resources */,
 				9E9D6E781E617E2700EB095B /* pull_image_2@2x.png in Resources */,
+				9E35FC131E73CF590077D688 /* CSalesTargetViewController.xib in Resources */,
+				9E35FC0D1E73CE7A0077D688 /* icon_gamer_target@3x.png in Resources */,
 				9ECB1E9B1E6ACF3C002FE2E4 /* setting_touchID@2x.png in Resources */,
 				9EA44B011E2E24BD00F7761D /* 31.png in Resources */,
 				9EFAB7371E2EFCA50039C853 /* icon_weatherController_location.png in Resources */,
@@ -2139,8 +2188,10 @@
 				9E4E11DF1E3569F900A08DAC /* icon_weatner_day_27.png in Resources */,
 				9E9D6E791E617E2700EB095B /* pull_image_3@2x.png in Resources */,
 				9EF9EC141E2C89D30030023B /* icon_leftController_night@2x.png in Resources */,
+				9E35FC1B1E73DA050077D688 /* icon_gamer_target_down@3x.png in Resources */,
 				9EF9EC151E2C89D30030023B /* icon_leftController_night@3x.png in Resources */,
 				9EA44AF11E2E24BC00F7761D /* 17.png in Resources */,
+				9E35FC231E73E1240077D688 /* icon_gamer_target_edit@2x.png in Resources */,
 				9E4E12121E3569F900A08DAC /* icon_weatner_night_31.png in Resources */,
 				9E9D6E901E61896900EB095B /* music_menu@3x.png in Resources */,
 				9EFAB73F1E2F01030039C853 /* DailyController.xib in Resources */,
@@ -2154,6 +2205,7 @@
 				9E4E11E51E3569F900A08DAC /* icon_weatner_day_302.png in Resources */,
 				9E4E11E01E3569F900A08DAC /* icon_weatner_day_28.png in Resources */,
 				9EA44AF01E2E24BC00F7761D /* 16.png in Resources */,
+				9E35FC0C1E73CE7A0077D688 /* icon_gamer_target@2x.png in Resources */,
 				9E53B4B71E64A2F10015FA02 /* music_song_happen.png in Resources */,
 				9E138A371E2B375E0011701B /* Icon-Spotlight-40@3x.png in Resources */,
 				9EA44AF61E2E24BC00F7761D /* 21.png in Resources */,
@@ -2166,6 +2218,7 @@
 				9E53B4C11E64A2F10015FA02 /* music_song_next@2x.png in Resources */,
 				9E4E11DD1E3569F900A08DAC /* icon_weatner_day_25.png in Resources */,
 				9EA44AEF1E2E24BC00F7761D /* 15.png in Resources */,
+				9E35FC201E73DFE40077D688 /* CTargetCell.xib in Resources */,
 				9E53B4BA1E64A2F10015FA02 /* music_song_last.png in Resources */,
 				9EF53D091E2BDE2000F55033 /* icon_leftCtrl_feedBack@2x.png in Resources */,
 				9EA44B311E2E758900F7761D /* 37x-Checkmark@2x.png in Resources */,
@@ -2244,6 +2297,7 @@
 				9E53B4BE1E64A2F10015FA02 /* music_song_list@2x.png in Resources */,
 				9E4E11D01E3569F900A08DAC /* icon_weatner_day_13.png in Resources */,
 				9EA44B071E2E24BD00F7761D /* 37.png in Resources */,
+				9E35FC241E73E1240077D688 /* icon_gamer_target_edit@3x.png in Resources */,
 				9E220D461E30A4A6009D7146 /* new_24.png in Resources */,
 				9E220D381E30A4A6009D7146 /* new_4.png in Resources */,
 				9E138A1B1E2B1DDF0011701B /* icon_tab_settinger.png in Resources */,
@@ -2266,10 +2320,12 @@
 				9E4E12051E3569F900A08DAC /* icon_weatner_night_21.png in Resources */,
 				9EA44AEE1E2E24BC00F7761D /* 14.png in Resources */,
 				9EA44B021E2E24BD00F7761D /* 32.png in Resources */,
+				9E35FC281E73E67C0077D688 /* icon_gamer_target_user@3x.png in Resources */,
 				9E9D6E831E617E2700EB095B /* pull_image_13@2x.png in Resources */,
 				9EF53D0F1E2BDE2000F55033 /* icon_leftCtrl_Third@2x.png in Resources */,
 				9EA44A941E2DF3FF00F7761D /* home_tab_icon_4.png in Resources */,
 				9E9EB6471E62B9B9005A0F2B /* setting_clear.png in Resources */,
+				9E35FC161E73D0A00077D688 /* icon_gamer_target_add@2x.png in Resources */,
 				9E220D3D1E30A4A6009D7146 /* new_9.png in Resources */,
 				9ECB1EA51E6C0C36002FE2E4 /* CYCTouchIDController.xib in Resources */,
 				9E220D371E30A4A6009D7146 /* new_3.png in Resources */,
@@ -2299,6 +2355,7 @@
 				9E138A121E2B1DDF0011701B /* icon_tab_discover.png in Resources */,
 				9E4E11FD1E3569F900A08DAC /* icon_weatner_night_14.png in Resources */,
 				9EF837851E3F66540094BE84 /* icon_login_background@3x.png in Resources */,
+				9E35FC171E73D0A00077D688 /* icon_gamer_target_add@3x.png in Resources */,
 				9ECB1EA91E6C0CFA002FE2E4 /* Touch ID.png in Resources */,
 				9E53B4C01E64A2F10015FA02 /* music_song_next.png in Resources */,
 				9EA44B061E2E24BD00F7761D /* 36.png in Resources */,
@@ -2367,6 +2424,7 @@
 				9E4E11D21E3569F900A08DAC /* icon_weatner_day_15.png in Resources */,
 				9E4E11DA1E3569F900A08DAC /* icon_weatner_day_22.png in Resources */,
 				9E138A311E2B375E0011701B /* Icon-60@3x.png in Resources */,
+				9E35FC1A1E73DA050077D688 /* icon_gamer_target_down@2x.png in Resources */,
 				9E4E12181E3569F900A08DAC /* icon_weatner_night_54.png in Resources */,
 				9E9D6E801E617E2700EB095B /* pull_image_10@2x.png in Resources */,
 				9E6EB0FF1E3EDD4800E7128A /* CYCLoginController.xib in Resources */,
@@ -2454,6 +2512,7 @@
 				9E9D6E281E61705800EB095B /* MJRefreshFooter.m in Sources */,
 				9E118AF81E60147800914D9E /* SDWebImageDownloader.m in Sources */,
 				9E4E122E1E35716800A08DAC /* AliHourlyModel.m in Sources */,
+				9E35FC121E73CF590077D688 /* CSalesTargetViewController.m in Sources */,
 				9EA44AB21E2E11CD00F7761D /* AFHTTPSessionManager.m in Sources */,
 				9E118AFF1E60147800914D9E /* UIImage+WebP.m in Sources */,
 				9EFAB74C1E2F38ED0039C853 /* ThirdController.m in Sources */,
@@ -2481,6 +2540,7 @@
 				9E118B021E60147800914D9E /* UIView+WebCacheOperation.m in Sources */,
 				9ECB1EA01E6BECEA002FE2E4 /* CYCTouchID.m in Sources */,
 				9E6EB0DB1E3ED9C800E7128A /* VerifyViewController.m in Sources */,
+				9E35FC1F1E73DFE40077D688 /* CTargetCell.m in Sources */,
 				9EA44B2A1E2E708300F7761D /* WeatherController.m in Sources */,
 				9EF53CE31E2BBE6500F55033 /* MMDrawerController.m in Sources */,
 				9E9D6E2B1E61705800EB095B /* MJRefreshAutoNormalFooter.m in Sources */,

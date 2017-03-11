@@ -10,6 +10,7 @@
 #import "ThemeManager.h"
 #import "GamerCell.h"
 #import "CThemeLabel.h"
+#import "CSalesTargetViewController.h"
 
 #define GamerCellID @"GamerCellID"  
 
@@ -69,7 +70,7 @@
 #pragma mark - 集合视图代理方法
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 
-    return 1;
+    return 2;
 
 }
 
@@ -80,6 +81,9 @@
     if (indexPath.item == 0) {
         cell.gameImageView.image = [UIImage imageNamed:@"icon_gamer_2048"];
         cell.gameNameLabel.text = @"2048";
+    } else if (indexPath.item == 1) {
+        cell.gameImageView.image = [UIImage imageNamed:@"icon_gamer_target"];
+        cell.gameNameLabel.text = @"目标";
     }
     return cell;
 
@@ -91,6 +95,17 @@
         
         // 2048
         
+    } else if (indexPath.row == 1) {
+    
+        // 目标
+        CSalesTargetViewController *controller = [[CSalesTargetViewController alloc] init];
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
+    
+    } else if (indexPath.row == 2) {
+    
+        // 寻找炸弹(超大滑动视图)
+    
     }
 
 }

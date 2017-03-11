@@ -110,7 +110,8 @@
 1、播放音乐的界面，背景添加了模糊效果
 
 3-5
-1、封装了TouchID验证类，并加入了TouchID验证进入App</mutableString>
+1、封装了TouchID验证类，并加入了TouchID验证进入App
+2、修改了起动App需要指纹，App从后台进入前台需要密码</mutableString>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>

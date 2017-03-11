@@ -47,7 +47,7 @@
                   object:nil];
     
     // 数据数组
-    _titleArray = @[@"使用密码访问", @"Touch ID", @"清除缓存"];
+    _titleArray = @[@"密码访问", @"Touch ID", @"清除缓存"];
     _imageArray = @[@"setting_password", @"setting_touchID", @"setting_clear"];
     
     // 表视图
@@ -103,6 +103,7 @@
         }
         [_passwordSwitch addTarget:self action:@selector(passwordSwitchAction:) forControlEvents:UIControlEventValueChanged];
         cell.accessoryView = _passwordSwitch;
+        cell.detailTextLabel.text = @"App变活跃需要";
     
     } else if (indexPath.row == 1) {
         // 使用TouchID的开关
@@ -116,6 +117,7 @@
         }
         [_touchIDSwitch addTarget:self action:@selector(touchIDSwitchAction:) forControlEvents:UIControlEventValueChanged];
         cell.accessoryView = _touchIDSwitch;
+        cell.detailTextLabel.text = @"起动App需要";
 
     } else if (indexPath.row == 2) {
         // 清除缓存
@@ -158,13 +160,6 @@
         controller.controllerType = PasswordControllerSetPassword;
         [self presentViewController:controller animated:YES completion:nil];
         
-        // 把touchID关了
-        if (_touchIDSwitch.on) {
-            [_touchIDSwitch setOn:NO];
-            [CUSER setBool:NO forKey:CTouchID];
-        }
-        
-        
     } else {
         // 把密码删了
         [CUSER removeObjectForKey:CPassword];
@@ -185,7 +180,6 @@
         
     } else {
         // 关了
-        // 验证指纹
         [[CYCTouchID touchID] startCYCTouchIDWithMessage:CYCNotice(@"请验证指纹", @"Please use touchID")
                                            fallbackTitle:CYCNotice(@"输入手机号码", @"Input phone number")
                                                 delegate:self];
@@ -199,12 +193,6 @@
 - (void)CYCTouchIDAuthorizeSuccess {
 
     if (_touchIDSwitch.on) {
-        // 开启TouchID，把需要密码关掉
-        if ([CUSER objectForKey:CPassword]) {
-            [_passwordSwitch setOn:NO];
-            [CUSER removeObjectForKey:CPassword];
-        }
-        
         // 设置本地需要touchID
         [CUSER setBool:YES forKey:CTouchID];
     } else {
@@ -235,7 +223,42 @@
         [_touchIDSwitch setOn:NO];
     } else {
         // 弹出需要输入手机号码的提示
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"请输入电话号码"
+                                                                       message:@"输入正确即可关闭touchID"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
         
+        // 创建文本框
+        [alert addTextFieldWithConfigurationHandler:^(UITextField *textField){
+            textField.placeholder = @"请输入您的手机号码";
+            textField.secureTextEntry = NO;
+            textField.textAlignment = NSTextAlignmentCenter;
+            textField.keyboardType = UIKeyboardTypeNumberPad;
+        }];
+        
+        UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@"确定"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * _Nonnull action) {
+                                                               
+                                                               if ([alert.textFields.firstObject.text isEqualToString:[CUSER objectForKey:CUserPhone]]) {
+                                                                   
+                                                                   // 输入正确，关闭touchID
+                                                                   [_touchIDSwitch setOn:NO];
+                                                                   [CUSER setBool:NO forKey:CTouchID];
+                                                                   
+                                                               } else {
+                                                                   
+                                                                   // 输入错误，无效，继续使用touchID
+                                                                   [_touchIDSwitch setOn:YES];
+                                                               }
+                                                               
+                                                           }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:nil];
+        
+        [alert addAction:cancelAction];
+        [alert addAction:sureAction];
+        [self presentViewController:alert animated:YES completion:nil];
     }
 
 }
