@@ -111,7 +111,13 @@
 
 3-5
 1、封装了TouchID验证类，并加入了TouchID验证进入App
-2、修改了起动App需要指纹，App从后台进入前台需要密码</mutableString>
+2、修改了起动App需要指纹，App从后台进入前台需要密码
+
+3-11
+1、目标界面的UI，实现点击尾视图展开/收回cell列表
+
+3-12
+1、游戏中加入了扫雷，点击雷按钮，改变雷在巨大的滑动视图中的位置，窗口中有tip提示雷的位置，每当雷的位置发生改变，tip的位置都会发生改变</mutableString>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>

@@ -10,6 +10,7 @@
 #import "ThemeManager.h"
 #import "GamerCell.h"
 #import "CThemeLabel.h"
+#import "BoomController.h"
 #import "CSalesTargetViewController.h"
 
 #define GamerCellID @"GamerCellID"  
@@ -70,7 +71,7 @@
 #pragma mark - 集合视图代理方法
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 
-    return 2;
+    return 3;
 
 }
 
@@ -84,6 +85,9 @@
     } else if (indexPath.item == 1) {
         cell.gameImageView.image = [UIImage imageNamed:@"icon_gamer_target"];
         cell.gameNameLabel.text = @"目标";
+    } else if (indexPath.item == 2) {
+        cell.gameImageView.image = [UIImage imageNamed:@"icon_gamer_boom"];
+        cell.gameNameLabel.text = @"扫雷";
     }
     return cell;
 
@@ -105,6 +109,9 @@
     } else if (indexPath.row == 2) {
     
         // 寻找炸弹(超大滑动视图)
+        BoomController *controller = [[BoomController alloc] init];
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
     
     }
 

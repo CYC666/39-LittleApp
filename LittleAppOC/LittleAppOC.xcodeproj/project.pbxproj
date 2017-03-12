@@ -392,6 +392,12 @@
 		9EEA41FF1E66EBFB0081F8E5 /* music_search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EEA41FC1E66EBFB0081F8E5 /* music_search@2x.png */; };
 		9EEA42001E66EBFB0081F8E5 /* music_search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EEA41FD1E66EBFB0081F8E5 /* music_search@3x.png */; };
 		9EF27B9F1E40F9D20076C9B9 /* icon_left_headImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EF27B9E1E40F9D20076C9B9 /* icon_left_headImage.png */; };
+		9EF3D9831E750DD60085B9D1 /* icon_gamer_boom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EF3D9811E750DD60085B9D1 /* icon_gamer_boom@2x.png */; };
+		9EF3D9841E750DD60085B9D1 /* icon_gamer_boom@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EF3D9821E750DD60085B9D1 /* icon_gamer_boom@3x.png */; };
+		9EF3D9891E750E490085B9D1 /* BoomController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF3D9871E750E490085B9D1 /* BoomController.m */; };
+		9EF3D98A1E750E490085B9D1 /* BoomController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EF3D9881E750E490085B9D1 /* BoomController.xib */; };
+		9EF3D98D1E7511920085B9D1 /* image_boom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EF3D98B1E7511920085B9D1 /* image_boom@2x.png */; };
+		9EF3D98E1E7511920085B9D1 /* image_boom@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EF3D98C1E7511920085B9D1 /* image_boom@3x.png */; };
 		9EF53CE21E2BBE6500F55033 /* MMDrawerBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF53CDA1E2BBE6500F55033 /* MMDrawerBarButtonItem.m */; };
 		9EF53CE31E2BBE6500F55033 /* MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF53CDD1E2BBE6500F55033 /* MMDrawerController.m */; };
 		9EF53CE41E2BBE6500F55033 /* MMDrawerVisualState.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF53CDF1E2BBE6500F55033 /* MMDrawerVisualState.m */; };
@@ -927,6 +933,13 @@
 		9EEA41FC1E66EBFB0081F8E5 /* music_search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "music_search@2x.png"; sourceTree = "<group>"; };
 		9EEA41FD1E66EBFB0081F8E5 /* music_search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "music_search@3x.png"; sourceTree = "<group>"; };
 		9EF27B9E1E40F9D20076C9B9 /* icon_left_headImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_left_headImage.png; sourceTree = "<group>"; };
+		9EF3D9811E750DD60085B9D1 /* icon_gamer_boom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_gamer_boom@2x.png"; sourceTree = "<group>"; };
+		9EF3D9821E750DD60085B9D1 /* icon_gamer_boom@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_gamer_boom@3x.png"; sourceTree = "<group>"; };
+		9EF3D9861E750E490085B9D1 /* BoomController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoomController.h; sourceTree = "<group>"; };
+		9EF3D9871E750E490085B9D1 /* BoomController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoomController.m; sourceTree = "<group>"; };
+		9EF3D9881E750E490085B9D1 /* BoomController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BoomController.xib; sourceTree = "<group>"; };
+		9EF3D98B1E7511920085B9D1 /* image_boom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image_boom@2x.png"; sourceTree = "<group>"; };
+		9EF3D98C1E7511920085B9D1 /* image_boom@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image_boom@3x.png"; sourceTree = "<group>"; };
 		9EF53CD91E2BBE6500F55033 /* MMDrawerBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerBarButtonItem.h; sourceTree = "<group>"; };
 		9EF53CDA1E2BBE6500F55033 /* MMDrawerBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerBarButtonItem.m; sourceTree = "<group>"; };
 		9EF53CDB1E2BBE6500F55033 /* MMDrawerController+Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MMDrawerController+Subclass.h"; sourceTree = "<group>"; };
@@ -1201,6 +1214,9 @@
 				9E35FC0F1E73CF590077D688 /* CSalesTargetViewController.h */,
 				9E35FC101E73CF590077D688 /* CSalesTargetViewController.m */,
 				9E35FC111E73CF590077D688 /* CSalesTargetViewController.xib */,
+				9EF3D9861E750E490085B9D1 /* BoomController.h */,
+				9EF3D9871E750E490085B9D1 /* BoomController.m */,
+				9EF3D9881E750E490085B9D1 /* BoomController.xib */,
 			);
 			path = "01 Controller";
 			sourceTree = "<group>";
@@ -1516,6 +1532,8 @@
 		9E527DC21E3799460057AF4C /* GamerImage */ = {
 			isa = PBXGroup;
 			children = (
+				9EF3D98B1E7511920085B9D1 /* image_boom@2x.png */,
+				9EF3D98C1E7511920085B9D1 /* image_boom@3x.png */,
 				9E35FC251E73E67C0077D688 /* icon_gamer_target_user@2x.png */,
 				9E35FC261E73E67C0077D688 /* icon_gamer_target_user@3x.png */,
 				9E35FC211E73E1240077D688 /* icon_gamer_target_edit@2x.png */,
@@ -1524,6 +1542,8 @@
 				9E35FC191E73DA050077D688 /* icon_gamer_target_down@3x.png */,
 				9E35FC141E73D0A00077D688 /* icon_gamer_target_add@2x.png */,
 				9E35FC151E73D0A00077D688 /* icon_gamer_target_add@3x.png */,
+				9EF3D9811E750DD60085B9D1 /* icon_gamer_boom@2x.png */,
+				9EF3D9821E750DD60085B9D1 /* icon_gamer_boom@3x.png */,
 				9E35FC0A1E73CE7A0077D688 /* icon_gamer_target@2x.png */,
 				9E35FC0B1E73CE7A0077D688 /* icon_gamer_target@3x.png */,
 				9E527DC31E379B330057AF4C /* icon_gamer_2048@2x.png */,
@@ -2173,6 +2193,7 @@
 				9E9D6E821E617E2700EB095B /* pull_image_12@2x.png in Resources */,
 				9E4E12161E3569F900A08DAC /* icon_weatner_night_5.png in Resources */,
 				9E4E12061E3569F900A08DAC /* icon_weatner_night_22.png in Resources */,
+				9EF3D9841E750DD60085B9D1 /* icon_gamer_boom@3x.png in Resources */,
 				9EA44A901E2DF3FF00F7761D /* home_tab_icon_2.png in Resources */,
 				9EA44AFC1E2E24BC00F7761D /* 27.png in Resources */,
 				9E9EB6421E62B86C005A0F2B /* setting_password@2x.png in Resources */,
@@ -2210,6 +2231,7 @@
 				9E138A371E2B375E0011701B /* Icon-Spotlight-40@3x.png in Resources */,
 				9EA44AF61E2E24BC00F7761D /* 21.png in Resources */,
 				9E4E11F21E3569F900A08DAC /* icon_weatner_day_6.png in Resources */,
+				9EF3D98D1E7511920085B9D1 /* image_boom@2x.png in Resources */,
 				9E4E12071E3569F900A08DAC /* icon_weatner_night_23.png in Resources */,
 				9EA44A8F1E2DF3FF00F7761D /* home_tab_icon_1@2x.png in Resources */,
 				9E4E11CD1E3569F900A08DAC /* icon_weatner_day_10.png in Resources */,
@@ -2252,6 +2274,7 @@
 				9E9D6E7E1E617E2700EB095B /* pull_image_8@2x.png in Resources */,
 				9E4E11DE1E3569F900A08DAC /* icon_weatner_day_26.png in Resources */,
 				9E4E12371E35889E00A08DAC /* icon_weather_back@3x.png in Resources */,
+				9EF3D9831E750DD60085B9D1 /* icon_gamer_boom@2x.png in Resources */,
 				9EF53CF91E2BD2E300F55033 /* image_leftControllerHeadImage@3x.png in Resources */,
 				9E4E11FF1E3569F900A08DAC /* icon_weatner_night_16.png in Resources */,
 				9E118AC91E5FFD0200914D9E /* music_menuButton.png in Resources */,
@@ -2388,6 +2411,7 @@
 				9E4E11F31E3569F900A08DAC /* icon_weatner_day_7.png in Resources */,
 				9EA44AEA1E2E24BC00F7761D /* 10.png in Resources */,
 				9E53B4C71E64A2F10015FA02 /* music_song_play@2x.png in Resources */,
+				9EF3D98E1E7511920085B9D1 /* image_boom@3x.png in Resources */,
 				9EA44AF71E2E24BC00F7761D /* 22.png in Resources */,
 				9E138A171E2B1DDF0011701B /* icon_tab_gamer@3x.png in Resources */,
 				9EA44B0B1E2E24BD00F7761D /* 6.png in Resources */,
@@ -2435,6 +2459,7 @@
 				9E336FEA1E43ABB000D8F112 /* icon_weather_search@2x.png in Resources */,
 				9E9D6E881E617E2700EB095B /* pull_image_18@2x.png in Resources */,
 				9E4E11DB1E3569F900A08DAC /* icon_weatner_day_23.png in Resources */,
+				9EF3D98A1E750E490085B9D1 /* BoomController.xib in Resources */,
 				9E9EB6431E62B86C005A0F2B /* setting_password@3x.png in Resources */,
 				9EA44A9A1E2DF67200F7761D /* home_bottom_tab_arrow.png in Resources */,
 				9E4E11EB1E3569F900A08DAC /* icon_weatner_day_5.png in Resources */,
@@ -2541,6 +2566,7 @@
 				9ECB1EA01E6BECEA002FE2E4 /* CYCTouchID.m in Sources */,
 				9E6EB0DB1E3ED9C800E7128A /* VerifyViewController.m in Sources */,
 				9E35FC1F1E73DFE40077D688 /* CTargetCell.m in Sources */,
+				9EF3D9891E750E490085B9D1 /* BoomController.m in Sources */,
 				9EA44B2A1E2E708300F7761D /* WeatherController.m in Sources */,
 				9EF53CE31E2BBE6500F55033 /* MMDrawerController.m in Sources */,
 				9E9D6E2B1E61705800EB095B /* MJRefreshAutoNormalFooter.m in Sources */,
