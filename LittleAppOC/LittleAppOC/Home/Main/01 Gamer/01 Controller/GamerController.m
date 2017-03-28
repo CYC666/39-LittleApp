@@ -11,6 +11,7 @@
 #import "GamerCell.h"
 #import "CThemeLabel.h"
 #import "BoomController.h"
+#import "SelectColorController.h"
 #import "CSalesTargetViewController.h"
 
 #define GamerCellID @"GamerCellID"  
@@ -25,12 +26,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
-    title.text = @"游戏";
+    title.text = @"小玩意儿";
     title.font = [UIFont boldSystemFontOfSize:19];
     title.textAlignment = NSTextAlignmentCenter;
     title.textColor = [UIColor whiteColor];
     self.navigationItem.titleView = title;
     self.view.backgroundColor = CTHEME.themeColor;
+    
+    // 导航栏返回按钮
+    UIBarButtonItem *selfBackItem = [[UIBarButtonItem alloc] initWithTitle:@"返回"
+                                                                     style:UIBarButtonItemStylePlain
+                                                                    target:self
+                                                                    action:nil];
+    self.navigationItem.backBarButtonItem = selfBackItem;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
     // 监听主题改变
     [CNOTIFY addObserver:self
@@ -71,7 +80,7 @@
 #pragma mark - 集合视图代理方法
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 
-    return 3;
+    return 4;
 
 }
 
@@ -88,6 +97,9 @@
     } else if (indexPath.item == 2) {
         cell.gameImageView.image = [UIImage imageNamed:@"icon_gamer_boom"];
         cell.gameNameLabel.text = @"扫雷";
+    } else if (indexPath.item == 3) {
+        cell.gameImageView.image = [UIImage imageNamed:@"icon_gamer_color"];
+        cell.gameNameLabel.text = @"取色板";
     }
     return cell;
 
@@ -113,6 +125,13 @@
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
     
+    } else if (indexPath.row == 3) {
+        
+        // 区色板
+        SelectColorController *controller = [[SelectColorController alloc] init];
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
+        
     }
 
 }
