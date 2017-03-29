@@ -6,8 +6,15 @@
 //  Copyright © 2017年 CYC. All rights reserved.
 //
 
+#import <Availability.h>
+
 #ifndef CYCLittleAppHeader_pch
 #define CYCLittleAppHeader_pch
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#endif
 
 //-----------------------------------------------------尺寸-----------------------------------------------------
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width                                            // 屏宽

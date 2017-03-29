@@ -13,6 +13,8 @@
 #import "BoomController.h"
 #import "SelectColorController.h"
 #import "CSalesTargetViewController.h"
+#import "brokenLineController.h"
+
 
 #define GamerCellID @"GamerCellID"  
 
@@ -80,7 +82,7 @@
 #pragma mark - 集合视图代理方法
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 
-    return 4;
+    return 5;
 
 }
 
@@ -100,6 +102,9 @@
     } else if (indexPath.item == 3) {
         cell.gameImageView.image = [UIImage imageNamed:@"icon_gamer_color"];
         cell.gameNameLabel.text = @"取色板";
+    } else if (indexPath.item == 4) {
+        cell.gameImageView.image = [UIImage imageNamed:@"icon_gamer_line"];
+        cell.gameNameLabel.text = @"折线图";
     }
     return cell;
 
@@ -129,6 +134,13 @@
         
         // 区色板
         SelectColorController *controller = [[SelectColorController alloc] init];
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
+        
+    } else if (indexPath.row == 4) {
+        
+        // 折线图
+        brokenLineController *controller = [[brokenLineController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
         

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -117,7 +117,13 @@
 1、目标界面的UI，实现点击尾视图展开/收回cell列表
 
 3-12
-1、游戏中加入了扫雷，点击雷按钮，改变雷在巨大的滑动视图中的位置，窗口中有tip提示雷的位置，每当雷的位置发生改变，tip的位置都会发生改变</mutableString>
+1、游戏中加入了扫雷，点击雷按钮，改变雷在巨大的滑动视图中的位置，窗口中有tip提示雷的位置，每当雷的位置发生改变，tip的位置都会发生改变
+
+3-28
+1、添加了取色板
+
+3-29
+1、添加了折线图</mutableString>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
