@@ -14,6 +14,7 @@
 #import "SelectColorController.h"
 #import "CSalesTargetViewController.h"
 #import "brokenLineController.h"
+#import "FlowSliderController.h"
 
 
 #define GamerCellID @"GamerCellID"  
@@ -82,7 +83,7 @@
 #pragma mark - 集合视图代理方法
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 
-    return 5;
+    return 6;
 
 }
 
@@ -105,6 +106,9 @@
     } else if (indexPath.item == 4) {
         cell.gameImageView.image = [UIImage imageNamed:@"icon_gamer_line"];
         cell.gameNameLabel.text = @"折线图";
+    } else if (indexPath.item == 5) {
+        cell.gameImageView.image = [UIImage imageNamed:@"icon_gamer_flowSlider"];
+        cell.gameNameLabel.text = @"标尺";
     }
     return cell;
 
@@ -141,6 +145,13 @@
         
         // 折线图
         brokenLineController *controller = [[brokenLineController alloc] init];
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
+        
+    } else if (indexPath.row == 5) {
+        
+        // 折线图
+        FlowSliderController *controller = [[FlowSliderController alloc] init];
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
         
